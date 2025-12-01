@@ -1,0 +1,13 @@
+node_modules
+.dockerignore
+.git
+.gitignore
+.env
+nginx/certbot
+
+*.log
+*.lock
+*.cache
+*.tmp
+*.min.js
+*.map

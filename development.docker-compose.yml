@@ -1,0 +1,191 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql # link my scripts sql run on first start
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+    expose:
+      - "5432"
+    # restart: always
+
+  adminer:
+    image: adminer
+    networks:
+      - app-network
+    # restart: always
+    ports:
+      - 8080:8080
+
+  redis:
+    image: redis:7.2
+    container_name: give_and_take-redis
+    volumes:
+      - redis_data:/data
+    expose:
+      - "6379"
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  minio:
+    image: minio/minio:RELEASE.2025-06-13T11-33-47Z
+    container_name: give_and_take-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - minio_data:/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: server /data --console-address ":9001"
+
+  express:
+    container_name: give_and_take-express
+    build:
+      context: ./express/app
+      dockerfile: express.Dockerfile
+    # environment:
+    #   - NODE_ENV=${NODE_ENV}
+    #   - MONGO_LINK=${MONGO_LINK}
+    #   - HASH_SALT=${HASH_SALT}
+    #   - JWT_SECRET=${JWT_SECRET}
+    #   - FRONTEND_HOST=${FRONTEND_HOST}
+    expose:
+      - '8000'
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./express/app:/app
+      # - /app/node_modules # this override in container
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-network
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8000/health']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # restart: unless-stopped
+    # command: ["pm2-runtime","start", "src/app.js", "-i", "max"]
+    # command: ['npm', 'start'] # development
+    command: ['npm', 'run', 'dev'] # development
+
+  nextjs:
+    container_name: give_and_take-nextjs
+    build:
+      context: ./nextjs/app
+      dockerfile: nextjs.Dockerfile
+    expose:
+      - '3000'
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./nextjs/app:/app
+      # - /app/node_modules # override in container
+    networks:
+      - app-network
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:e000/api/health']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # restart: unless-stopped
+    # command: ["npm", "run", "build"]
+    command: ['npm', 'run', 'dev'] # development
+
+  nginx:
+    container_name: give_and_take-nginx
+    image: nginx:1.27
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certbot/www:/var/www/certbot:ro
+      - ./nginx/certbot/conf:/etc/letsencrypt:ro
+    depends_on:
+      express:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8080/health']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+    restart: unless-stopped
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
+
+  certbot:
+    image: certbot/certbot
+    container_name: give_and_take-certbot
+    volumes:
+      - ./nginx/certbot/www:/var/www/certbot
+      - ./nginx/certbot/conf:/etc/letsencrypt
+      - ./nginx/certbot/log:/var/log/letsencrypt
+    #entrypoint: /bin/sh -c "sleep 10"  # tạo container rồi bạn sẽ run lệnh sau
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    name: give_and_take-postgres_data
+  redis_data:
+    name: give_and_take-redis_data
+  minio_data:
+    name: give_and_take-minio_data
+    # external: true
