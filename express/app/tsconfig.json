@@ -5,6 +5,12 @@
     "rootDir": "./src",
     "outDir": "./dist",
 
+    "baseUrl": "./", // This sets the base directory for path resolution
+    "paths": {
+      "@/*": ["src/*"], // Alias for the entire src folder (e.g., @/utils/logger)
+      // "@controllers/*": ["controllers/*"]
+    },
+
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "commonjs",

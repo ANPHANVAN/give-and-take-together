@@ -4,3 +4,5 @@ import envConfig from '@/config/envConfig';
 export const database = DatabaseFactory.create('postgres', {
   uriConnect: envConfig.postgres.POSTGRES_DATABASE_URL,
 });
+
+export const prisma = database.getClient!();

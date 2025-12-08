@@ -1,42 +1,121 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-interface EnvConfig {
-  PORT: number;
-  NODE_ENV: string;
-  MONGO_HOST: string;
-  MONGO_INITDB_ROOT_USERNAME: string;
-  MONGO_INITDB_ROOT_PASSWORD: string;
-  MONGO_LINK: string;
-  HASH_SALT: number;
-  JWT_SECRET: string;
-  FRONTEND_HOST: string;
-  API_HOST: string;
-  GMAIL: string;
-  GMAIL_PASSWORD: string;
-  GOOGLE_REDIRECT_URI: string;
-  GOOGLE_CLIENT_ID: string;
-  GOOGLE_CLIENT_SECRET: string;
-}
+// interface AppConfig {
+//   PORT: number;
+//   NODE_ENV: string;
+//   FRONTEND_HOST: string;
+//   API_HOST: string;
+// }
 
-const envConfig: EnvConfig = {
-  PORT: Number(process.env.PORT) || 8000,
-  NODE_ENV: process.env.NODE_ENV || 'development',
-  MONGO_HOST: process.env.MONGO_HOST || 'mongodb',
-  MONGO_INITDB_ROOT_USERNAME: process.env.MONGO_INITDB_ROOT_USERNAME || 'example_user',
-  MONGO_INITDB_ROOT_PASSWORD: process.env.MONGO_INITDB_ROOT_PASSWORD || 'example_password',
-  MONGO_LINK:
-    process.env.MONGO_LINK ||
-    'mongodb://example_user:example_password@mongodb:27017/onlineExamPlatform?authSource=admin&replicaSet=rs0',
-  HASH_SALT: Number(process.env.HASH_SALT) || 10,
-  JWT_SECRET: process.env.JWT_SECRET || 'examplePassworkJwt',
-  FRONTEND_HOST: process.env.FRONTEND_HOST || 'https://web.com',
-  API_HOST: process.env.API_HOST || 'https://api.web.com',
-  GMAIL: process.env.GMAIL || 'example@gmail.com',
-  GMAIL_PASSWORD: process.env.GMAIL_PASSWORD || 'exampleOneTimeGmailPassword',
-  GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI || 'exampleGOOGLE_REDIRECT_URI',
-  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || 'exampleGOOGLE_CLIENT_ID',
-  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || 'GOOGLE_CLIENT_SECRET',
+// interface PostgresConfig {
+//   POSTGRES_USER: string;
+//   POSTGRES_PASSWORD: string;
+//   POSTGRES_DB: string;
+//   POSTGRES_HOST: string;
+//   POSTGRES_PORT: number;
+//   POSTGRES_DATABASE_URL: string;
+// }
+
+// interface RedisConfig {
+//   REDIS_HOST: string;
+//   REDIS_PORT: number;
+//   REDIS_PASSWORD: string;
+//   REDIS_DB: number; // database number ( 0 - 15 )
+// }
+
+// interface AuthConfig {
+//   GOOGLE_REDIRECT_URI: string;
+//   GOOGLE_CLIENT_ID: string;
+//   GOOGLE_CLIENT_SECRET: string;
+//   GMAIL: string;
+//   GMAIL_PASSWORD: string;
+// }
+
+// interface JWTConfig {
+//   HASH_SALT: number;
+//   HASH_PEPPER: string;
+//   JWT_SECRET: string;
+// }
+
+// interface MinioConfig {
+//   MINIO_REGION: string;
+//   MINIO_ROOT_USER: string;
+//   MINIO_ROOT_PASSWORD: string;
+//   ENDPOINT: string;
+//   PORT: number;
+//   USE_SSL: boolean;
+//   BUCKET_NAME: string;
+//   ACCESS_KEY: string;
+//   SECRET_KEY: string;
+// }
+
+// Helper để lấy env với default
+
+const getEnv = (key: string, defaultValue?: string): string => {
+  return process.env[key] ?? defaultValue ?? '';
+};
+
+const getEnvNumber = (key: string, defaultValue: number): number => {
+  return Number(process.env[key] ?? defaultValue);
+};
+
+export const appConfig = {
+  PORT: getEnvNumber('PORT', 8000),
+  NODE_ENV: getEnv('NODE_ENV', 'development'),
+  FRONTEND_HOST: getEnv('FRONTEND_HOST', 'https://web.com'),
+  API_HOST: getEnv('API_HOST', 'https://api.web.com'),
+};
+
+export const postgresConfig = {
+  POSTGRES_USER: getEnv('POSTGRES_USER', 'username'),
+  POSTGRES_PASSWORD: getEnv('POSTGRES_PASSWORD', 'postgresPassword'),
+  POSTGRES_DB: getEnv('POSTGRES_DB', 'main_db'),
+  POSTGRES_HOST: getEnv('POSTGRES_HOST', 'postgres'),
+  POSTGRES_PORT: getEnvNumber('POSTGRES_PORT', 5432),
+  POSTGRES_DATABASE_URL: getEnv('POSTGRES_DATABASE_URL', 'postgresql://u:pw@postgres:5432/db?schema=public'),
+};
+
+export const redisConfig = {
+  REDIS_HOST: getEnv('REDIS_HOST', 'localhost'),
+  REDIS_PORT: getEnvNumber('REDIS_PORT', 6379),
+  REDIS_PASSWORD: getEnv('REDIS_PASSWORD', ''),
+  REDIS_DB: getEnvNumber('REDIS_DB', 0),
+};
+
+export const jwtConfig = {
+  HASH_SALT: getEnvNumber('HASH_SALT', 10),
+  HASH_PEPPER: getEnv('HASH_PEPPER', 'examPepper'),
+  JWT_SECRET: getEnv('JWT_SECRET', 'examplePassworkJwt'),
+};
+
+export const authConfig = {
+  GOOGLE_CLIENT_ID: getEnv('GOOGLE_CLIENT_ID', 'exampleGOOGLE_CLIENT_ID'),
+  GOOGLE_CLIENT_SECRET: getEnv('GOOGLE_CLIENT_SECRET', 'exampleGOOGLE_CLIENT_SECRET'),
+  GOOGLE_REDIRECT_URI: getEnv('GOOGLE_REDIRECT_URI', 'exampleGOOGLE_REDIRECT_URI'),
+  GMAIL: getEnv('GMAIL', 'example@gmail.com'),
+  GMAIL_PASSWORD: getEnv('GMAIL_PASSWORD', 'exampleOneTimeGmailPassword'),
+};
+
+export const minioConfig = {
+  MINIO_REGION: getEnv('MINIO_REGION', 'us-east-1'),
+  MINIO_ROOT_USER: getEnv('MINIO_ROOT_USER', 'username'),
+  MINIO_ROOT_PASSWORD: getEnv('MINIO_ROOT_PASSWORD', 'minioPassword'),
+  ENDPOINT: getEnv('MINIO_ENDPOINT', 'localhost'),
+  PORT: getEnvNumber('MINIO_PORT', 9000),
+  USE_SSL: getEnv('MINIO_USE_SSL', 'false') === 'true',
+  BUCKET_NAME: getEnv('MINIO_BUCKET', 'exam-platform'),
+  ACCESS_KEY: getEnv('MINIO_ACCESS_KEY', 'minioadmin'),
+  SECRET_KEY: getEnv('MINIO_SECRET_KEY', 'minioadmin'),
+};
+
+export const envConfig = {
+  app: appConfig,
+  postgres: postgresConfig,
+  redis: redisConfig,
+  jwt: jwtConfig,
+  auth: authConfig,
+  minio: minioConfig,
 };
 
 export default envConfig;
