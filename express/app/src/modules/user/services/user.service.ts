@@ -1,8 +1,9 @@
-import { UserPrismaRepository } from '../repository/prisma/user.prisma.repository';
+import { IUserService } from './IUser.service';
+import { IUserRepository } from '../repository/IUser.repository';
 
-export class UserService {
-  constructor(private userRepo: UserPrismaRepository) {}
+export class UserService implements IUserService {
+  constructor(private userRepo: IUserRepository) {}
   createUser(email: string) {
-    this.userRepo.createUser(email);
+    return this.userRepo.createUser(email);
   }
 }
