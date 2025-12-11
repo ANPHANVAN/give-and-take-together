@@ -28,72 +28,136 @@ export type AggregatePost = {
 
 export type PostAvgAggregateOutputType = {
   id: number | null
-  authorId: number | null
+  locationLat: number | null
+  locationLong: number | null
+  maxRequests: number | null
+  minTrustScore: number | null
+  giverId: number | null
 }
 
 export type PostSumAggregateOutputType = {
   id: number | null
-  authorId: number | null
+  locationLat: number | null
+  locationLong: number | null
+  maxRequests: number | null
+  minTrustScore: number | null
+  giverId: number | null
 }
 
 export type PostMinAggregateOutputType = {
   id: number | null
   title: string | null
-  content: string | null
-  published: boolean | null
-  authorId: number | null
+  description: string | null
+  locationLat: number | null
+  locationLong: number | null
+  locationText: string | null
+  maxRequests: number | null
+  minTrustScore: number | null
+  requireVerified: boolean | null
+  status: $Enums.PostStatus | null
+  createdAt: Date | null
+  updatedAt: Date | null
+  giverId: number | null
 }
 
 export type PostMaxAggregateOutputType = {
   id: number | null
   title: string | null
-  content: string | null
-  published: boolean | null
-  authorId: number | null
+  description: string | null
+  locationLat: number | null
+  locationLong: number | null
+  locationText: string | null
+  maxRequests: number | null
+  minTrustScore: number | null
+  requireVerified: boolean | null
+  status: $Enums.PostStatus | null
+  createdAt: Date | null
+  updatedAt: Date | null
+  giverId: number | null
 }
 
 export type PostCountAggregateOutputType = {
   id: number
   title: number
-  content: number
-  published: number
-  authorId: number
+  description: number
+  locationLat: number
+  locationLong: number
+  locationText: number
+  maxRequests: number
+  minTrustScore: number
+  requireVerified: number
+  status: number
+  createdAt: number
+  updatedAt: number
+  giverId: number
   _all: number
 }
 
 
 export type PostAvgAggregateInputType = {
   id?: true
-  authorId?: true
+  locationLat?: true
+  locationLong?: true
+  maxRequests?: true
+  minTrustScore?: true
+  giverId?: true
 }
 
 export type PostSumAggregateInputType = {
   id?: true
-  authorId?: true
+  locationLat?: true
+  locationLong?: true
+  maxRequests?: true
+  minTrustScore?: true
+  giverId?: true
 }
 
 export type PostMinAggregateInputType = {
   id?: true
   title?: true
-  content?: true
-  published?: true
-  authorId?: true
+  description?: true
+  locationLat?: true
+  locationLong?: true
+  locationText?: true
+  maxRequests?: true
+  minTrustScore?: true
+  requireVerified?: true
+  status?: true
+  createdAt?: true
+  updatedAt?: true
+  giverId?: true
 }
 
 export type PostMaxAggregateInputType = {
   id?: true
   title?: true
-  content?: true
-  published?: true
-  authorId?: true
+  description?: true
+  locationLat?: true
+  locationLong?: true
+  locationText?: true
+  maxRequests?: true
+  minTrustScore?: true
+  requireVerified?: true
+  status?: true
+  createdAt?: true
+  updatedAt?: true
+  giverId?: true
 }
 
 export type PostCountAggregateInputType = {
   id?: true
   title?: true
-  content?: true
-  published?: true
-  authorId?: true
+  description?: true
+  locationLat?: true
+  locationLong?: true
+  locationText?: true
+  maxRequests?: true
+  minTrustScore?: true
+  requireVerified?: true
+  status?: true
+  createdAt?: true
+  updatedAt?: true
+  giverId?: true
   _all?: true
 }
 
@@ -186,9 +250,17 @@ export type PostGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type PostGroupByOutputType = {
   id: number
   title: string
-  content: string | null
-  published: boolean
-  authorId: number
+  description: string
+  locationLat: number | null
+  locationLong: number | null
+  locationText: string | null
+  maxRequests: number
+  minTrustScore: number | null
+  requireVerified: boolean
+  status: $Enums.PostStatus
+  createdAt: Date
+  updatedAt: Date
+  giverId: number
   _count: PostCountAggregateOutputType | null
   _avg: PostAvgAggregateOutputType | null
   _sum: PostSumAggregateOutputType | null
@@ -217,19 +289,39 @@ export type PostWhereInput = {
   NOT?: Prisma.PostWhereInput | Prisma.PostWhereInput[]
   id?: Prisma.IntFilter<"Post"> | number
   title?: Prisma.StringFilter<"Post"> | string
-  content?: Prisma.StringNullableFilter<"Post"> | string | null
-  published?: Prisma.BoolFilter<"Post"> | boolean
-  authorId?: Prisma.IntFilter<"Post"> | number
-  author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  description?: Prisma.StringFilter<"Post"> | string
+  locationLat?: Prisma.FloatNullableFilter<"Post"> | number | null
+  locationLong?: Prisma.FloatNullableFilter<"Post"> | number | null
+  locationText?: Prisma.StringNullableFilter<"Post"> | string | null
+  maxRequests?: Prisma.IntFilter<"Post"> | number
+  minTrustScore?: Prisma.FloatNullableFilter<"Post"> | number | null
+  requireVerified?: Prisma.BoolFilter<"Post"> | boolean
+  status?: Prisma.EnumPostStatusFilter<"Post"> | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
+  giverId?: Prisma.IntFilter<"Post"> | number
+  giver?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  products?: Prisma.ProductListRelationFilter
+  requests?: Prisma.RequestListRelationFilter
 }
 
 export type PostOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  content?: Prisma.SortOrderInput | Prisma.SortOrder
-  published?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
-  author?: Prisma.UserOrderByWithRelationInput
+  description?: Prisma.SortOrder
+  locationLat?: Prisma.SortOrderInput | Prisma.SortOrder
+  locationLong?: Prisma.SortOrderInput | Prisma.SortOrder
+  locationText?: Prisma.SortOrderInput | Prisma.SortOrder
+  maxRequests?: Prisma.SortOrder
+  minTrustScore?: Prisma.SortOrderInput | Prisma.SortOrder
+  requireVerified?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  giverId?: Prisma.SortOrder
+  giver?: Prisma.UserOrderByWithRelationInput
+  products?: Prisma.ProductOrderByRelationAggregateInput
+  requests?: Prisma.RequestOrderByRelationAggregateInput
 }
 
 export type PostWhereUniqueInput = Prisma.AtLeast<{
@@ -238,18 +330,36 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.PostWhereInput[]
   NOT?: Prisma.PostWhereInput | Prisma.PostWhereInput[]
   title?: Prisma.StringFilter<"Post"> | string
-  content?: Prisma.StringNullableFilter<"Post"> | string | null
-  published?: Prisma.BoolFilter<"Post"> | boolean
-  authorId?: Prisma.IntFilter<"Post"> | number
-  author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  description?: Prisma.StringFilter<"Post"> | string
+  locationLat?: Prisma.FloatNullableFilter<"Post"> | number | null
+  locationLong?: Prisma.FloatNullableFilter<"Post"> | number | null
+  locationText?: Prisma.StringNullableFilter<"Post"> | string | null
+  maxRequests?: Prisma.IntFilter<"Post"> | number
+  minTrustScore?: Prisma.FloatNullableFilter<"Post"> | number | null
+  requireVerified?: Prisma.BoolFilter<"Post"> | boolean
+  status?: Prisma.EnumPostStatusFilter<"Post"> | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
+  giverId?: Prisma.IntFilter<"Post"> | number
+  giver?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  products?: Prisma.ProductListRelationFilter
+  requests?: Prisma.RequestListRelationFilter
 }, "id">
 
 export type PostOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  content?: Prisma.SortOrderInput | Prisma.SortOrder
-  published?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  locationLat?: Prisma.SortOrderInput | Prisma.SortOrder
+  locationLong?: Prisma.SortOrderInput | Prisma.SortOrder
+  locationText?: Prisma.SortOrderInput | Prisma.SortOrder
+  maxRequests?: Prisma.SortOrder
+  minTrustScore?: Prisma.SortOrderInput | Prisma.SortOrder
+  requireVerified?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  giverId?: Prisma.SortOrder
   _count?: Prisma.PostCountOrderByAggregateInput
   _avg?: Prisma.PostAvgOrderByAggregateInput
   _max?: Prisma.PostMaxOrderByAggregateInput
@@ -263,61 +373,133 @@ export type PostScalarWhereWithAggregatesInput = {
   NOT?: Prisma.PostScalarWhereWithAggregatesInput | Prisma.PostScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Post"> | number
   title?: Prisma.StringWithAggregatesFilter<"Post"> | string
-  content?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
-  published?: Prisma.BoolWithAggregatesFilter<"Post"> | boolean
-  authorId?: Prisma.IntWithAggregatesFilter<"Post"> | number
+  description?: Prisma.StringWithAggregatesFilter<"Post"> | string
+  locationLat?: Prisma.FloatNullableWithAggregatesFilter<"Post"> | number | null
+  locationLong?: Prisma.FloatNullableWithAggregatesFilter<"Post"> | number | null
+  locationText?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
+  maxRequests?: Prisma.IntWithAggregatesFilter<"Post"> | number
+  minTrustScore?: Prisma.FloatNullableWithAggregatesFilter<"Post"> | number | null
+  requireVerified?: Prisma.BoolWithAggregatesFilter<"Post"> | boolean
+  status?: Prisma.EnumPostStatusWithAggregatesFilter<"Post"> | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Post"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Post"> | Date | string
+  giverId?: Prisma.IntWithAggregatesFilter<"Post"> | number
 }
 
 export type PostCreateInput = {
   title: string
-  content?: string | null
-  published?: boolean
-  author: Prisma.UserCreateNestedOneWithoutPostsInput
+  description: string
+  locationLat?: number | null
+  locationLong?: number | null
+  locationText?: string | null
+  maxRequests?: number
+  minTrustScore?: number | null
+  requireVerified?: boolean
+  status?: $Enums.PostStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  giver: Prisma.UserCreateNestedOneWithoutPostsInput
+  products?: Prisma.ProductCreateNestedManyWithoutPostInput
+  requests?: Prisma.RequestCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateInput = {
   id?: number
   title: string
-  content?: string | null
-  published?: boolean
-  authorId: number
+  description: string
+  locationLat?: number | null
+  locationLong?: number | null
+  locationText?: string | null
+  maxRequests?: number
+  minTrustScore?: number | null
+  requireVerified?: boolean
+  status?: $Enums.PostStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  giverId: number
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutPostInput
+  requests?: Prisma.RequestUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  author?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxRequests?: Prisma.IntFieldUpdateOperationsInput | number
+  minTrustScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  requireVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  giver?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
+  products?: Prisma.ProductUpdateManyWithoutPostNestedInput
+  requests?: Prisma.RequestUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  authorId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxRequests?: Prisma.IntFieldUpdateOperationsInput | number
+  minTrustScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  requireVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  giverId?: Prisma.IntFieldUpdateOperationsInput | number
+  products?: Prisma.ProductUncheckedUpdateManyWithoutPostNestedInput
+  requests?: Prisma.RequestUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostCreateManyInput = {
   id?: number
   title: string
-  content?: string | null
-  published?: boolean
-  authorId: number
+  description: string
+  locationLat?: number | null
+  locationLong?: number | null
+  locationText?: string | null
+  maxRequests?: number
+  minTrustScore?: number | null
+  requireVerified?: boolean
+  status?: $Enums.PostStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  giverId: number
 }
 
 export type PostUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxRequests?: Prisma.IntFieldUpdateOperationsInput | number
+  minTrustScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  requireVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PostUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  authorId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxRequests?: Prisma.IntFieldUpdateOperationsInput | number
+  minTrustScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  requireVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  giverId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type PostListRelationFilter = {
@@ -333,120 +515,217 @@ export type PostOrderByRelationAggregateInput = {
 export type PostCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  content?: Prisma.SortOrder
-  published?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  locationLat?: Prisma.SortOrder
+  locationLong?: Prisma.SortOrder
+  locationText?: Prisma.SortOrder
+  maxRequests?: Prisma.SortOrder
+  minTrustScore?: Prisma.SortOrder
+  requireVerified?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  giverId?: Prisma.SortOrder
 }
 
 export type PostAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
+  locationLat?: Prisma.SortOrder
+  locationLong?: Prisma.SortOrder
+  maxRequests?: Prisma.SortOrder
+  minTrustScore?: Prisma.SortOrder
+  giverId?: Prisma.SortOrder
 }
 
 export type PostMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  content?: Prisma.SortOrder
-  published?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  locationLat?: Prisma.SortOrder
+  locationLong?: Prisma.SortOrder
+  locationText?: Prisma.SortOrder
+  maxRequests?: Prisma.SortOrder
+  minTrustScore?: Prisma.SortOrder
+  requireVerified?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  giverId?: Prisma.SortOrder
 }
 
 export type PostMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  content?: Prisma.SortOrder
-  published?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  locationLat?: Prisma.SortOrder
+  locationLong?: Prisma.SortOrder
+  locationText?: Prisma.SortOrder
+  maxRequests?: Prisma.SortOrder
+  minTrustScore?: Prisma.SortOrder
+  requireVerified?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  giverId?: Prisma.SortOrder
 }
 
 export type PostSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
+  locationLat?: Prisma.SortOrder
+  locationLong?: Prisma.SortOrder
+  maxRequests?: Prisma.SortOrder
+  minTrustScore?: Prisma.SortOrder
+  giverId?: Prisma.SortOrder
 }
 
-export type PostCreateNestedManyWithoutAuthorInput = {
-  create?: Prisma.XOR<Prisma.PostCreateWithoutAuthorInput, Prisma.PostUncheckedCreateWithoutAuthorInput> | Prisma.PostCreateWithoutAuthorInput[] | Prisma.PostUncheckedCreateWithoutAuthorInput[]
-  connectOrCreate?: Prisma.PostCreateOrConnectWithoutAuthorInput | Prisma.PostCreateOrConnectWithoutAuthorInput[]
-  createMany?: Prisma.PostCreateManyAuthorInputEnvelope
+export type PostScalarRelationFilter = {
+  is?: Prisma.PostWhereInput
+  isNot?: Prisma.PostWhereInput
+}
+
+export type PostCreateNestedManyWithoutGiverInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutGiverInput, Prisma.PostUncheckedCreateWithoutGiverInput> | Prisma.PostCreateWithoutGiverInput[] | Prisma.PostUncheckedCreateWithoutGiverInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutGiverInput | Prisma.PostCreateOrConnectWithoutGiverInput[]
+  createMany?: Prisma.PostCreateManyGiverInputEnvelope
   connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
 }
 
-export type PostUncheckedCreateNestedManyWithoutAuthorInput = {
-  create?: Prisma.XOR<Prisma.PostCreateWithoutAuthorInput, Prisma.PostUncheckedCreateWithoutAuthorInput> | Prisma.PostCreateWithoutAuthorInput[] | Prisma.PostUncheckedCreateWithoutAuthorInput[]
-  connectOrCreate?: Prisma.PostCreateOrConnectWithoutAuthorInput | Prisma.PostCreateOrConnectWithoutAuthorInput[]
-  createMany?: Prisma.PostCreateManyAuthorInputEnvelope
+export type PostUncheckedCreateNestedManyWithoutGiverInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutGiverInput, Prisma.PostUncheckedCreateWithoutGiverInput> | Prisma.PostCreateWithoutGiverInput[] | Prisma.PostUncheckedCreateWithoutGiverInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutGiverInput | Prisma.PostCreateOrConnectWithoutGiverInput[]
+  createMany?: Prisma.PostCreateManyGiverInputEnvelope
   connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
 }
 
-export type PostUpdateManyWithoutAuthorNestedInput = {
-  create?: Prisma.XOR<Prisma.PostCreateWithoutAuthorInput, Prisma.PostUncheckedCreateWithoutAuthorInput> | Prisma.PostCreateWithoutAuthorInput[] | Prisma.PostUncheckedCreateWithoutAuthorInput[]
-  connectOrCreate?: Prisma.PostCreateOrConnectWithoutAuthorInput | Prisma.PostCreateOrConnectWithoutAuthorInput[]
-  upsert?: Prisma.PostUpsertWithWhereUniqueWithoutAuthorInput | Prisma.PostUpsertWithWhereUniqueWithoutAuthorInput[]
-  createMany?: Prisma.PostCreateManyAuthorInputEnvelope
+export type PostUpdateManyWithoutGiverNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutGiverInput, Prisma.PostUncheckedCreateWithoutGiverInput> | Prisma.PostCreateWithoutGiverInput[] | Prisma.PostUncheckedCreateWithoutGiverInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutGiverInput | Prisma.PostCreateOrConnectWithoutGiverInput[]
+  upsert?: Prisma.PostUpsertWithWhereUniqueWithoutGiverInput | Prisma.PostUpsertWithWhereUniqueWithoutGiverInput[]
+  createMany?: Prisma.PostCreateManyGiverInputEnvelope
   set?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
   disconnect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
   delete?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
   connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
-  update?: Prisma.PostUpdateWithWhereUniqueWithoutAuthorInput | Prisma.PostUpdateWithWhereUniqueWithoutAuthorInput[]
-  updateMany?: Prisma.PostUpdateManyWithWhereWithoutAuthorInput | Prisma.PostUpdateManyWithWhereWithoutAuthorInput[]
+  update?: Prisma.PostUpdateWithWhereUniqueWithoutGiverInput | Prisma.PostUpdateWithWhereUniqueWithoutGiverInput[]
+  updateMany?: Prisma.PostUpdateManyWithWhereWithoutGiverInput | Prisma.PostUpdateManyWithWhereWithoutGiverInput[]
   deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
 }
 
-export type PostUncheckedUpdateManyWithoutAuthorNestedInput = {
-  create?: Prisma.XOR<Prisma.PostCreateWithoutAuthorInput, Prisma.PostUncheckedCreateWithoutAuthorInput> | Prisma.PostCreateWithoutAuthorInput[] | Prisma.PostUncheckedCreateWithoutAuthorInput[]
-  connectOrCreate?: Prisma.PostCreateOrConnectWithoutAuthorInput | Prisma.PostCreateOrConnectWithoutAuthorInput[]
-  upsert?: Prisma.PostUpsertWithWhereUniqueWithoutAuthorInput | Prisma.PostUpsertWithWhereUniqueWithoutAuthorInput[]
-  createMany?: Prisma.PostCreateManyAuthorInputEnvelope
+export type PostUncheckedUpdateManyWithoutGiverNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutGiverInput, Prisma.PostUncheckedCreateWithoutGiverInput> | Prisma.PostCreateWithoutGiverInput[] | Prisma.PostUncheckedCreateWithoutGiverInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutGiverInput | Prisma.PostCreateOrConnectWithoutGiverInput[]
+  upsert?: Prisma.PostUpsertWithWhereUniqueWithoutGiverInput | Prisma.PostUpsertWithWhereUniqueWithoutGiverInput[]
+  createMany?: Prisma.PostCreateManyGiverInputEnvelope
   set?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
   disconnect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
   delete?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
   connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
-  update?: Prisma.PostUpdateWithWhereUniqueWithoutAuthorInput | Prisma.PostUpdateWithWhereUniqueWithoutAuthorInput[]
-  updateMany?: Prisma.PostUpdateManyWithWhereWithoutAuthorInput | Prisma.PostUpdateManyWithWhereWithoutAuthorInput[]
+  update?: Prisma.PostUpdateWithWhereUniqueWithoutGiverInput | Prisma.PostUpdateWithWhereUniqueWithoutGiverInput[]
+  updateMany?: Prisma.PostUpdateManyWithWhereWithoutGiverInput | Prisma.PostUpdateManyWithWhereWithoutGiverInput[]
   deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
+}
+
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
-export type PostCreateWithoutAuthorInput = {
-  title: string
-  content?: string | null
-  published?: boolean
+export type EnumPostStatusFieldUpdateOperationsInput = {
+  set?: $Enums.PostStatus
 }
 
-export type PostUncheckedCreateWithoutAuthorInput = {
+export type PostCreateNestedOneWithoutProductsInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutProductsInput, Prisma.PostUncheckedCreateWithoutProductsInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutProductsInput
+  connect?: Prisma.PostWhereUniqueInput
+}
+
+export type PostUpdateOneRequiredWithoutProductsNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutProductsInput, Prisma.PostUncheckedCreateWithoutProductsInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutProductsInput
+  upsert?: Prisma.PostUpsertWithoutProductsInput
+  connect?: Prisma.PostWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PostUpdateToOneWithWhereWithoutProductsInput, Prisma.PostUpdateWithoutProductsInput>, Prisma.PostUncheckedUpdateWithoutProductsInput>
+}
+
+export type PostCreateNestedOneWithoutRequestsInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutRequestsInput, Prisma.PostUncheckedCreateWithoutRequestsInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutRequestsInput
+  connect?: Prisma.PostWhereUniqueInput
+}
+
+export type PostUpdateOneRequiredWithoutRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutRequestsInput, Prisma.PostUncheckedCreateWithoutRequestsInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutRequestsInput
+  upsert?: Prisma.PostUpsertWithoutRequestsInput
+  connect?: Prisma.PostWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PostUpdateToOneWithWhereWithoutRequestsInput, Prisma.PostUpdateWithoutRequestsInput>, Prisma.PostUncheckedUpdateWithoutRequestsInput>
+}
+
+export type PostCreateWithoutGiverInput = {
+  title: string
+  description: string
+  locationLat?: number | null
+  locationLong?: number | null
+  locationText?: string | null
+  maxRequests?: number
+  minTrustScore?: number | null
+  requireVerified?: boolean
+  status?: $Enums.PostStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductCreateNestedManyWithoutPostInput
+  requests?: Prisma.RequestCreateNestedManyWithoutPostInput
+}
+
+export type PostUncheckedCreateWithoutGiverInput = {
   id?: number
   title: string
-  content?: string | null
-  published?: boolean
+  description: string
+  locationLat?: number | null
+  locationLong?: number | null
+  locationText?: string | null
+  maxRequests?: number
+  minTrustScore?: number | null
+  requireVerified?: boolean
+  status?: $Enums.PostStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutPostInput
+  requests?: Prisma.RequestUncheckedCreateNestedManyWithoutPostInput
 }
 
-export type PostCreateOrConnectWithoutAuthorInput = {
+export type PostCreateOrConnectWithoutGiverInput = {
   where: Prisma.PostWhereUniqueInput
-  create: Prisma.XOR<Prisma.PostCreateWithoutAuthorInput, Prisma.PostUncheckedCreateWithoutAuthorInput>
+  create: Prisma.XOR<Prisma.PostCreateWithoutGiverInput, Prisma.PostUncheckedCreateWithoutGiverInput>
 }
 
-export type PostCreateManyAuthorInputEnvelope = {
-  data: Prisma.PostCreateManyAuthorInput | Prisma.PostCreateManyAuthorInput[]
+export type PostCreateManyGiverInputEnvelope = {
+  data: Prisma.PostCreateManyGiverInput | Prisma.PostCreateManyGiverInput[]
   skipDuplicates?: boolean
 }
 
-export type PostUpsertWithWhereUniqueWithoutAuthorInput = {
+export type PostUpsertWithWhereUniqueWithoutGiverInput = {
   where: Prisma.PostWhereUniqueInput
-  update: Prisma.XOR<Prisma.PostUpdateWithoutAuthorInput, Prisma.PostUncheckedUpdateWithoutAuthorInput>
-  create: Prisma.XOR<Prisma.PostCreateWithoutAuthorInput, Prisma.PostUncheckedCreateWithoutAuthorInput>
+  update: Prisma.XOR<Prisma.PostUpdateWithoutGiverInput, Prisma.PostUncheckedUpdateWithoutGiverInput>
+  create: Prisma.XOR<Prisma.PostCreateWithoutGiverInput, Prisma.PostUncheckedCreateWithoutGiverInput>
 }
 
-export type PostUpdateWithWhereUniqueWithoutAuthorInput = {
+export type PostUpdateWithWhereUniqueWithoutGiverInput = {
   where: Prisma.PostWhereUniqueInput
-  data: Prisma.XOR<Prisma.PostUpdateWithoutAuthorInput, Prisma.PostUncheckedUpdateWithoutAuthorInput>
+  data: Prisma.XOR<Prisma.PostUpdateWithoutGiverInput, Prisma.PostUncheckedUpdateWithoutGiverInput>
 }
 
-export type PostUpdateManyWithWhereWithoutAuthorInput = {
+export type PostUpdateManyWithWhereWithoutGiverInput = {
   where: Prisma.PostScalarWhereInput
-  data: Prisma.XOR<Prisma.PostUpdateManyMutationInput, Prisma.PostUncheckedUpdateManyWithoutAuthorInput>
+  data: Prisma.XOR<Prisma.PostUpdateManyMutationInput, Prisma.PostUncheckedUpdateManyWithoutGiverInput>
 }
 
 export type PostScalarWhereInput = {
@@ -455,97 +734,391 @@ export type PostScalarWhereInput = {
   NOT?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
   id?: Prisma.IntFilter<"Post"> | number
   title?: Prisma.StringFilter<"Post"> | string
-  content?: Prisma.StringNullableFilter<"Post"> | string | null
-  published?: Prisma.BoolFilter<"Post"> | boolean
-  authorId?: Prisma.IntFilter<"Post"> | number
+  description?: Prisma.StringFilter<"Post"> | string
+  locationLat?: Prisma.FloatNullableFilter<"Post"> | number | null
+  locationLong?: Prisma.FloatNullableFilter<"Post"> | number | null
+  locationText?: Prisma.StringNullableFilter<"Post"> | string | null
+  maxRequests?: Prisma.IntFilter<"Post"> | number
+  minTrustScore?: Prisma.FloatNullableFilter<"Post"> | number | null
+  requireVerified?: Prisma.BoolFilter<"Post"> | boolean
+  status?: Prisma.EnumPostStatusFilter<"Post"> | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
+  giverId?: Prisma.IntFilter<"Post"> | number
 }
 
-export type PostCreateManyAuthorInput = {
+export type PostCreateWithoutProductsInput = {
+  title: string
+  description: string
+  locationLat?: number | null
+  locationLong?: number | null
+  locationText?: string | null
+  maxRequests?: number
+  minTrustScore?: number | null
+  requireVerified?: boolean
+  status?: $Enums.PostStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  giver: Prisma.UserCreateNestedOneWithoutPostsInput
+  requests?: Prisma.RequestCreateNestedManyWithoutPostInput
+}
+
+export type PostUncheckedCreateWithoutProductsInput = {
   id?: number
   title: string
-  content?: string | null
-  published?: boolean
+  description: string
+  locationLat?: number | null
+  locationLong?: number | null
+  locationText?: string | null
+  maxRequests?: number
+  minTrustScore?: number | null
+  requireVerified?: boolean
+  status?: $Enums.PostStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  giverId: number
+  requests?: Prisma.RequestUncheckedCreateNestedManyWithoutPostInput
 }
 
-export type PostUpdateWithoutAuthorInput = {
+export type PostCreateOrConnectWithoutProductsInput = {
+  where: Prisma.PostWhereUniqueInput
+  create: Prisma.XOR<Prisma.PostCreateWithoutProductsInput, Prisma.PostUncheckedCreateWithoutProductsInput>
+}
+
+export type PostUpsertWithoutProductsInput = {
+  update: Prisma.XOR<Prisma.PostUpdateWithoutProductsInput, Prisma.PostUncheckedUpdateWithoutProductsInput>
+  create: Prisma.XOR<Prisma.PostCreateWithoutProductsInput, Prisma.PostUncheckedCreateWithoutProductsInput>
+  where?: Prisma.PostWhereInput
+}
+
+export type PostUpdateToOneWithWhereWithoutProductsInput = {
+  where?: Prisma.PostWhereInput
+  data: Prisma.XOR<Prisma.PostUpdateWithoutProductsInput, Prisma.PostUncheckedUpdateWithoutProductsInput>
+}
+
+export type PostUpdateWithoutProductsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxRequests?: Prisma.IntFieldUpdateOperationsInput | number
+  minTrustScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  requireVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  giver?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
+  requests?: Prisma.RequestUpdateManyWithoutPostNestedInput
 }
 
-export type PostUncheckedUpdateWithoutAuthorInput = {
+export type PostUncheckedUpdateWithoutProductsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxRequests?: Prisma.IntFieldUpdateOperationsInput | number
+  minTrustScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  requireVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  giverId?: Prisma.IntFieldUpdateOperationsInput | number
+  requests?: Prisma.RequestUncheckedUpdateManyWithoutPostNestedInput
 }
 
-export type PostUncheckedUpdateManyWithoutAuthorInput = {
+export type PostCreateWithoutRequestsInput = {
+  title: string
+  description: string
+  locationLat?: number | null
+  locationLong?: number | null
+  locationText?: string | null
+  maxRequests?: number
+  minTrustScore?: number | null
+  requireVerified?: boolean
+  status?: $Enums.PostStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  giver: Prisma.UserCreateNestedOneWithoutPostsInput
+  products?: Prisma.ProductCreateNestedManyWithoutPostInput
+}
+
+export type PostUncheckedCreateWithoutRequestsInput = {
+  id?: number
+  title: string
+  description: string
+  locationLat?: number | null
+  locationLong?: number | null
+  locationText?: string | null
+  maxRequests?: number
+  minTrustScore?: number | null
+  requireVerified?: boolean
+  status?: $Enums.PostStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  giverId: number
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutPostInput
+}
+
+export type PostCreateOrConnectWithoutRequestsInput = {
+  where: Prisma.PostWhereUniqueInput
+  create: Prisma.XOR<Prisma.PostCreateWithoutRequestsInput, Prisma.PostUncheckedCreateWithoutRequestsInput>
+}
+
+export type PostUpsertWithoutRequestsInput = {
+  update: Prisma.XOR<Prisma.PostUpdateWithoutRequestsInput, Prisma.PostUncheckedUpdateWithoutRequestsInput>
+  create: Prisma.XOR<Prisma.PostCreateWithoutRequestsInput, Prisma.PostUncheckedCreateWithoutRequestsInput>
+  where?: Prisma.PostWhereInput
+}
+
+export type PostUpdateToOneWithWhereWithoutRequestsInput = {
+  where?: Prisma.PostWhereInput
+  data: Prisma.XOR<Prisma.PostUpdateWithoutRequestsInput, Prisma.PostUncheckedUpdateWithoutRequestsInput>
+}
+
+export type PostUpdateWithoutRequestsInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxRequests?: Prisma.IntFieldUpdateOperationsInput | number
+  minTrustScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  requireVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  giver?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
+  products?: Prisma.ProductUpdateManyWithoutPostNestedInput
+}
+
+export type PostUncheckedUpdateWithoutRequestsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxRequests?: Prisma.IntFieldUpdateOperationsInput | number
+  minTrustScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  requireVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  giverId?: Prisma.IntFieldUpdateOperationsInput | number
+  products?: Prisma.ProductUncheckedUpdateManyWithoutPostNestedInput
 }
 
+export type PostCreateManyGiverInput = {
+  id?: number
+  title: string
+  description: string
+  locationLat?: number | null
+  locationLong?: number | null
+  locationText?: string | null
+  maxRequests?: number
+  minTrustScore?: number | null
+  requireVerified?: boolean
+  status?: $Enums.PostStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PostUpdateWithoutGiverInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxRequests?: Prisma.IntFieldUpdateOperationsInput | number
+  minTrustScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  requireVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUpdateManyWithoutPostNestedInput
+  requests?: Prisma.RequestUpdateManyWithoutPostNestedInput
+}
+
+export type PostUncheckedUpdateWithoutGiverInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxRequests?: Prisma.IntFieldUpdateOperationsInput | number
+  minTrustScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  requireVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutPostNestedInput
+  requests?: Prisma.RequestUncheckedUpdateManyWithoutPostNestedInput
+}
+
+export type PostUncheckedUpdateManyWithoutGiverInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxRequests?: Prisma.IntFieldUpdateOperationsInput | number
+  minTrustScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  requireVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type PostCountOutputType
+ */
+
+export type PostCountOutputType = {
+  products: number
+  requests: number
+}
+
+export type PostCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  products?: boolean | PostCountOutputTypeCountProductsArgs
+  requests?: boolean | PostCountOutputTypeCountRequestsArgs
+}
+
+/**
+ * PostCountOutputType without action
+ */
+export type PostCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PostCountOutputType
+   */
+  select?: Prisma.PostCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * PostCountOutputType without action
+ */
+export type PostCountOutputTypeCountProductsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductWhereInput
+}
+
+/**
+ * PostCountOutputType without action
+ */
+export type PostCountOutputTypeCountRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RequestWhereInput
+}
 
 
 export type PostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
-  content?: boolean
-  published?: boolean
-  authorId?: boolean
-  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  description?: boolean
+  locationLat?: boolean
+  locationLong?: boolean
+  locationText?: boolean
+  maxRequests?: boolean
+  minTrustScore?: boolean
+  requireVerified?: boolean
+  status?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  giverId?: boolean
+  giver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  products?: boolean | Prisma.Post$productsArgs<ExtArgs>
+  requests?: boolean | Prisma.Post$requestsArgs<ExtArgs>
+  _count?: boolean | Prisma.PostCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["post"]>
 
 export type PostSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
-  content?: boolean
-  published?: boolean
-  authorId?: boolean
-  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  description?: boolean
+  locationLat?: boolean
+  locationLong?: boolean
+  locationText?: boolean
+  maxRequests?: boolean
+  minTrustScore?: boolean
+  requireVerified?: boolean
+  status?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  giverId?: boolean
+  giver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["post"]>
 
 export type PostSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
-  content?: boolean
-  published?: boolean
-  authorId?: boolean
-  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  description?: boolean
+  locationLat?: boolean
+  locationLong?: boolean
+  locationText?: boolean
+  maxRequests?: boolean
+  minTrustScore?: boolean
+  requireVerified?: boolean
+  status?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  giverId?: boolean
+  giver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["post"]>
 
 export type PostSelectScalar = {
   id?: boolean
   title?: boolean
-  content?: boolean
-  published?: boolean
-  authorId?: boolean
+  description?: boolean
+  locationLat?: boolean
+  locationLong?: boolean
+  locationText?: boolean
+  maxRequests?: boolean
+  minTrustScore?: boolean
+  requireVerified?: boolean
+  status?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  giverId?: boolean
 }
 
-export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "published" | "authorId", ExtArgs["result"]["post"]>
+export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "locationLat" | "locationLong" | "locationText" | "maxRequests" | "minTrustScore" | "requireVerified" | "status" | "createdAt" | "updatedAt" | "giverId", ExtArgs["result"]["post"]>
 export type PostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  giver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  products?: boolean | Prisma.Post$productsArgs<ExtArgs>
+  requests?: boolean | Prisma.Post$requestsArgs<ExtArgs>
+  _count?: boolean | Prisma.PostCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PostIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  giver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type PostIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  giver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Post"
   objects: {
-    author: Prisma.$UserPayload<ExtArgs>
+    giver: Prisma.$UserPayload<ExtArgs>
+    products: Prisma.$ProductPayload<ExtArgs>[]
+    requests: Prisma.$RequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     title: string
-    content: string | null
-    published: boolean
-    authorId: number
+    description: string
+    locationLat: number | null
+    locationLong: number | null
+    locationText: string | null
+    maxRequests: number
+    minTrustScore: number | null
+    requireVerified: boolean
+    status: $Enums.PostStatus
+    createdAt: Date
+    updatedAt: Date
+    giverId: number
   }, ExtArgs["result"]["post"]>
   composites: {}
 }
@@ -940,7 +1513,9 @@ readonly fields: PostFieldRefs;
  */
 export interface Prisma__PostClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  giver<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  products<T extends Prisma.Post$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  requests<T extends Prisma.Post$requestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$requestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -972,9 +1547,17 @@ export interface Prisma__PostClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface PostFieldRefs {
   readonly id: Prisma.FieldRef<"Post", 'Int'>
   readonly title: Prisma.FieldRef<"Post", 'String'>
-  readonly content: Prisma.FieldRef<"Post", 'String'>
-  readonly published: Prisma.FieldRef<"Post", 'Boolean'>
-  readonly authorId: Prisma.FieldRef<"Post", 'Int'>
+  readonly description: Prisma.FieldRef<"Post", 'String'>
+  readonly locationLat: Prisma.FieldRef<"Post", 'Float'>
+  readonly locationLong: Prisma.FieldRef<"Post", 'Float'>
+  readonly locationText: Prisma.FieldRef<"Post", 'String'>
+  readonly maxRequests: Prisma.FieldRef<"Post", 'Int'>
+  readonly minTrustScore: Prisma.FieldRef<"Post", 'Float'>
+  readonly requireVerified: Prisma.FieldRef<"Post", 'Boolean'>
+  readonly status: Prisma.FieldRef<"Post", 'PostStatus'>
+  readonly createdAt: Prisma.FieldRef<"Post", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Post", 'DateTime'>
+  readonly giverId: Prisma.FieldRef<"Post", 'Int'>
 }
     
 
@@ -1368,6 +1951,54 @@ export type PostDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Posts to delete.
    */
   limit?: number
+}
+
+/**
+ * Post.products
+ */
+export type Post$productsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Product
+   */
+  select?: Prisma.ProductSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Product
+   */
+  omit?: Prisma.ProductOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductInclude<ExtArgs> | null
+  where?: Prisma.ProductWhereInput
+  orderBy?: Prisma.ProductOrderByWithRelationInput | Prisma.ProductOrderByWithRelationInput[]
+  cursor?: Prisma.ProductWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductScalarFieldEnum | Prisma.ProductScalarFieldEnum[]
+}
+
+/**
+ * Post.requests
+ */
+export type Post$requestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Request
+   */
+  select?: Prisma.RequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Request
+   */
+  omit?: Prisma.RequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequestInclude<ExtArgs> | null
+  where?: Prisma.RequestWhereInput
+  orderBy?: Prisma.RequestOrderByWithRelationInput | Prisma.RequestOrderByWithRelationInput[]
+  cursor?: Prisma.RequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RequestScalarFieldEnum | Prisma.RequestScalarFieldEnum[]
 }
 
 /**
