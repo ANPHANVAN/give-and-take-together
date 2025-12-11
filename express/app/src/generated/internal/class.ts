@@ -17,10 +17,10 @@ import type * as Prisma from "./prismaNamespace"
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.1.0",
-  "engineVersion": "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba",
+  "clientVersion": "7.0.1",
+  "engineVersion": "f09f2815f091dbba658cdcd2264306d88bb5bda6",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id            Int            @id @default(autoincrement())\n  username      String         @unique\n  email         String         @unique\n  passwordHash  String\n  phone         String?\n  socialLinks   Json?\n  trustScore    Float          @default(0.0)\n  badges        String[]\n  givenCount    Int            @default(0)\n  receivedCount Int            @default(0)\n  onTimeRate    Float          @default(1.0)\n  createdAt     DateTime       @default(now())\n  updatedAt     DateTime       @updatedAt\n  chatsAsUser1  Chat[]         @relation(\"User1Chats\")\n  chatsAsUser2  Chat[]         @relation(\"User2Chats\")\n  notifications Notification[]\n  posts         Post[]\n  Product       Product[]\n  requests      Request[]\n  reviews       Review[]\n}\n\nmodel Post {\n  id              Int        @id @default(autoincrement())\n  title           String\n  description     String\n  locationLat     Float?\n  locationLong    Float?\n  locationText    String?\n  maxRequests     Int        @default(5)\n  minTrustScore   Float?\n  requireVerified Boolean    @default(false)\n  status          PostStatus @default(POSTED)\n  createdAt       DateTime   @default(now())\n  updatedAt       DateTime   @updatedAt\n  giverId         Int\n  giver           User       @relation(fields: [giverId], references: [id])\n  products        Product[]\n  requests        Request[]\n}\n\nmodel Product {\n  id          Int           @id @default(autoincrement())\n  name        String\n  description String\n  images      String[]\n  status      ProductStatus @default(AVAILABLE)\n  postId      Int\n  receiverId  Int?\n  post        Post          @relation(fields: [postId], references: [id])\n  User        User?         @relation(fields: [receiverId], references: [id], onDelete: Restrict, map: \"Product_receiverId_fk\")\n  request     Request?\n}\n\nmodel Request {\n  id               Int           @id @default(autoincrement())\n  message          String\n  status           RequestStatus @default(PENDING)\n  deliveryTime     DateTime?\n  deliveryLocation String?\n  createdAt        DateTime      @default(now())\n  updatedAt        DateTime      @updatedAt\n  receiverId       Int\n  postId           Int\n  productId        Int?          @unique\n  chat             Chat?\n  post             Post          @relation(fields: [postId], references: [id])\n  product          Product?      @relation(fields: [productId], references: [id])\n  receiver         User          @relation(fields: [receiverId], references: [id])\n}\n\nmodel Chat {\n  id        Int       @id @default(autoincrement())\n  user1Id   Int\n  user2Id   Int\n  requestId Int?      @unique\n  createdAt DateTime  @default(now())\n  request   Request?  @relation(fields: [requestId], references: [id])\n  user1     User      @relation(\"User1Chats\", fields: [user1Id], references: [id])\n  user2     User      @relation(\"User2Chats\", fields: [user2Id], references: [id])\n  messages  Message[]\n}\n\nmodel Message {\n  id        Int      @id @default(autoincrement())\n  content   String\n  imageUrl  String?\n  location  Json?\n  senderId  Int\n  chatId    Int\n  createdAt DateTime @default(now())\n  chat      Chat     @relation(fields: [chatId], references: [id])\n}\n\nmodel Notification {\n  id        Int      @id @default(autoincrement())\n  type      String\n  content   String\n  read      Boolean  @default(false)\n  userId    Int\n  createdAt DateTime @default(now())\n  user      User     @relation(fields: [userId], references: [id])\n}\n\nmodel Review {\n  id         Int      @id @default(autoincrement())\n  rating     Int\n  comment    String\n  reviewerId Int\n  reviewedId Int\n  requestId  Int?\n  createdAt  DateTime @default(now())\n  reviewer   User     @relation(fields: [reviewerId], references: [id])\n}\n\nenum PostStatus {\n  POSTED\n  PENDING_MATCH\n  AWAITING_DELIVERY\n  COMPLETED\n  CANCELED\n}\n\nenum ProductStatus {\n  AVAILABLE\n  REQUESTED\n  DELIVERED\n  CANCELED\n}\n\nenum RequestStatus {\n  PENDING\n  APPROVED\n  REJECTED\n  COMPLETED\n  CANCELED\n}\n",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id    Int     @id @default(autoincrement())\n  email String  @unique\n  name  String?\n  posts Post[]\n}\n\nmodel Post {\n  id        Int     @id @default(autoincrement())\n  title     String\n  content   String?\n  published Boolean @default(false)\n  author    User    @relation(fields: [authorId], references: [id])\n  authorId  Int\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"passwordHash\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"socialLinks\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"trustScore\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"badges\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"givenCount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"receivedCount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"onTimeRate\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"chatsAsUser1\",\"kind\":\"object\",\"type\":\"Chat\",\"relationName\":\"User1Chats\"},{\"name\":\"chatsAsUser2\",\"kind\":\"object\",\"type\":\"Chat\",\"relationName\":\"User2Chats\"},{\"name\":\"notifications\",\"kind\":\"object\",\"type\":\"Notification\",\"relationName\":\"NotificationToUser\"},{\"name\":\"posts\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToUser\"},{\"name\":\"Product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"ProductToUser\"},{\"name\":\"requests\",\"kind\":\"object\",\"type\":\"Request\",\"relationName\":\"RequestToUser\"},{\"name\":\"reviews\",\"kind\":\"object\",\"type\":\"Review\",\"relationName\":\"ReviewToUser\"}],\"dbName\":null},\"Post\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"locationLat\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"locationLong\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"locationText\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"maxRequests\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"minTrustScore\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"requireVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"PostStatus\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"giverId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"giver\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PostToUser\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"PostToProduct\"},{\"name\":\"requests\",\"kind\":\"object\",\"type\":\"Request\",\"relationName\":\"PostToRequest\"}],\"dbName\":null},\"Product\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"images\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"ProductStatus\"},{\"name\":\"postId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"receiverId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"post\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToProduct\"},{\"name\":\"User\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ProductToUser\"},{\"name\":\"request\",\"kind\":\"object\",\"type\":\"Request\",\"relationName\":\"ProductToRequest\"}],\"dbName\":null},\"Request\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"message\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"RequestStatus\"},{\"name\":\"deliveryTime\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"deliveryLocation\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"receiverId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"postId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"chat\",\"kind\":\"object\",\"type\":\"Chat\",\"relationName\":\"ChatToRequest\"},{\"name\":\"post\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToRequest\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"ProductToRequest\"},{\"name\":\"receiver\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"RequestToUser\"}],\"dbName\":null},\"Chat\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user1Id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user2Id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"requestId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"request\",\"kind\":\"object\",\"type\":\"Request\",\"relationName\":\"ChatToRequest\"},{\"name\":\"user1\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"User1Chats\"},{\"name\":\"user2\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"User2Chats\"},{\"name\":\"messages\",\"kind\":\"object\",\"type\":\"Message\",\"relationName\":\"ChatToMessage\"}],\"dbName\":null},\"Message\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"imageUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"senderId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"chatId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"chat\",\"kind\":\"object\",\"type\":\"Chat\",\"relationName\":\"ChatToMessage\"}],\"dbName\":null},\"Notification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"read\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"NotificationToUser\"}],\"dbName\":null},\"Review\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"rating\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"comment\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"reviewerId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"reviewedId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"requestId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"reviewer\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ReviewToUser\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"posts\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToUser\"}],\"dbName\":null},\"Post\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"published\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"author\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PostToUser\"},{\"name\":\"authorId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -62,7 +62,7 @@ export interface PrismaClientConstructor {
    * const users = await prisma.user.findMany()
    * ```
    * 
-   * Read more in our [docs](https://pris.ly/d/client).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
    */
 
   new <
@@ -84,7 +84,7 @@ export interface PrismaClientConstructor {
  * const users = await prisma.user.findMany()
  * ```
  * 
- * Read more in our [docs](https://pris.ly/d/client).
+ * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
  */
 
 export interface PrismaClient<
@@ -113,7 +113,7 @@ export interface PrismaClient<
    * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -125,7 +125,7 @@ export interface PrismaClient<
    * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -136,7 +136,7 @@ export interface PrismaClient<
    * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
 
@@ -148,7 +148,7 @@ export interface PrismaClient<
    * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
 
@@ -193,66 +193,6 @@ export interface PrismaClient<
     * ```
     */
   get post(): Prisma.PostDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.product`: Exposes CRUD operations for the **Product** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Products
-    * const products = await prisma.product.findMany()
-    * ```
-    */
-  get product(): Prisma.ProductDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.request`: Exposes CRUD operations for the **Request** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Requests
-    * const requests = await prisma.request.findMany()
-    * ```
-    */
-  get request(): Prisma.RequestDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.chat`: Exposes CRUD operations for the **Chat** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Chats
-    * const chats = await prisma.chat.findMany()
-    * ```
-    */
-  get chat(): Prisma.ChatDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.message`: Exposes CRUD operations for the **Message** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Messages
-    * const messages = await prisma.message.findMany()
-    * ```
-    */
-  get message(): Prisma.MessageDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Notifications
-    * const notifications = await prisma.notification.findMany()
-    * ```
-    */
-  get notification(): Prisma.NotificationDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.review`: Exposes CRUD operations for the **Review** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Reviews
-    * const reviews = await prisma.review.findMany()
-    * ```
-    */
-  get review(): Prisma.ReviewDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {
