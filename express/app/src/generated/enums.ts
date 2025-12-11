@@ -9,7 +9,33 @@
 * 🟢 You can import this file directly.
 */
 
+export const PostStatus = {
+  POSTED: 'POSTED',
+  PENDING_MATCH: 'PENDING_MATCH',
+  AWAITING_DELIVERY: 'AWAITING_DELIVERY',
+  COMPLETED: 'COMPLETED',
+  CANCELED: 'CANCELED'
+} as const
+
+export type PostStatus = (typeof PostStatus)[keyof typeof PostStatus]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const ProductStatus = {
+  AVAILABLE: 'AVAILABLE',
+  REQUESTED: 'REQUESTED',
+  DELIVERED: 'DELIVERED',
+  CANCELED: 'CANCELED'
+} as const
+
+export type ProductStatus = (typeof ProductStatus)[keyof typeof ProductStatus]
+
+
+export const RequestStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  COMPLETED: 'COMPLETED',
+  CANCELED: 'CANCELED'
+} as const
+
+export type RequestStatus = (typeof RequestStatus)[keyof typeof RequestStatus]

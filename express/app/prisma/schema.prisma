@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated"
@@ -14,17 +8,140 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+  id            Int            @id @default(autoincrement())
+  username      String         @unique
+  email         String         @unique
+  passwordHash  String
+  phone         String?
+  socialLinks   Json?
+  trustScore    Float          @default(0.0)
+  badges        String[]
+  givenCount    Int            @default(0)
+  receivedCount Int            @default(0)
+  onTimeRate    Float          @default(1.0)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  chatsAsUser1  Chat[]         @relation("User1Chats")
+  chatsAsUser2  Chat[]         @relation("User2Chats")
+  notifications Notification[]
+  posts         Post[]
+  Product       Product[]
+  requests      Request[]
+  reviews       Review[]
 }
 
 model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+  id              Int        @id @default(autoincrement())
+  title           String
+  description     String
+  locationLat     Float?
+  locationLong    Float?
+  locationText    String?
+  maxRequests     Int        @default(5)
+  minTrustScore   Float?
+  requireVerified Boolean    @default(false)
+  status          PostStatus @default(POSTED)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  giverId         Int
+  giver           User       @relation(fields: [giverId], references: [id])
+  products        Product[]
+  requests        Request[]
+}
+
+model Product {
+  id          Int           @id @default(autoincrement())
+  name        String
+  description String
+  images      String[]
+  status      ProductStatus @default(AVAILABLE)
+  postId      Int
+  receiverId  Int?
+  post        Post          @relation(fields: [postId], references: [id])
+  User        User?         @relation(fields: [receiverId], references: [id], onDelete: Restrict, map: "Product_receiverId_fk")
+  request     Request?
+}
+
+model Request {
+  id               Int           @id @default(autoincrement())
+  message          String
+  status           RequestStatus @default(PENDING)
+  deliveryTime     DateTime?
+  deliveryLocation String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  receiverId       Int
+  postId           Int
+  productId        Int?          @unique
+  chat             Chat?
+  post             Post          @relation(fields: [postId], references: [id])
+  product          Product?      @relation(fields: [productId], references: [id])
+  receiver         User          @relation(fields: [receiverId], references: [id])
+}
+
+model Chat {
+  id        Int       @id @default(autoincrement())
+  user1Id   Int
+  user2Id   Int
+  requestId Int?      @unique
+  createdAt DateTime  @default(now())
+  request   Request?  @relation(fields: [requestId], references: [id])
+  user1     User      @relation("User1Chats", fields: [user1Id], references: [id])
+  user2     User      @relation("User2Chats", fields: [user2Id], references: [id])
+  messages  Message[]
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  content   String
+  imageUrl  String?
+  location  Json?
+  senderId  Int
+  chatId    Int
+  createdAt DateTime @default(now())
+  chat      Chat     @relation(fields: [chatId], references: [id])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  type      String
+  content   String
+  read      Boolean  @default(false)
+  userId    Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Review {
+  id         Int      @id @default(autoincrement())
+  rating     Int
+  comment    String
+  reviewerId Int
+  reviewedId Int
+  requestId  Int?
+  createdAt  DateTime @default(now())
+  reviewer   User     @relation(fields: [reviewerId], references: [id])
+}
+
+enum PostStatus {
+  POSTED
+  PENDING_MATCH
+  AWAITING_DELIVERY
+  COMPLETED
+  CANCELED
+}
+
+enum ProductStatus {
+  AVAILABLE
+  REQUESTED
+  DELIVERED
+  CANCELED
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+  CANCELED
 }

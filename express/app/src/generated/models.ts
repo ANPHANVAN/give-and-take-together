@@ -10,4 +10,10 @@
  */
 export type * from './models/User'
 export type * from './models/Post'
+export type * from './models/Product'
+export type * from './models/Request'
+export type * from './models/Chat'
+export type * from './models/Message'
+export type * from './models/Notification'
+export type * from './models/Review'
 export type * from './commonInputTypes'
