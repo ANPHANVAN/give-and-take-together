@@ -1,5 +1,6 @@
-import { IBaseRepository } from '@/modules/shared/repository/IBase.repository';
+import { TransactionClient } from '@/generated/internal/prismaNamespace';
 
-export interface IUserRepository extends IBaseRepository {
+export interface IUserRepository {
   createUser(email: string, tx?: any): Promise<any>;
+  createNewRepo(txCallback: TransactionClient): any;
 }

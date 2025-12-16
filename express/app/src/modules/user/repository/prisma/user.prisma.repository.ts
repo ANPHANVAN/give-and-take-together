@@ -1,32 +1,32 @@
 import { IUserRepository } from '../IUser.repository';
 import { Prisma } from '@/generated/client';
-import { BaseRepository } from '@/modules/shared/repository/base.repository';
-import { prisma } from '@/providers/datatbase.provider';
+import { TransactionClient } from '@/generated/internal/prismaNamespace';
+import { BaseRepository } from '@/modules/shared/database/base.repository';
 
 export class UserPrismaRepository extends BaseRepository implements IUserRepository {
-  private getClient(tx?: any) {
-    return tx || prisma;
+  createNewRepo(txCallback: TransactionClient) {
+    return new UserPrismaRepository(txCallback);
   }
 
-  async createUser(email: string, tx?: any) {
+  async createUser(email: string) {
     let user: Prisma.UserCreateInput;
     user = {
       username: 'string',
       email: email,
       passwordHash: 'helo',
     };
-    return await this.getClient(tx).user.create({ data: user });
+    return await this.db.user.create({ data: user });
   }
 
-  async findOneByEmail(email: string, tx?: any) {
-    return await this.getClient(tx).user.findUnique({
+  async findOneByEmail(email: string) {
+    return await this.db.user.findUnique({
       where: { email: email },
       omit: { passwordHash: true },
     });
   }
 
-  async findManyByGivenCount(countMin: number, tx?: any) {
-    return this.getClient(tx).user.findMany({
+  async findManyByGivenCount(countMin: number) {
+    return this.db.user.findMany({
       select: { email: true, username: true },
       where: { givenCount: countMin },
       orderBy: { username: 'asc' },

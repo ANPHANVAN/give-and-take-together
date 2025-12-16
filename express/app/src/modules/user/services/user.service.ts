@@ -1,6 +1,7 @@
 import { IUserService } from './IUser.service';
 import { IUserRepository } from '../repository/IUser.repository';
-import { prisma } from '@/providers/datatbase.provider';
+import { UserPrismaRepository } from '../repository/prisma/user.prisma.repository';
+import { runTransaction } from '../../shared/database/transactionManager';
 
 export class UserService implements IUserService {
   constructor(private userRepo: IUserRepository) {}
@@ -9,26 +10,16 @@ export class UserService implements IUserService {
   }
 
   async transactionTest() {
-    await prisma.$transaction(async (txCallback) => {
-      const allUsers = await txCallback.user.findMany({});
+    await runTransaction(async (uow) => {
+      const userRepo = uow.getRepository(UserPrismaRepository);
+      const userRepo2 = uow.getRepository(UserPrismaRepository);
 
-      if (allUsers.length !== 100) {
-        throw new Error('You not is 100th user');
+      const newEmail = await userRepo.createUser('email');
+      if (!newEmail) {
+        throw new Error('error');
       }
 
-      await txCallback.user.delete({ where: { email: 'abogab@gmailc.om' } });
-    });
-  }
-
-  async transactionNew() {
-    await this.userRepo.transaction(async (txCallback) => {
-      const allUsers = await this.userRepo.createUser('dfsdfsdf', txCallback);
-
-      if (allUsers.length !== 100) {
-        throw new Error('You not is 100th user');
-      }
-
-      await txCallback.user.delete({ where: { email: 'abogab@gmailc.om' } });
+      await userRepo2.findOneByEmail('mail');
     });
   }
 }
