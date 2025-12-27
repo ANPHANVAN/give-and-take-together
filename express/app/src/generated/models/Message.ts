@@ -27,84 +27,90 @@ export type AggregateMessage = {
 }
 
 export type MessageAvgAggregateOutputType = {
-  id: number | null
-  senderId: number | null
-  chatId: number | null
+  locationLat: number | null
+  locationLong: number | null
 }
 
 export type MessageSumAggregateOutputType = {
-  id: number | null
-  senderId: number | null
-  chatId: number | null
+  locationLat: number | null
+  locationLong: number | null
 }
 
 export type MessageMinAggregateOutputType = {
-  id: number | null
+  id: string | null
+  chatId: string | null
+  senderId: string | null
   content: string | null
   imageUrl: string | null
-  senderId: number | null
-  chatId: number | null
+  locationLat: number | null
+  locationLong: number | null
   createdAt: Date | null
 }
 
 export type MessageMaxAggregateOutputType = {
-  id: number | null
+  id: string | null
+  chatId: string | null
+  senderId: string | null
   content: string | null
   imageUrl: string | null
-  senderId: number | null
-  chatId: number | null
+  locationLat: number | null
+  locationLong: number | null
   createdAt: Date | null
 }
 
 export type MessageCountAggregateOutputType = {
   id: number
+  chatId: number
+  senderId: number
   content: number
   imageUrl: number
-  location: number
-  senderId: number
-  chatId: number
+  locationLat: number
+  locationLong: number
   createdAt: number
   _all: number
 }
 
 
 export type MessageAvgAggregateInputType = {
-  id?: true
-  senderId?: true
-  chatId?: true
+  locationLat?: true
+  locationLong?: true
 }
 
 export type MessageSumAggregateInputType = {
-  id?: true
-  senderId?: true
-  chatId?: true
+  locationLat?: true
+  locationLong?: true
 }
 
 export type MessageMinAggregateInputType = {
   id?: true
+  chatId?: true
+  senderId?: true
   content?: true
   imageUrl?: true
-  senderId?: true
-  chatId?: true
+  locationLat?: true
+  locationLong?: true
   createdAt?: true
 }
 
 export type MessageMaxAggregateInputType = {
   id?: true
+  chatId?: true
+  senderId?: true
   content?: true
   imageUrl?: true
-  senderId?: true
-  chatId?: true
+  locationLat?: true
+  locationLong?: true
   createdAt?: true
 }
 
 export type MessageCountAggregateInputType = {
   id?: true
+  chatId?: true
+  senderId?: true
   content?: true
   imageUrl?: true
-  location?: true
-  senderId?: true
-  chatId?: true
+  locationLat?: true
+  locationLong?: true
   createdAt?: true
   _all?: true
 }
@@ -196,12 +202,13 @@ export type MessageGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 export type MessageGroupByOutputType = {
-  id: number
-  content: string
+  id: string
+  chatId: string
+  senderId: string
+  content: string | null
   imageUrl: string | null
-  location: runtime.JsonValue | null
-  senderId: number
-  chatId: number
+  locationLat: number | null
+  locationLong: number | null
   createdAt: Date
   _count: MessageCountAggregateOutputType | null
   _avg: MessageAvgAggregateOutputType | null
@@ -229,48 +236,55 @@ export type MessageWhereInput = {
   AND?: Prisma.MessageWhereInput | Prisma.MessageWhereInput[]
   OR?: Prisma.MessageWhereInput[]
   NOT?: Prisma.MessageWhereInput | Prisma.MessageWhereInput[]
-  id?: Prisma.IntFilter<"Message"> | number
-  content?: Prisma.StringFilter<"Message"> | string
+  id?: Prisma.StringFilter<"Message"> | string
+  chatId?: Prisma.StringFilter<"Message"> | string
+  senderId?: Prisma.StringFilter<"Message"> | string
+  content?: Prisma.StringNullableFilter<"Message"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Message"> | string | null
-  location?: Prisma.JsonNullableFilter<"Message">
-  senderId?: Prisma.IntFilter<"Message"> | number
-  chatId?: Prisma.IntFilter<"Message"> | number
+  locationLat?: Prisma.FloatNullableFilter<"Message"> | number | null
+  locationLong?: Prisma.FloatNullableFilter<"Message"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
-  chat?: Prisma.XOR<Prisma.ChatScalarRelationFilter, Prisma.ChatWhereInput>
+  chatRoom?: Prisma.XOR<Prisma.ChatRoomScalarRelationFilter, Prisma.ChatRoomWhereInput>
+  sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type MessageOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  content?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  location?: Prisma.SortOrderInput | Prisma.SortOrder
-  senderId?: Prisma.SortOrder
   chatId?: Prisma.SortOrder
+  senderId?: Prisma.SortOrder
+  content?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  locationLat?: Prisma.SortOrderInput | Prisma.SortOrder
+  locationLong?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  chat?: Prisma.ChatOrderByWithRelationInput
+  chatRoom?: Prisma.ChatRoomOrderByWithRelationInput
+  sender?: Prisma.UserOrderByWithRelationInput
 }
 
 export type MessageWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  id?: string
   AND?: Prisma.MessageWhereInput | Prisma.MessageWhereInput[]
   OR?: Prisma.MessageWhereInput[]
   NOT?: Prisma.MessageWhereInput | Prisma.MessageWhereInput[]
-  content?: Prisma.StringFilter<"Message"> | string
+  chatId?: Prisma.StringFilter<"Message"> | string
+  senderId?: Prisma.StringFilter<"Message"> | string
+  content?: Prisma.StringNullableFilter<"Message"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Message"> | string | null
-  location?: Prisma.JsonNullableFilter<"Message">
-  senderId?: Prisma.IntFilter<"Message"> | number
-  chatId?: Prisma.IntFilter<"Message"> | number
+  locationLat?: Prisma.FloatNullableFilter<"Message"> | number | null
+  locationLong?: Prisma.FloatNullableFilter<"Message"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
-  chat?: Prisma.XOR<Prisma.ChatScalarRelationFilter, Prisma.ChatWhereInput>
+  chatRoom?: Prisma.XOR<Prisma.ChatRoomScalarRelationFilter, Prisma.ChatRoomWhereInput>
+  sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type MessageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  content?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  location?: Prisma.SortOrderInput | Prisma.SortOrder
-  senderId?: Prisma.SortOrder
   chatId?: Prisma.SortOrder
+  senderId?: Prisma.SortOrder
+  content?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  locationLat?: Prisma.SortOrderInput | Prisma.SortOrder
+  locationLong?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.MessageCountOrderByAggregateInput
   _avg?: Prisma.MessageAvgOrderByAggregateInput
@@ -283,78 +297,88 @@ export type MessageScalarWhereWithAggregatesInput = {
   AND?: Prisma.MessageScalarWhereWithAggregatesInput | Prisma.MessageScalarWhereWithAggregatesInput[]
   OR?: Prisma.MessageScalarWhereWithAggregatesInput[]
   NOT?: Prisma.MessageScalarWhereWithAggregatesInput | Prisma.MessageScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"Message"> | number
-  content?: Prisma.StringWithAggregatesFilter<"Message"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Message"> | string
+  chatId?: Prisma.StringWithAggregatesFilter<"Message"> | string
+  senderId?: Prisma.StringWithAggregatesFilter<"Message"> | string
+  content?: Prisma.StringNullableWithAggregatesFilter<"Message"> | string | null
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Message"> | string | null
-  location?: Prisma.JsonNullableWithAggregatesFilter<"Message">
-  senderId?: Prisma.IntWithAggregatesFilter<"Message"> | number
-  chatId?: Prisma.IntWithAggregatesFilter<"Message"> | number
+  locationLat?: Prisma.FloatNullableWithAggregatesFilter<"Message"> | number | null
+  locationLong?: Prisma.FloatNullableWithAggregatesFilter<"Message"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Message"> | Date | string
 }
 
 export type MessageCreateInput = {
-  content: string
+  id?: string
+  content?: string | null
   imageUrl?: string | null
-  location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  senderId: number
+  locationLat?: number | null
+  locationLong?: number | null
   createdAt?: Date | string
-  chat: Prisma.ChatCreateNestedOneWithoutMessagesInput
+  chatRoom: Prisma.ChatRoomCreateNestedOneWithoutMessagesInput
+  sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
 }
 
 export type MessageUncheckedCreateInput = {
-  id?: number
-  content: string
+  id?: string
+  chatId: string
+  senderId: string
+  content?: string | null
   imageUrl?: string | null
-  location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  senderId: number
-  chatId: number
+  locationLat?: number | null
+  locationLong?: number | null
   createdAt?: Date | string
 }
 
 export type MessageUpdateInput = {
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  senderId?: Prisma.IntFieldUpdateOperationsInput | number
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chat?: Prisma.ChatUpdateOneRequiredWithoutMessagesNestedInput
+  chatRoom?: Prisma.ChatRoomUpdateOneRequiredWithoutMessagesNestedInput
+  sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
 }
 
 export type MessageUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  chatId?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  senderId?: Prisma.IntFieldUpdateOperationsInput | number
-  chatId?: Prisma.IntFieldUpdateOperationsInput | number
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MessageCreateManyInput = {
-  id?: number
-  content: string
+  id?: string
+  chatId: string
+  senderId: string
+  content?: string | null
   imageUrl?: string | null
-  location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  senderId: number
-  chatId: number
+  locationLat?: number | null
+  locationLong?: number | null
   createdAt?: Date | string
 }
 
 export type MessageUpdateManyMutationInput = {
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  senderId?: Prisma.IntFieldUpdateOperationsInput | number
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MessageUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  chatId?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  senderId?: Prisma.IntFieldUpdateOperationsInput | number
-  chatId?: Prisma.IntFieldUpdateOperationsInput | number
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -370,174 +394,314 @@ export type MessageOrderByRelationAggregateInput = {
 
 export type MessageCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  chatId?: Prisma.SortOrder
+  senderId?: Prisma.SortOrder
   content?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
-  location?: Prisma.SortOrder
-  senderId?: Prisma.SortOrder
-  chatId?: Prisma.SortOrder
+  locationLat?: Prisma.SortOrder
+  locationLong?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type MessageAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  senderId?: Prisma.SortOrder
-  chatId?: Prisma.SortOrder
+  locationLat?: Prisma.SortOrder
+  locationLong?: Prisma.SortOrder
 }
 
 export type MessageMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  chatId?: Prisma.SortOrder
+  senderId?: Prisma.SortOrder
   content?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
-  senderId?: Prisma.SortOrder
-  chatId?: Prisma.SortOrder
+  locationLat?: Prisma.SortOrder
+  locationLong?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type MessageMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  chatId?: Prisma.SortOrder
+  senderId?: Prisma.SortOrder
   content?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
-  senderId?: Prisma.SortOrder
-  chatId?: Prisma.SortOrder
+  locationLat?: Prisma.SortOrder
+  locationLong?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type MessageSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  senderId?: Prisma.SortOrder
-  chatId?: Prisma.SortOrder
+  locationLat?: Prisma.SortOrder
+  locationLong?: Prisma.SortOrder
 }
 
-export type MessageCreateNestedManyWithoutChatInput = {
-  create?: Prisma.XOR<Prisma.MessageCreateWithoutChatInput, Prisma.MessageUncheckedCreateWithoutChatInput> | Prisma.MessageCreateWithoutChatInput[] | Prisma.MessageUncheckedCreateWithoutChatInput[]
-  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutChatInput | Prisma.MessageCreateOrConnectWithoutChatInput[]
-  createMany?: Prisma.MessageCreateManyChatInputEnvelope
+export type MessageCreateNestedManyWithoutSenderInput = {
+  create?: Prisma.XOR<Prisma.MessageCreateWithoutSenderInput, Prisma.MessageUncheckedCreateWithoutSenderInput> | Prisma.MessageCreateWithoutSenderInput[] | Prisma.MessageUncheckedCreateWithoutSenderInput[]
+  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutSenderInput | Prisma.MessageCreateOrConnectWithoutSenderInput[]
+  createMany?: Prisma.MessageCreateManySenderInputEnvelope
   connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
 }
 
-export type MessageUncheckedCreateNestedManyWithoutChatInput = {
-  create?: Prisma.XOR<Prisma.MessageCreateWithoutChatInput, Prisma.MessageUncheckedCreateWithoutChatInput> | Prisma.MessageCreateWithoutChatInput[] | Prisma.MessageUncheckedCreateWithoutChatInput[]
-  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutChatInput | Prisma.MessageCreateOrConnectWithoutChatInput[]
-  createMany?: Prisma.MessageCreateManyChatInputEnvelope
+export type MessageUncheckedCreateNestedManyWithoutSenderInput = {
+  create?: Prisma.XOR<Prisma.MessageCreateWithoutSenderInput, Prisma.MessageUncheckedCreateWithoutSenderInput> | Prisma.MessageCreateWithoutSenderInput[] | Prisma.MessageUncheckedCreateWithoutSenderInput[]
+  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutSenderInput | Prisma.MessageCreateOrConnectWithoutSenderInput[]
+  createMany?: Prisma.MessageCreateManySenderInputEnvelope
   connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
 }
 
-export type MessageUpdateManyWithoutChatNestedInput = {
-  create?: Prisma.XOR<Prisma.MessageCreateWithoutChatInput, Prisma.MessageUncheckedCreateWithoutChatInput> | Prisma.MessageCreateWithoutChatInput[] | Prisma.MessageUncheckedCreateWithoutChatInput[]
-  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutChatInput | Prisma.MessageCreateOrConnectWithoutChatInput[]
-  upsert?: Prisma.MessageUpsertWithWhereUniqueWithoutChatInput | Prisma.MessageUpsertWithWhereUniqueWithoutChatInput[]
-  createMany?: Prisma.MessageCreateManyChatInputEnvelope
+export type MessageUpdateManyWithoutSenderNestedInput = {
+  create?: Prisma.XOR<Prisma.MessageCreateWithoutSenderInput, Prisma.MessageUncheckedCreateWithoutSenderInput> | Prisma.MessageCreateWithoutSenderInput[] | Prisma.MessageUncheckedCreateWithoutSenderInput[]
+  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutSenderInput | Prisma.MessageCreateOrConnectWithoutSenderInput[]
+  upsert?: Prisma.MessageUpsertWithWhereUniqueWithoutSenderInput | Prisma.MessageUpsertWithWhereUniqueWithoutSenderInput[]
+  createMany?: Prisma.MessageCreateManySenderInputEnvelope
   set?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
   disconnect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
   delete?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
   connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
-  update?: Prisma.MessageUpdateWithWhereUniqueWithoutChatInput | Prisma.MessageUpdateWithWhereUniqueWithoutChatInput[]
-  updateMany?: Prisma.MessageUpdateManyWithWhereWithoutChatInput | Prisma.MessageUpdateManyWithWhereWithoutChatInput[]
+  update?: Prisma.MessageUpdateWithWhereUniqueWithoutSenderInput | Prisma.MessageUpdateWithWhereUniqueWithoutSenderInput[]
+  updateMany?: Prisma.MessageUpdateManyWithWhereWithoutSenderInput | Prisma.MessageUpdateManyWithWhereWithoutSenderInput[]
   deleteMany?: Prisma.MessageScalarWhereInput | Prisma.MessageScalarWhereInput[]
 }
 
-export type MessageUncheckedUpdateManyWithoutChatNestedInput = {
-  create?: Prisma.XOR<Prisma.MessageCreateWithoutChatInput, Prisma.MessageUncheckedCreateWithoutChatInput> | Prisma.MessageCreateWithoutChatInput[] | Prisma.MessageUncheckedCreateWithoutChatInput[]
-  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutChatInput | Prisma.MessageCreateOrConnectWithoutChatInput[]
-  upsert?: Prisma.MessageUpsertWithWhereUniqueWithoutChatInput | Prisma.MessageUpsertWithWhereUniqueWithoutChatInput[]
-  createMany?: Prisma.MessageCreateManyChatInputEnvelope
+export type MessageUncheckedUpdateManyWithoutSenderNestedInput = {
+  create?: Prisma.XOR<Prisma.MessageCreateWithoutSenderInput, Prisma.MessageUncheckedCreateWithoutSenderInput> | Prisma.MessageCreateWithoutSenderInput[] | Prisma.MessageUncheckedCreateWithoutSenderInput[]
+  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutSenderInput | Prisma.MessageCreateOrConnectWithoutSenderInput[]
+  upsert?: Prisma.MessageUpsertWithWhereUniqueWithoutSenderInput | Prisma.MessageUpsertWithWhereUniqueWithoutSenderInput[]
+  createMany?: Prisma.MessageCreateManySenderInputEnvelope
   set?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
   disconnect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
   delete?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
   connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
-  update?: Prisma.MessageUpdateWithWhereUniqueWithoutChatInput | Prisma.MessageUpdateWithWhereUniqueWithoutChatInput[]
-  updateMany?: Prisma.MessageUpdateManyWithWhereWithoutChatInput | Prisma.MessageUpdateManyWithWhereWithoutChatInput[]
+  update?: Prisma.MessageUpdateWithWhereUniqueWithoutSenderInput | Prisma.MessageUpdateWithWhereUniqueWithoutSenderInput[]
+  updateMany?: Prisma.MessageUpdateManyWithWhereWithoutSenderInput | Prisma.MessageUpdateManyWithWhereWithoutSenderInput[]
   deleteMany?: Prisma.MessageScalarWhereInput | Prisma.MessageScalarWhereInput[]
 }
 
-export type MessageCreateWithoutChatInput = {
-  content: string
+export type MessageCreateNestedManyWithoutChatRoomInput = {
+  create?: Prisma.XOR<Prisma.MessageCreateWithoutChatRoomInput, Prisma.MessageUncheckedCreateWithoutChatRoomInput> | Prisma.MessageCreateWithoutChatRoomInput[] | Prisma.MessageUncheckedCreateWithoutChatRoomInput[]
+  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutChatRoomInput | Prisma.MessageCreateOrConnectWithoutChatRoomInput[]
+  createMany?: Prisma.MessageCreateManyChatRoomInputEnvelope
+  connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+}
+
+export type MessageUncheckedCreateNestedManyWithoutChatRoomInput = {
+  create?: Prisma.XOR<Prisma.MessageCreateWithoutChatRoomInput, Prisma.MessageUncheckedCreateWithoutChatRoomInput> | Prisma.MessageCreateWithoutChatRoomInput[] | Prisma.MessageUncheckedCreateWithoutChatRoomInput[]
+  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutChatRoomInput | Prisma.MessageCreateOrConnectWithoutChatRoomInput[]
+  createMany?: Prisma.MessageCreateManyChatRoomInputEnvelope
+  connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+}
+
+export type MessageUpdateManyWithoutChatRoomNestedInput = {
+  create?: Prisma.XOR<Prisma.MessageCreateWithoutChatRoomInput, Prisma.MessageUncheckedCreateWithoutChatRoomInput> | Prisma.MessageCreateWithoutChatRoomInput[] | Prisma.MessageUncheckedCreateWithoutChatRoomInput[]
+  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutChatRoomInput | Prisma.MessageCreateOrConnectWithoutChatRoomInput[]
+  upsert?: Prisma.MessageUpsertWithWhereUniqueWithoutChatRoomInput | Prisma.MessageUpsertWithWhereUniqueWithoutChatRoomInput[]
+  createMany?: Prisma.MessageCreateManyChatRoomInputEnvelope
+  set?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  disconnect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  delete?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  update?: Prisma.MessageUpdateWithWhereUniqueWithoutChatRoomInput | Prisma.MessageUpdateWithWhereUniqueWithoutChatRoomInput[]
+  updateMany?: Prisma.MessageUpdateManyWithWhereWithoutChatRoomInput | Prisma.MessageUpdateManyWithWhereWithoutChatRoomInput[]
+  deleteMany?: Prisma.MessageScalarWhereInput | Prisma.MessageScalarWhereInput[]
+}
+
+export type MessageUncheckedUpdateManyWithoutChatRoomNestedInput = {
+  create?: Prisma.XOR<Prisma.MessageCreateWithoutChatRoomInput, Prisma.MessageUncheckedCreateWithoutChatRoomInput> | Prisma.MessageCreateWithoutChatRoomInput[] | Prisma.MessageUncheckedCreateWithoutChatRoomInput[]
+  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutChatRoomInput | Prisma.MessageCreateOrConnectWithoutChatRoomInput[]
+  upsert?: Prisma.MessageUpsertWithWhereUniqueWithoutChatRoomInput | Prisma.MessageUpsertWithWhereUniqueWithoutChatRoomInput[]
+  createMany?: Prisma.MessageCreateManyChatRoomInputEnvelope
+  set?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  disconnect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  delete?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  connect?: Prisma.MessageWhereUniqueInput | Prisma.MessageWhereUniqueInput[]
+  update?: Prisma.MessageUpdateWithWhereUniqueWithoutChatRoomInput | Prisma.MessageUpdateWithWhereUniqueWithoutChatRoomInput[]
+  updateMany?: Prisma.MessageUpdateManyWithWhereWithoutChatRoomInput | Prisma.MessageUpdateManyWithWhereWithoutChatRoomInput[]
+  deleteMany?: Prisma.MessageScalarWhereInput | Prisma.MessageScalarWhereInput[]
+}
+
+export type MessageCreateWithoutSenderInput = {
+  id?: string
+  content?: string | null
   imageUrl?: string | null
-  location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  senderId: number
+  locationLat?: number | null
+  locationLong?: number | null
+  createdAt?: Date | string
+  chatRoom: Prisma.ChatRoomCreateNestedOneWithoutMessagesInput
+}
+
+export type MessageUncheckedCreateWithoutSenderInput = {
+  id?: string
+  chatId: string
+  content?: string | null
+  imageUrl?: string | null
+  locationLat?: number | null
+  locationLong?: number | null
   createdAt?: Date | string
 }
 
-export type MessageUncheckedCreateWithoutChatInput = {
-  id?: number
-  content: string
-  imageUrl?: string | null
-  location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  senderId: number
-  createdAt?: Date | string
-}
-
-export type MessageCreateOrConnectWithoutChatInput = {
+export type MessageCreateOrConnectWithoutSenderInput = {
   where: Prisma.MessageWhereUniqueInput
-  create: Prisma.XOR<Prisma.MessageCreateWithoutChatInput, Prisma.MessageUncheckedCreateWithoutChatInput>
+  create: Prisma.XOR<Prisma.MessageCreateWithoutSenderInput, Prisma.MessageUncheckedCreateWithoutSenderInput>
 }
 
-export type MessageCreateManyChatInputEnvelope = {
-  data: Prisma.MessageCreateManyChatInput | Prisma.MessageCreateManyChatInput[]
+export type MessageCreateManySenderInputEnvelope = {
+  data: Prisma.MessageCreateManySenderInput | Prisma.MessageCreateManySenderInput[]
   skipDuplicates?: boolean
 }
 
-export type MessageUpsertWithWhereUniqueWithoutChatInput = {
+export type MessageUpsertWithWhereUniqueWithoutSenderInput = {
   where: Prisma.MessageWhereUniqueInput
-  update: Prisma.XOR<Prisma.MessageUpdateWithoutChatInput, Prisma.MessageUncheckedUpdateWithoutChatInput>
-  create: Prisma.XOR<Prisma.MessageCreateWithoutChatInput, Prisma.MessageUncheckedCreateWithoutChatInput>
+  update: Prisma.XOR<Prisma.MessageUpdateWithoutSenderInput, Prisma.MessageUncheckedUpdateWithoutSenderInput>
+  create: Prisma.XOR<Prisma.MessageCreateWithoutSenderInput, Prisma.MessageUncheckedCreateWithoutSenderInput>
 }
 
-export type MessageUpdateWithWhereUniqueWithoutChatInput = {
+export type MessageUpdateWithWhereUniqueWithoutSenderInput = {
   where: Prisma.MessageWhereUniqueInput
-  data: Prisma.XOR<Prisma.MessageUpdateWithoutChatInput, Prisma.MessageUncheckedUpdateWithoutChatInput>
+  data: Prisma.XOR<Prisma.MessageUpdateWithoutSenderInput, Prisma.MessageUncheckedUpdateWithoutSenderInput>
 }
 
-export type MessageUpdateManyWithWhereWithoutChatInput = {
+export type MessageUpdateManyWithWhereWithoutSenderInput = {
   where: Prisma.MessageScalarWhereInput
-  data: Prisma.XOR<Prisma.MessageUpdateManyMutationInput, Prisma.MessageUncheckedUpdateManyWithoutChatInput>
+  data: Prisma.XOR<Prisma.MessageUpdateManyMutationInput, Prisma.MessageUncheckedUpdateManyWithoutSenderInput>
 }
 
 export type MessageScalarWhereInput = {
   AND?: Prisma.MessageScalarWhereInput | Prisma.MessageScalarWhereInput[]
   OR?: Prisma.MessageScalarWhereInput[]
   NOT?: Prisma.MessageScalarWhereInput | Prisma.MessageScalarWhereInput[]
-  id?: Prisma.IntFilter<"Message"> | number
-  content?: Prisma.StringFilter<"Message"> | string
+  id?: Prisma.StringFilter<"Message"> | string
+  chatId?: Prisma.StringFilter<"Message"> | string
+  senderId?: Prisma.StringFilter<"Message"> | string
+  content?: Prisma.StringNullableFilter<"Message"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Message"> | string | null
-  location?: Prisma.JsonNullableFilter<"Message">
-  senderId?: Prisma.IntFilter<"Message"> | number
-  chatId?: Prisma.IntFilter<"Message"> | number
+  locationLat?: Prisma.FloatNullableFilter<"Message"> | number | null
+  locationLong?: Prisma.FloatNullableFilter<"Message"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
 }
 
-export type MessageCreateManyChatInput = {
-  id?: number
-  content: string
+export type MessageCreateWithoutChatRoomInput = {
+  id?: string
+  content?: string | null
   imageUrl?: string | null
-  location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  senderId: number
+  locationLat?: number | null
+  locationLong?: number | null
+  createdAt?: Date | string
+  sender: Prisma.UserCreateNestedOneWithoutSentMessagesInput
+}
+
+export type MessageUncheckedCreateWithoutChatRoomInput = {
+  id?: string
+  senderId: string
+  content?: string | null
+  imageUrl?: string | null
+  locationLat?: number | null
+  locationLong?: number | null
   createdAt?: Date | string
 }
 
-export type MessageUpdateWithoutChatInput = {
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+export type MessageCreateOrConnectWithoutChatRoomInput = {
+  where: Prisma.MessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.MessageCreateWithoutChatRoomInput, Prisma.MessageUncheckedCreateWithoutChatRoomInput>
+}
+
+export type MessageCreateManyChatRoomInputEnvelope = {
+  data: Prisma.MessageCreateManyChatRoomInput | Prisma.MessageCreateManyChatRoomInput[]
+  skipDuplicates?: boolean
+}
+
+export type MessageUpsertWithWhereUniqueWithoutChatRoomInput = {
+  where: Prisma.MessageWhereUniqueInput
+  update: Prisma.XOR<Prisma.MessageUpdateWithoutChatRoomInput, Prisma.MessageUncheckedUpdateWithoutChatRoomInput>
+  create: Prisma.XOR<Prisma.MessageCreateWithoutChatRoomInput, Prisma.MessageUncheckedCreateWithoutChatRoomInput>
+}
+
+export type MessageUpdateWithWhereUniqueWithoutChatRoomInput = {
+  where: Prisma.MessageWhereUniqueInput
+  data: Prisma.XOR<Prisma.MessageUpdateWithoutChatRoomInput, Prisma.MessageUncheckedUpdateWithoutChatRoomInput>
+}
+
+export type MessageUpdateManyWithWhereWithoutChatRoomInput = {
+  where: Prisma.MessageScalarWhereInput
+  data: Prisma.XOR<Prisma.MessageUpdateManyMutationInput, Prisma.MessageUncheckedUpdateManyWithoutChatRoomInput>
+}
+
+export type MessageCreateManySenderInput = {
+  id?: string
+  chatId: string
+  content?: string | null
+  imageUrl?: string | null
+  locationLat?: number | null
+  locationLong?: number | null
+  createdAt?: Date | string
+}
+
+export type MessageUpdateWithoutSenderInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  senderId?: Prisma.IntFieldUpdateOperationsInput | number
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chatRoom?: Prisma.ChatRoomUpdateOneRequiredWithoutMessagesNestedInput
+}
+
+export type MessageUncheckedUpdateWithoutSenderInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  chatId?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type MessageUncheckedUpdateWithoutChatInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+export type MessageUncheckedUpdateManyWithoutSenderInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  chatId?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  senderId?: Prisma.IntFieldUpdateOperationsInput | number
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type MessageUncheckedUpdateManyWithoutChatInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+export type MessageCreateManyChatRoomInput = {
+  id?: string
+  senderId: string
+  content?: string | null
+  imageUrl?: string | null
+  locationLat?: number | null
+  locationLong?: number | null
+  createdAt?: Date | string
+}
+
+export type MessageUpdateWithoutChatRoomInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  senderId?: Prisma.IntFieldUpdateOperationsInput | number
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sender?: Prisma.UserUpdateOneRequiredWithoutSentMessagesNestedInput
+}
+
+export type MessageUncheckedUpdateWithoutChatRoomInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type MessageUncheckedUpdateManyWithoutChatRoomInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  senderId?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locationLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationLong?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -545,70 +709,82 @@ export type MessageUncheckedUpdateManyWithoutChatInput = {
 
 export type MessageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  chatId?: boolean
+  senderId?: boolean
   content?: boolean
   imageUrl?: boolean
-  location?: boolean
-  senderId?: boolean
-  chatId?: boolean
+  locationLat?: boolean
+  locationLong?: boolean
   createdAt?: boolean
-  chat?: boolean | Prisma.ChatDefaultArgs<ExtArgs>
+  chatRoom?: boolean | Prisma.ChatRoomDefaultArgs<ExtArgs>
+  sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["message"]>
 
 export type MessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  chatId?: boolean
+  senderId?: boolean
   content?: boolean
   imageUrl?: boolean
-  location?: boolean
-  senderId?: boolean
-  chatId?: boolean
+  locationLat?: boolean
+  locationLong?: boolean
   createdAt?: boolean
-  chat?: boolean | Prisma.ChatDefaultArgs<ExtArgs>
+  chatRoom?: boolean | Prisma.ChatRoomDefaultArgs<ExtArgs>
+  sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["message"]>
 
 export type MessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  chatId?: boolean
+  senderId?: boolean
   content?: boolean
   imageUrl?: boolean
-  location?: boolean
-  senderId?: boolean
-  chatId?: boolean
+  locationLat?: boolean
+  locationLong?: boolean
   createdAt?: boolean
-  chat?: boolean | Prisma.ChatDefaultArgs<ExtArgs>
+  chatRoom?: boolean | Prisma.ChatRoomDefaultArgs<ExtArgs>
+  sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["message"]>
 
 export type MessageSelectScalar = {
   id?: boolean
+  chatId?: boolean
+  senderId?: boolean
   content?: boolean
   imageUrl?: boolean
-  location?: boolean
-  senderId?: boolean
-  chatId?: boolean
+  locationLat?: boolean
+  locationLong?: boolean
   createdAt?: boolean
 }
 
-export type MessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "imageUrl" | "location" | "senderId" | "chatId" | "createdAt", ExtArgs["result"]["message"]>
+export type MessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "chatId" | "senderId" | "content" | "imageUrl" | "locationLat" | "locationLong" | "createdAt", ExtArgs["result"]["message"]>
 export type MessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  chat?: boolean | Prisma.ChatDefaultArgs<ExtArgs>
+  chatRoom?: boolean | Prisma.ChatRoomDefaultArgs<ExtArgs>
+  sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type MessageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  chat?: boolean | Prisma.ChatDefaultArgs<ExtArgs>
+  chatRoom?: boolean | Prisma.ChatRoomDefaultArgs<ExtArgs>
+  sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type MessageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  chat?: boolean | Prisma.ChatDefaultArgs<ExtArgs>
+  chatRoom?: boolean | Prisma.ChatRoomDefaultArgs<ExtArgs>
+  sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $MessagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Message"
   objects: {
-    chat: Prisma.$ChatPayload<ExtArgs>
+    chatRoom: Prisma.$ChatRoomPayload<ExtArgs>
+    sender: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
-    content: string
+    id: string
+    chatId: string
+    senderId: string
+    content: string | null
     imageUrl: string | null
-    location: runtime.JsonValue | null
-    senderId: number
-    chatId: number
+    locationLat: number | null
+    locationLong: number | null
     createdAt: Date
   }, ExtArgs["result"]["message"]>
   composites: {}
@@ -1004,7 +1180,8 @@ readonly fields: MessageFieldRefs;
  */
 export interface Prisma__MessageClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  chat<T extends Prisma.ChatDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChatDefaultArgs<ExtArgs>>): Prisma.Prisma__ChatClient<runtime.Types.Result.GetResult<Prisma.$ChatPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  chatRoom<T extends Prisma.ChatRoomDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChatRoomDefaultArgs<ExtArgs>>): Prisma.Prisma__ChatRoomClient<runtime.Types.Result.GetResult<Prisma.$ChatRoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  sender<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1034,12 +1211,13 @@ export interface Prisma__MessageClient<T, Null = never, ExtArgs extends runtime.
  * Fields of the Message model
  */
 export interface MessageFieldRefs {
-  readonly id: Prisma.FieldRef<"Message", 'Int'>
+  readonly id: Prisma.FieldRef<"Message", 'String'>
+  readonly chatId: Prisma.FieldRef<"Message", 'String'>
+  readonly senderId: Prisma.FieldRef<"Message", 'String'>
   readonly content: Prisma.FieldRef<"Message", 'String'>
   readonly imageUrl: Prisma.FieldRef<"Message", 'String'>
-  readonly location: Prisma.FieldRef<"Message", 'Json'>
-  readonly senderId: Prisma.FieldRef<"Message", 'Int'>
-  readonly chatId: Prisma.FieldRef<"Message", 'Int'>
+  readonly locationLat: Prisma.FieldRef<"Message", 'Float'>
+  readonly locationLong: Prisma.FieldRef<"Message", 'Float'>
   readonly createdAt: Prisma.FieldRef<"Message", 'DateTime'>
 }
     

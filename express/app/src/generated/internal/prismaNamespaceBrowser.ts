@@ -52,7 +52,13 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Post: 'Post'
+  Post: 'Post',
+  Product: 'Product',
+  Request: 'Request',
+  ChatRoom: 'ChatRoom',
+  Message: 'Message',
+  Review: 'Review',
+  Notification: 'Notification'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -73,8 +79,18 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
+  fullname: 'fullname',
   email: 'email',
-  name: 'name'
+  passwordHash: 'passwordHash',
+  avatarUrl: 'avatarUrl',
+  phone: 'phone',
+  socialLinks: 'socialLinks',
+  trustScore: 'trustScore',
+  badges: 'badges',
+  givenCount: 'givenCount',
+  receivedCount: 'receivedCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -82,13 +98,98 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const PostScalarFieldEnum = {
   id: 'id',
+  giverId: 'giverId',
   title: 'title',
-  content: 'content',
-  published: 'published',
-  authorId: 'authorId'
+  description: 'description',
+  locationLat: 'locationLat',
+  locationLong: 'locationLong',
+  locationText: 'locationText',
+  maxRequests: 'maxRequests',
+  minTrustScore: 'minTrustScore',
+  verified: 'verified',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+
+
+export const ProductScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  title: 'title',
+  description: 'description',
+  images: 'images',
+  status: 'status',
+  receiverId: 'receiverId',
+  receivedAt: 'receivedAt'
+} as const
+
+export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
+
+
+export const RequestScalarFieldEnum = {
+  id: 'id',
+  message: 'message',
+  status: 'status',
+  receiverId: 'receiverId',
+  postId: 'postId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RequestScalarFieldEnum = (typeof RequestScalarFieldEnum)[keyof typeof RequestScalarFieldEnum]
+
+
+export const ChatRoomScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  imageUrl: 'imageUrl',
+  createdAt: 'createdAt',
+  requestId: 'requestId'
+} as const
+
+export type ChatRoomScalarFieldEnum = (typeof ChatRoomScalarFieldEnum)[keyof typeof ChatRoomScalarFieldEnum]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  chatId: 'chatId',
+  senderId: 'senderId',
+  content: 'content',
+  imageUrl: 'imageUrl',
+  locationLat: 'locationLat',
+  locationLong: 'locationLong',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const ReviewScalarFieldEnum = {
+  id: 'id',
+  rate: 'rate',
+  comment: 'comment',
+  reviewerId: 'reviewerId',
+  reviewedId: 'reviewedId',
+  productId: 'productId',
+  imageUrl: 'imageUrl'
+} as const
+
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  content: 'content',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -99,12 +200,29 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: 'DbNull',
+  JsonNull: 'JsonNull'
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const JsonNullValueFilter = {
+  DbNull: 'DbNull',
+  JsonNull: 'JsonNull',
+  AnyNull: 'AnyNull'
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 export const NullsOrder = {

@@ -58,22 +58,22 @@ export type Product = Prisma.ProductModel
  */
 export type Request = Prisma.RequestModel
 /**
- * Model Chat
+ * Model ChatRoom
  * 
  */
-export type Chat = Prisma.ChatModel
+export type ChatRoom = Prisma.ChatRoomModel
 /**
  * Model Message
  * 
  */
 export type Message = Prisma.MessageModel
 /**
- * Model Notification
- * 
- */
-export type Notification = Prisma.NotificationModel
-/**
  * Model Review
  * 
  */
 export type Review = Prisma.ReviewModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
