@@ -6,7 +6,7 @@ export class PostgresDatabase implements IDatabase {
   private prisma: PrismaClient;
 
   constructor(uriConnect: string) {
-    const adapter = new PrismaPg({ uriConnect });
+    const adapter = new PrismaPg({ connectionString: uriConnect });
     const globalForPrisma = globalThis as unknown as {
       prisma: PrismaClient | undefined;
     };
