@@ -1,4 +1,4 @@
-import { prisma } from '@/providers/datatbase.provider';
+import { prisma } from '@/providers/database.provider';
 import { UnitOfWork } from './unitOfWork';
 
 export function runTransaction<T>(callback: (uow: UnitOfWork) => Promise<T>): Promise<T> {
