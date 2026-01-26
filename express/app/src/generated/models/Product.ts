@@ -20,92 +20,72 @@ export type ProductModel = runtime.Types.Result.DefaultSelection<Prisma.$Product
 
 export type AggregateProduct = {
   _count: ProductCountAggregateOutputType | null
-  _avg: ProductAvgAggregateOutputType | null
-  _sum: ProductSumAggregateOutputType | null
   _min: ProductMinAggregateOutputType | null
   _max: ProductMaxAggregateOutputType | null
 }
 
-export type ProductAvgAggregateOutputType = {
-  id: number | null
-  postId: number | null
-  receiverId: number | null
-}
-
-export type ProductSumAggregateOutputType = {
-  id: number | null
-  postId: number | null
-  receiverId: number | null
-}
-
 export type ProductMinAggregateOutputType = {
-  id: number | null
-  name: string | null
+  id: string | null
+  postId: string | null
+  title: string | null
   description: string | null
   status: $Enums.ProductStatus | null
-  postId: number | null
-  receiverId: number | null
+  receiverId: string | null
+  receivedAt: Date | null
 }
 
 export type ProductMaxAggregateOutputType = {
-  id: number | null
-  name: string | null
+  id: string | null
+  postId: string | null
+  title: string | null
   description: string | null
   status: $Enums.ProductStatus | null
-  postId: number | null
-  receiverId: number | null
+  receiverId: string | null
+  receivedAt: Date | null
 }
 
 export type ProductCountAggregateOutputType = {
   id: number
-  name: number
+  postId: number
+  title: number
   description: number
   images: number
   status: number
-  postId: number
   receiverId: number
+  receivedAt: number
   _all: number
 }
 
 
-export type ProductAvgAggregateInputType = {
-  id?: true
-  postId?: true
-  receiverId?: true
-}
-
-export type ProductSumAggregateInputType = {
-  id?: true
-  postId?: true
-  receiverId?: true
-}
-
 export type ProductMinAggregateInputType = {
   id?: true
-  name?: true
+  postId?: true
+  title?: true
   description?: true
   status?: true
-  postId?: true
   receiverId?: true
+  receivedAt?: true
 }
 
 export type ProductMaxAggregateInputType = {
   id?: true
-  name?: true
+  postId?: true
+  title?: true
   description?: true
   status?: true
-  postId?: true
   receiverId?: true
+  receivedAt?: true
 }
 
 export type ProductCountAggregateInputType = {
   id?: true
-  name?: true
+  postId?: true
+  title?: true
   description?: true
   images?: true
   status?: true
-  postId?: true
   receiverId?: true
+  receivedAt?: true
   _all?: true
 }
 
@@ -147,18 +127,6 @@ export type ProductAggregateArgs<ExtArgs extends runtime.Types.Extensions.Intern
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: ProductAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: ProductSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: ProductMinAggregateInputType
@@ -189,23 +157,20 @@ export type ProductGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   _count?: ProductCountAggregateInputType | true
-  _avg?: ProductAvgAggregateInputType
-  _sum?: ProductSumAggregateInputType
   _min?: ProductMinAggregateInputType
   _max?: ProductMaxAggregateInputType
 }
 
 export type ProductGroupByOutputType = {
-  id: number
-  name: string
+  id: string
+  postId: string
+  title: string
   description: string
   images: string[]
   status: $Enums.ProductStatus
-  postId: number
-  receiverId: number | null
+  receiverId: string | null
+  receivedAt: Date | null
   _count: ProductCountAggregateOutputType | null
-  _avg: ProductAvgAggregateOutputType | null
-  _sum: ProductSumAggregateOutputType | null
   _min: ProductMinAggregateOutputType | null
   _max: ProductMaxAggregateOutputType | null
 }
@@ -229,142 +194,162 @@ export type ProductWhereInput = {
   AND?: Prisma.ProductWhereInput | Prisma.ProductWhereInput[]
   OR?: Prisma.ProductWhereInput[]
   NOT?: Prisma.ProductWhereInput | Prisma.ProductWhereInput[]
-  id?: Prisma.IntFilter<"Product"> | number
-  name?: Prisma.StringFilter<"Product"> | string
+  id?: Prisma.StringFilter<"Product"> | string
+  postId?: Prisma.StringFilter<"Product"> | string
+  title?: Prisma.StringFilter<"Product"> | string
   description?: Prisma.StringFilter<"Product"> | string
   images?: Prisma.StringNullableListFilter<"Product">
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
-  postId?: Prisma.IntFilter<"Product"> | number
-  receiverId?: Prisma.IntNullableFilter<"Product"> | number | null
+  receiverId?: Prisma.StringNullableFilter<"Product"> | string | null
+  receivedAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
   post?: Prisma.XOR<Prisma.PostScalarRelationFilter, Prisma.PostWhereInput>
-  User?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  request?: Prisma.XOR<Prisma.RequestNullableScalarRelationFilter, Prisma.RequestWhereInput> | null
+  receiver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  requests?: Prisma.RequestListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
 }
 
 export type ProductOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  postId?: Prisma.SortOrder
+  title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   images?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  postId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrderInput | Prisma.SortOrder
+  receivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   post?: Prisma.PostOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
-  request?: Prisma.RequestOrderByWithRelationInput
+  receiver?: Prisma.UserOrderByWithRelationInput
+  requests?: Prisma.RequestOrderByRelationAggregateInput
+  reviews?: Prisma.ReviewOrderByRelationAggregateInput
 }
 
 export type ProductWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  id?: string
   AND?: Prisma.ProductWhereInput | Prisma.ProductWhereInput[]
   OR?: Prisma.ProductWhereInput[]
   NOT?: Prisma.ProductWhereInput | Prisma.ProductWhereInput[]
-  name?: Prisma.StringFilter<"Product"> | string
+  postId?: Prisma.StringFilter<"Product"> | string
+  title?: Prisma.StringFilter<"Product"> | string
   description?: Prisma.StringFilter<"Product"> | string
   images?: Prisma.StringNullableListFilter<"Product">
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
-  postId?: Prisma.IntFilter<"Product"> | number
-  receiverId?: Prisma.IntNullableFilter<"Product"> | number | null
+  receiverId?: Prisma.StringNullableFilter<"Product"> | string | null
+  receivedAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
   post?: Prisma.XOR<Prisma.PostScalarRelationFilter, Prisma.PostWhereInput>
-  User?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  request?: Prisma.XOR<Prisma.RequestNullableScalarRelationFilter, Prisma.RequestWhereInput> | null
+  receiver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  requests?: Prisma.RequestListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
 }, "id">
 
 export type ProductOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  postId?: Prisma.SortOrder
+  title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   images?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  postId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrderInput | Prisma.SortOrder
+  receivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ProductCountOrderByAggregateInput
-  _avg?: Prisma.ProductAvgOrderByAggregateInput
   _max?: Prisma.ProductMaxOrderByAggregateInput
   _min?: Prisma.ProductMinOrderByAggregateInput
-  _sum?: Prisma.ProductSumOrderByAggregateInput
 }
 
 export type ProductScalarWhereWithAggregatesInput = {
   AND?: Prisma.ProductScalarWhereWithAggregatesInput | Prisma.ProductScalarWhereWithAggregatesInput[]
   OR?: Prisma.ProductScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ProductScalarWhereWithAggregatesInput | Prisma.ProductScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"Product"> | number
-  name?: Prisma.StringWithAggregatesFilter<"Product"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Product"> | string
+  postId?: Prisma.StringWithAggregatesFilter<"Product"> | string
+  title?: Prisma.StringWithAggregatesFilter<"Product"> | string
   description?: Prisma.StringWithAggregatesFilter<"Product"> | string
   images?: Prisma.StringNullableListFilter<"Product">
   status?: Prisma.EnumProductStatusWithAggregatesFilter<"Product"> | $Enums.ProductStatus
-  postId?: Prisma.IntWithAggregatesFilter<"Product"> | number
-  receiverId?: Prisma.IntNullableWithAggregatesFilter<"Product"> | number | null
+  receiverId?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  receivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
 }
 
 export type ProductCreateInput = {
-  name: string
+  id?: string
+  title: string
   description: string
   images?: Prisma.ProductCreateimagesInput | string[]
   status?: $Enums.ProductStatus
+  receivedAt?: Date | string | null
   post: Prisma.PostCreateNestedOneWithoutProductsInput
-  User?: Prisma.UserCreateNestedOneWithoutProductInput
-  request?: Prisma.RequestCreateNestedOneWithoutProductInput
+  receiver?: Prisma.UserCreateNestedOneWithoutReceivedProductsInput
+  requests?: Prisma.RequestCreateNestedManyWithoutProductsInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutProductInput
 }
 
 export type ProductUncheckedCreateInput = {
-  id?: number
-  name: string
+  id?: string
+  postId: string
+  title: string
   description: string
   images?: Prisma.ProductCreateimagesInput | string[]
   status?: $Enums.ProductStatus
-  postId: number
-  receiverId?: number | null
-  request?: Prisma.RequestUncheckedCreateNestedOneWithoutProductInput
+  receiverId?: string | null
+  receivedAt?: Date | string | null
+  requests?: Prisma.RequestUncheckedCreateNestedManyWithoutProductsInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutProductInput
 }
 
 export type ProductUpdateInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.ProductUpdateimagesInput | string[]
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   post?: Prisma.PostUpdateOneRequiredWithoutProductsNestedInput
-  User?: Prisma.UserUpdateOneWithoutProductNestedInput
-  request?: Prisma.RequestUpdateOneWithoutProductNestedInput
+  receiver?: Prisma.UserUpdateOneWithoutReceivedProductsNestedInput
+  requests?: Prisma.RequestUpdateManyWithoutProductsNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutProductNestedInput
 }
 
 export type ProductUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  postId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.ProductUpdateimagesInput | string[]
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
-  postId?: Prisma.IntFieldUpdateOperationsInput | number
-  receiverId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  request?: Prisma.RequestUncheckedUpdateOneWithoutProductNestedInput
+  receiverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requests?: Prisma.RequestUncheckedUpdateManyWithoutProductsNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutProductNestedInput
 }
 
 export type ProductCreateManyInput = {
-  id?: number
-  name: string
+  id?: string
+  postId: string
+  title: string
   description: string
   images?: Prisma.ProductCreateimagesInput | string[]
   status?: $Enums.ProductStatus
-  postId: number
-  receiverId?: number | null
+  receiverId?: string | null
+  receivedAt?: Date | string | null
 }
 
 export type ProductUpdateManyMutationInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.ProductUpdateimagesInput | string[]
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ProductUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  postId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.ProductUpdateimagesInput | string[]
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
-  postId?: Prisma.IntFieldUpdateOperationsInput | number
-  receiverId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ProductListRelationFilter = {
@@ -379,88 +364,79 @@ export type ProductOrderByRelationAggregateInput = {
 
 export type ProductCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  postId?: Prisma.SortOrder
+  title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   images?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  postId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
-}
-
-export type ProductAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  postId?: Prisma.SortOrder
-  receiverId?: Prisma.SortOrder
+  receivedAt?: Prisma.SortOrder
 }
 
 export type ProductMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  postId?: Prisma.SortOrder
+  title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  postId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
+  receivedAt?: Prisma.SortOrder
 }
 
 export type ProductMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  postId?: Prisma.SortOrder
+  title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  postId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
+  receivedAt?: Prisma.SortOrder
 }
 
-export type ProductSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  postId?: Prisma.SortOrder
-  receiverId?: Prisma.SortOrder
+export type ProductScalarRelationFilter = {
+  is?: Prisma.ProductWhereInput
+  isNot?: Prisma.ProductWhereInput
 }
 
-export type ProductNullableScalarRelationFilter = {
-  is?: Prisma.ProductWhereInput | null
-  isNot?: Prisma.ProductWhereInput | null
-}
-
-export type ProductCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.ProductCreateWithoutUserInput, Prisma.ProductUncheckedCreateWithoutUserInput> | Prisma.ProductCreateWithoutUserInput[] | Prisma.ProductUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutUserInput | Prisma.ProductCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.ProductCreateManyUserInputEnvelope
+export type ProductCreateNestedManyWithoutReceiverInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutReceiverInput, Prisma.ProductUncheckedCreateWithoutReceiverInput> | Prisma.ProductCreateWithoutReceiverInput[] | Prisma.ProductUncheckedCreateWithoutReceiverInput[]
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutReceiverInput | Prisma.ProductCreateOrConnectWithoutReceiverInput[]
+  createMany?: Prisma.ProductCreateManyReceiverInputEnvelope
   connect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
 }
 
-export type ProductUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.ProductCreateWithoutUserInput, Prisma.ProductUncheckedCreateWithoutUserInput> | Prisma.ProductCreateWithoutUserInput[] | Prisma.ProductUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutUserInput | Prisma.ProductCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.ProductCreateManyUserInputEnvelope
+export type ProductUncheckedCreateNestedManyWithoutReceiverInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutReceiverInput, Prisma.ProductUncheckedCreateWithoutReceiverInput> | Prisma.ProductCreateWithoutReceiverInput[] | Prisma.ProductUncheckedCreateWithoutReceiverInput[]
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutReceiverInput | Prisma.ProductCreateOrConnectWithoutReceiverInput[]
+  createMany?: Prisma.ProductCreateManyReceiverInputEnvelope
   connect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
 }
 
-export type ProductUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ProductCreateWithoutUserInput, Prisma.ProductUncheckedCreateWithoutUserInput> | Prisma.ProductCreateWithoutUserInput[] | Prisma.ProductUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutUserInput | Prisma.ProductCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.ProductUpsertWithWhereUniqueWithoutUserInput | Prisma.ProductUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.ProductCreateManyUserInputEnvelope
+export type ProductUpdateManyWithoutReceiverNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutReceiverInput, Prisma.ProductUncheckedCreateWithoutReceiverInput> | Prisma.ProductCreateWithoutReceiverInput[] | Prisma.ProductUncheckedCreateWithoutReceiverInput[]
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutReceiverInput | Prisma.ProductCreateOrConnectWithoutReceiverInput[]
+  upsert?: Prisma.ProductUpsertWithWhereUniqueWithoutReceiverInput | Prisma.ProductUpsertWithWhereUniqueWithoutReceiverInput[]
+  createMany?: Prisma.ProductCreateManyReceiverInputEnvelope
   set?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
   disconnect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
   delete?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
   connect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
-  update?: Prisma.ProductUpdateWithWhereUniqueWithoutUserInput | Prisma.ProductUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.ProductUpdateManyWithWhereWithoutUserInput | Prisma.ProductUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.ProductUpdateWithWhereUniqueWithoutReceiverInput | Prisma.ProductUpdateWithWhereUniqueWithoutReceiverInput[]
+  updateMany?: Prisma.ProductUpdateManyWithWhereWithoutReceiverInput | Prisma.ProductUpdateManyWithWhereWithoutReceiverInput[]
   deleteMany?: Prisma.ProductScalarWhereInput | Prisma.ProductScalarWhereInput[]
 }
 
-export type ProductUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ProductCreateWithoutUserInput, Prisma.ProductUncheckedCreateWithoutUserInput> | Prisma.ProductCreateWithoutUserInput[] | Prisma.ProductUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutUserInput | Prisma.ProductCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.ProductUpsertWithWhereUniqueWithoutUserInput | Prisma.ProductUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.ProductCreateManyUserInputEnvelope
+export type ProductUncheckedUpdateManyWithoutReceiverNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutReceiverInput, Prisma.ProductUncheckedCreateWithoutReceiverInput> | Prisma.ProductCreateWithoutReceiverInput[] | Prisma.ProductUncheckedCreateWithoutReceiverInput[]
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutReceiverInput | Prisma.ProductCreateOrConnectWithoutReceiverInput[]
+  upsert?: Prisma.ProductUpsertWithWhereUniqueWithoutReceiverInput | Prisma.ProductUpsertWithWhereUniqueWithoutReceiverInput[]
+  createMany?: Prisma.ProductCreateManyReceiverInputEnvelope
   set?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
   disconnect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
   delete?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
   connect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
-  update?: Prisma.ProductUpdateWithWhereUniqueWithoutUserInput | Prisma.ProductUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.ProductUpdateManyWithWhereWithoutUserInput | Prisma.ProductUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.ProductUpdateWithWhereUniqueWithoutReceiverInput | Prisma.ProductUpdateWithWhereUniqueWithoutReceiverInput[]
+  updateMany?: Prisma.ProductUpdateManyWithWhereWithoutReceiverInput | Prisma.ProductUpdateManyWithWhereWithoutReceiverInput[]
   deleteMany?: Prisma.ProductScalarWhereInput | Prisma.ProductScalarWhereInput[]
 }
 
@@ -519,105 +495,148 @@ export type EnumProductStatusFieldUpdateOperationsInput = {
   set?: $Enums.ProductStatus
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
-export type ProductCreateNestedOneWithoutRequestInput = {
-  create?: Prisma.XOR<Prisma.ProductCreateWithoutRequestInput, Prisma.ProductUncheckedCreateWithoutRequestInput>
-  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutRequestInput
+export type ProductCreateNestedManyWithoutRequestsInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutRequestsInput, Prisma.ProductUncheckedCreateWithoutRequestsInput> | Prisma.ProductCreateWithoutRequestsInput[] | Prisma.ProductUncheckedCreateWithoutRequestsInput[]
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutRequestsInput | Prisma.ProductCreateOrConnectWithoutRequestsInput[]
+  connect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+}
+
+export type ProductUncheckedCreateNestedManyWithoutRequestsInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutRequestsInput, Prisma.ProductUncheckedCreateWithoutRequestsInput> | Prisma.ProductCreateWithoutRequestsInput[] | Prisma.ProductUncheckedCreateWithoutRequestsInput[]
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutRequestsInput | Prisma.ProductCreateOrConnectWithoutRequestsInput[]
+  connect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+}
+
+export type ProductUpdateManyWithoutRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutRequestsInput, Prisma.ProductUncheckedCreateWithoutRequestsInput> | Prisma.ProductCreateWithoutRequestsInput[] | Prisma.ProductUncheckedCreateWithoutRequestsInput[]
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutRequestsInput | Prisma.ProductCreateOrConnectWithoutRequestsInput[]
+  upsert?: Prisma.ProductUpsertWithWhereUniqueWithoutRequestsInput | Prisma.ProductUpsertWithWhereUniqueWithoutRequestsInput[]
+  set?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  disconnect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  delete?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  connect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  update?: Prisma.ProductUpdateWithWhereUniqueWithoutRequestsInput | Prisma.ProductUpdateWithWhereUniqueWithoutRequestsInput[]
+  updateMany?: Prisma.ProductUpdateManyWithWhereWithoutRequestsInput | Prisma.ProductUpdateManyWithWhereWithoutRequestsInput[]
+  deleteMany?: Prisma.ProductScalarWhereInput | Prisma.ProductScalarWhereInput[]
+}
+
+export type ProductUncheckedUpdateManyWithoutRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutRequestsInput, Prisma.ProductUncheckedCreateWithoutRequestsInput> | Prisma.ProductCreateWithoutRequestsInput[] | Prisma.ProductUncheckedCreateWithoutRequestsInput[]
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutRequestsInput | Prisma.ProductCreateOrConnectWithoutRequestsInput[]
+  upsert?: Prisma.ProductUpsertWithWhereUniqueWithoutRequestsInput | Prisma.ProductUpsertWithWhereUniqueWithoutRequestsInput[]
+  set?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  disconnect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  delete?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  connect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  update?: Prisma.ProductUpdateWithWhereUniqueWithoutRequestsInput | Prisma.ProductUpdateWithWhereUniqueWithoutRequestsInput[]
+  updateMany?: Prisma.ProductUpdateManyWithWhereWithoutRequestsInput | Prisma.ProductUpdateManyWithWhereWithoutRequestsInput[]
+  deleteMany?: Prisma.ProductScalarWhereInput | Prisma.ProductScalarWhereInput[]
+}
+
+export type ProductCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutReviewsInput, Prisma.ProductUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutReviewsInput
   connect?: Prisma.ProductWhereUniqueInput
 }
 
-export type ProductUpdateOneWithoutRequestNestedInput = {
-  create?: Prisma.XOR<Prisma.ProductCreateWithoutRequestInput, Prisma.ProductUncheckedCreateWithoutRequestInput>
-  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutRequestInput
-  upsert?: Prisma.ProductUpsertWithoutRequestInput
-  disconnect?: Prisma.ProductWhereInput | boolean
-  delete?: Prisma.ProductWhereInput | boolean
+export type ProductUpdateOneRequiredWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutReviewsInput, Prisma.ProductUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.ProductUpsertWithoutReviewsInput
   connect?: Prisma.ProductWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutRequestInput, Prisma.ProductUpdateWithoutRequestInput>, Prisma.ProductUncheckedUpdateWithoutRequestInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutReviewsInput, Prisma.ProductUpdateWithoutReviewsInput>, Prisma.ProductUncheckedUpdateWithoutReviewsInput>
 }
 
-export type ProductCreateWithoutUserInput = {
-  name: string
+export type ProductCreateWithoutReceiverInput = {
+  id?: string
+  title: string
   description: string
   images?: Prisma.ProductCreateimagesInput | string[]
   status?: $Enums.ProductStatus
+  receivedAt?: Date | string | null
   post: Prisma.PostCreateNestedOneWithoutProductsInput
-  request?: Prisma.RequestCreateNestedOneWithoutProductInput
+  requests?: Prisma.RequestCreateNestedManyWithoutProductsInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutProductInput
 }
 
-export type ProductUncheckedCreateWithoutUserInput = {
-  id?: number
-  name: string
+export type ProductUncheckedCreateWithoutReceiverInput = {
+  id?: string
+  postId: string
+  title: string
   description: string
   images?: Prisma.ProductCreateimagesInput | string[]
   status?: $Enums.ProductStatus
-  postId: number
-  request?: Prisma.RequestUncheckedCreateNestedOneWithoutProductInput
+  receivedAt?: Date | string | null
+  requests?: Prisma.RequestUncheckedCreateNestedManyWithoutProductsInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutProductInput
 }
 
-export type ProductCreateOrConnectWithoutUserInput = {
+export type ProductCreateOrConnectWithoutReceiverInput = {
   where: Prisma.ProductWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProductCreateWithoutUserInput, Prisma.ProductUncheckedCreateWithoutUserInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutReceiverInput, Prisma.ProductUncheckedCreateWithoutReceiverInput>
 }
 
-export type ProductCreateManyUserInputEnvelope = {
-  data: Prisma.ProductCreateManyUserInput | Prisma.ProductCreateManyUserInput[]
+export type ProductCreateManyReceiverInputEnvelope = {
+  data: Prisma.ProductCreateManyReceiverInput | Prisma.ProductCreateManyReceiverInput[]
   skipDuplicates?: boolean
 }
 
-export type ProductUpsertWithWhereUniqueWithoutUserInput = {
+export type ProductUpsertWithWhereUniqueWithoutReceiverInput = {
   where: Prisma.ProductWhereUniqueInput
-  update: Prisma.XOR<Prisma.ProductUpdateWithoutUserInput, Prisma.ProductUncheckedUpdateWithoutUserInput>
-  create: Prisma.XOR<Prisma.ProductCreateWithoutUserInput, Prisma.ProductUncheckedCreateWithoutUserInput>
+  update: Prisma.XOR<Prisma.ProductUpdateWithoutReceiverInput, Prisma.ProductUncheckedUpdateWithoutReceiverInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutReceiverInput, Prisma.ProductUncheckedCreateWithoutReceiverInput>
 }
 
-export type ProductUpdateWithWhereUniqueWithoutUserInput = {
+export type ProductUpdateWithWhereUniqueWithoutReceiverInput = {
   where: Prisma.ProductWhereUniqueInput
-  data: Prisma.XOR<Prisma.ProductUpdateWithoutUserInput, Prisma.ProductUncheckedUpdateWithoutUserInput>
+  data: Prisma.XOR<Prisma.ProductUpdateWithoutReceiverInput, Prisma.ProductUncheckedUpdateWithoutReceiverInput>
 }
 
-export type ProductUpdateManyWithWhereWithoutUserInput = {
+export type ProductUpdateManyWithWhereWithoutReceiverInput = {
   where: Prisma.ProductScalarWhereInput
-  data: Prisma.XOR<Prisma.ProductUpdateManyMutationInput, Prisma.ProductUncheckedUpdateManyWithoutUserInput>
+  data: Prisma.XOR<Prisma.ProductUpdateManyMutationInput, Prisma.ProductUncheckedUpdateManyWithoutReceiverInput>
 }
 
 export type ProductScalarWhereInput = {
   AND?: Prisma.ProductScalarWhereInput | Prisma.ProductScalarWhereInput[]
   OR?: Prisma.ProductScalarWhereInput[]
   NOT?: Prisma.ProductScalarWhereInput | Prisma.ProductScalarWhereInput[]
-  id?: Prisma.IntFilter<"Product"> | number
-  name?: Prisma.StringFilter<"Product"> | string
+  id?: Prisma.StringFilter<"Product"> | string
+  postId?: Prisma.StringFilter<"Product"> | string
+  title?: Prisma.StringFilter<"Product"> | string
   description?: Prisma.StringFilter<"Product"> | string
   images?: Prisma.StringNullableListFilter<"Product">
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
-  postId?: Prisma.IntFilter<"Product"> | number
-  receiverId?: Prisma.IntNullableFilter<"Product"> | number | null
+  receiverId?: Prisma.StringNullableFilter<"Product"> | string | null
+  receivedAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
 }
 
 export type ProductCreateWithoutPostInput = {
-  name: string
+  id?: string
+  title: string
   description: string
   images?: Prisma.ProductCreateimagesInput | string[]
   status?: $Enums.ProductStatus
-  User?: Prisma.UserCreateNestedOneWithoutProductInput
-  request?: Prisma.RequestCreateNestedOneWithoutProductInput
+  receivedAt?: Date | string | null
+  receiver?: Prisma.UserCreateNestedOneWithoutReceivedProductsInput
+  requests?: Prisma.RequestCreateNestedManyWithoutProductsInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutProductInput
 }
 
 export type ProductUncheckedCreateWithoutPostInput = {
-  id?: number
-  name: string
+  id?: string
+  title: string
   description: string
   images?: Prisma.ProductCreateimagesInput | string[]
   status?: $Enums.ProductStatus
-  receiverId?: number | null
-  request?: Prisma.RequestUncheckedCreateNestedOneWithoutProductInput
+  receiverId?: string | null
+  receivedAt?: Date | string | null
+  requests?: Prisma.RequestUncheckedCreateNestedManyWithoutProductsInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutProductInput
 }
 
 export type ProductCreateOrConnectWithoutPostInput = {
@@ -646,213 +665,365 @@ export type ProductUpdateManyWithWhereWithoutPostInput = {
   data: Prisma.XOR<Prisma.ProductUpdateManyMutationInput, Prisma.ProductUncheckedUpdateManyWithoutPostInput>
 }
 
-export type ProductCreateWithoutRequestInput = {
-  name: string
+export type ProductCreateWithoutRequestsInput = {
+  id?: string
+  title: string
   description: string
   images?: Prisma.ProductCreateimagesInput | string[]
   status?: $Enums.ProductStatus
+  receivedAt?: Date | string | null
   post: Prisma.PostCreateNestedOneWithoutProductsInput
-  User?: Prisma.UserCreateNestedOneWithoutProductInput
+  receiver?: Prisma.UserCreateNestedOneWithoutReceivedProductsInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutProductInput
 }
 
-export type ProductUncheckedCreateWithoutRequestInput = {
-  id?: number
-  name: string
+export type ProductUncheckedCreateWithoutRequestsInput = {
+  id?: string
+  postId: string
+  title: string
   description: string
   images?: Prisma.ProductCreateimagesInput | string[]
   status?: $Enums.ProductStatus
-  postId: number
-  receiverId?: number | null
+  receiverId?: string | null
+  receivedAt?: Date | string | null
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutProductInput
 }
 
-export type ProductCreateOrConnectWithoutRequestInput = {
+export type ProductCreateOrConnectWithoutRequestsInput = {
   where: Prisma.ProductWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProductCreateWithoutRequestInput, Prisma.ProductUncheckedCreateWithoutRequestInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutRequestsInput, Prisma.ProductUncheckedCreateWithoutRequestsInput>
 }
 
-export type ProductUpsertWithoutRequestInput = {
-  update: Prisma.XOR<Prisma.ProductUpdateWithoutRequestInput, Prisma.ProductUncheckedUpdateWithoutRequestInput>
-  create: Prisma.XOR<Prisma.ProductCreateWithoutRequestInput, Prisma.ProductUncheckedCreateWithoutRequestInput>
-  where?: Prisma.ProductWhereInput
+export type ProductUpsertWithWhereUniqueWithoutRequestsInput = {
+  where: Prisma.ProductWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProductUpdateWithoutRequestsInput, Prisma.ProductUncheckedUpdateWithoutRequestsInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutRequestsInput, Prisma.ProductUncheckedCreateWithoutRequestsInput>
 }
 
-export type ProductUpdateToOneWithWhereWithoutRequestInput = {
-  where?: Prisma.ProductWhereInput
-  data: Prisma.XOR<Prisma.ProductUpdateWithoutRequestInput, Prisma.ProductUncheckedUpdateWithoutRequestInput>
+export type ProductUpdateWithWhereUniqueWithoutRequestsInput = {
+  where: Prisma.ProductWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProductUpdateWithoutRequestsInput, Prisma.ProductUncheckedUpdateWithoutRequestsInput>
 }
 
-export type ProductUpdateWithoutRequestInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  images?: Prisma.ProductUpdateimagesInput | string[]
-  status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
-  post?: Prisma.PostUpdateOneRequiredWithoutProductsNestedInput
-  User?: Prisma.UserUpdateOneWithoutProductNestedInput
+export type ProductUpdateManyWithWhereWithoutRequestsInput = {
+  where: Prisma.ProductScalarWhereInput
+  data: Prisma.XOR<Prisma.ProductUpdateManyMutationInput, Prisma.ProductUncheckedUpdateManyWithoutRequestsInput>
 }
 
-export type ProductUncheckedUpdateWithoutRequestInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  images?: Prisma.ProductUpdateimagesInput | string[]
-  status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
-  postId?: Prisma.IntFieldUpdateOperationsInput | number
-  receiverId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type ProductCreateManyUserInput = {
-  id?: number
-  name: string
+export type ProductCreateWithoutReviewsInput = {
+  id?: string
+  title: string
   description: string
   images?: Prisma.ProductCreateimagesInput | string[]
   status?: $Enums.ProductStatus
-  postId: number
+  receivedAt?: Date | string | null
+  post: Prisma.PostCreateNestedOneWithoutProductsInput
+  receiver?: Prisma.UserCreateNestedOneWithoutReceivedProductsInput
+  requests?: Prisma.RequestCreateNestedManyWithoutProductsInput
 }
 
-export type ProductUpdateWithoutUserInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+export type ProductUncheckedCreateWithoutReviewsInput = {
+  id?: string
+  postId: string
+  title: string
+  description: string
+  images?: Prisma.ProductCreateimagesInput | string[]
+  status?: $Enums.ProductStatus
+  receiverId?: string | null
+  receivedAt?: Date | string | null
+  requests?: Prisma.RequestUncheckedCreateNestedManyWithoutProductsInput
+}
+
+export type ProductCreateOrConnectWithoutReviewsInput = {
+  where: Prisma.ProductWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductCreateWithoutReviewsInput, Prisma.ProductUncheckedCreateWithoutReviewsInput>
+}
+
+export type ProductUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.ProductUpdateWithoutReviewsInput, Prisma.ProductUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutReviewsInput, Prisma.ProductUncheckedCreateWithoutReviewsInput>
+  where?: Prisma.ProductWhereInput
+}
+
+export type ProductUpdateToOneWithWhereWithoutReviewsInput = {
+  where?: Prisma.ProductWhereInput
+  data: Prisma.XOR<Prisma.ProductUpdateWithoutReviewsInput, Prisma.ProductUncheckedUpdateWithoutReviewsInput>
+}
+
+export type ProductUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.ProductUpdateimagesInput | string[]
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   post?: Prisma.PostUpdateOneRequiredWithoutProductsNestedInput
-  request?: Prisma.RequestUpdateOneWithoutProductNestedInput
+  receiver?: Prisma.UserUpdateOneWithoutReceivedProductsNestedInput
+  requests?: Prisma.RequestUpdateManyWithoutProductsNestedInput
 }
 
-export type ProductUncheckedUpdateWithoutUserInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+export type ProductUncheckedUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  postId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.ProductUpdateimagesInput | string[]
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
-  postId?: Prisma.IntFieldUpdateOperationsInput | number
-  request?: Prisma.RequestUncheckedUpdateOneWithoutProductNestedInput
+  receiverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requests?: Prisma.RequestUncheckedUpdateManyWithoutProductsNestedInput
 }
 
-export type ProductUncheckedUpdateManyWithoutUserInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+export type ProductCreateManyReceiverInput = {
+  id?: string
+  postId: string
+  title: string
+  description: string
+  images?: Prisma.ProductCreateimagesInput | string[]
+  status?: $Enums.ProductStatus
+  receivedAt?: Date | string | null
+}
+
+export type ProductUpdateWithoutReceiverInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.ProductUpdateimagesInput | string[]
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
-  postId?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  post?: Prisma.PostUpdateOneRequiredWithoutProductsNestedInput
+  requests?: Prisma.RequestUpdateManyWithoutProductsNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutProductNestedInput
+}
+
+export type ProductUncheckedUpdateWithoutReceiverInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  postId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  images?: Prisma.ProductUpdateimagesInput | string[]
+  status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requests?: Prisma.RequestUncheckedUpdateManyWithoutProductsNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutProductNestedInput
+}
+
+export type ProductUncheckedUpdateManyWithoutReceiverInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  postId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  images?: Prisma.ProductUpdateimagesInput | string[]
+  status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ProductCreateManyPostInput = {
-  id?: number
-  name: string
+  id?: string
+  title: string
   description: string
   images?: Prisma.ProductCreateimagesInput | string[]
   status?: $Enums.ProductStatus
-  receiverId?: number | null
+  receiverId?: string | null
+  receivedAt?: Date | string | null
 }
 
 export type ProductUpdateWithoutPostInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.ProductUpdateimagesInput | string[]
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
-  User?: Prisma.UserUpdateOneWithoutProductNestedInput
-  request?: Prisma.RequestUpdateOneWithoutProductNestedInput
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  receiver?: Prisma.UserUpdateOneWithoutReceivedProductsNestedInput
+  requests?: Prisma.RequestUpdateManyWithoutProductsNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutProductNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutPostInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.ProductUpdateimagesInput | string[]
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
-  receiverId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  request?: Prisma.RequestUncheckedUpdateOneWithoutProductNestedInput
+  receiverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requests?: Prisma.RequestUncheckedUpdateManyWithoutProductsNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutProductNestedInput
 }
 
 export type ProductUncheckedUpdateManyWithoutPostInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.ProductUpdateimagesInput | string[]
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
-  receiverId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
+export type ProductUpdateWithoutRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  images?: Prisma.ProductUpdateimagesInput | string[]
+  status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  post?: Prisma.PostUpdateOneRequiredWithoutProductsNestedInput
+  receiver?: Prisma.UserUpdateOneWithoutReceivedProductsNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutProductNestedInput
+}
+
+export type ProductUncheckedUpdateWithoutRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  postId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  images?: Prisma.ProductUpdateimagesInput | string[]
+  status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  receiverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutProductNestedInput
+}
+
+export type ProductUncheckedUpdateManyWithoutRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  postId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  images?: Prisma.ProductUpdateimagesInput | string[]
+  status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  receiverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+
+/**
+ * Count Type ProductCountOutputType
+ */
+
+export type ProductCountOutputType = {
+  requests: number
+  reviews: number
+}
+
+export type ProductCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  requests?: boolean | ProductCountOutputTypeCountRequestsArgs
+  reviews?: boolean | ProductCountOutputTypeCountReviewsArgs
+}
+
+/**
+ * ProductCountOutputType without action
+ */
+export type ProductCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductCountOutputType
+   */
+  select?: Prisma.ProductCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ProductCountOutputType without action
+ */
+export type ProductCountOutputTypeCountRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RequestWhereInput
+}
+
+/**
+ * ProductCountOutputType without action
+ */
+export type ProductCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
 
 
 export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  postId?: boolean
+  title?: boolean
   description?: boolean
   images?: boolean
   status?: boolean
-  postId?: boolean
   receiverId?: boolean
+  receivedAt?: boolean
   post?: boolean | Prisma.PostDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.Product$UserArgs<ExtArgs>
-  request?: boolean | Prisma.Product$requestArgs<ExtArgs>
+  receiver?: boolean | Prisma.Product$receiverArgs<ExtArgs>
+  requests?: boolean | Prisma.Product$requestsArgs<ExtArgs>
+  reviews?: boolean | Prisma.Product$reviewsArgs<ExtArgs>
+  _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["product"]>
 
 export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  postId?: boolean
+  title?: boolean
   description?: boolean
   images?: boolean
   status?: boolean
-  postId?: boolean
   receiverId?: boolean
+  receivedAt?: boolean
   post?: boolean | Prisma.PostDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.Product$UserArgs<ExtArgs>
+  receiver?: boolean | Prisma.Product$receiverArgs<ExtArgs>
 }, ExtArgs["result"]["product"]>
 
 export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  postId?: boolean
+  title?: boolean
   description?: boolean
   images?: boolean
   status?: boolean
-  postId?: boolean
   receiverId?: boolean
+  receivedAt?: boolean
   post?: boolean | Prisma.PostDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.Product$UserArgs<ExtArgs>
+  receiver?: boolean | Prisma.Product$receiverArgs<ExtArgs>
 }, ExtArgs["result"]["product"]>
 
 export type ProductSelectScalar = {
   id?: boolean
-  name?: boolean
+  postId?: boolean
+  title?: boolean
   description?: boolean
   images?: boolean
   status?: boolean
-  postId?: boolean
   receiverId?: boolean
+  receivedAt?: boolean
 }
 
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "images" | "status" | "postId" | "receiverId", ExtArgs["result"]["product"]>
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "postId" | "title" | "description" | "images" | "status" | "receiverId" | "receivedAt", ExtArgs["result"]["product"]>
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   post?: boolean | Prisma.PostDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.Product$UserArgs<ExtArgs>
-  request?: boolean | Prisma.Product$requestArgs<ExtArgs>
+  receiver?: boolean | Prisma.Product$receiverArgs<ExtArgs>
+  requests?: boolean | Prisma.Product$requestsArgs<ExtArgs>
+  reviews?: boolean | Prisma.Product$reviewsArgs<ExtArgs>
+  _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProductIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   post?: boolean | Prisma.PostDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.Product$UserArgs<ExtArgs>
+  receiver?: boolean | Prisma.Product$receiverArgs<ExtArgs>
 }
 export type ProductIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   post?: boolean | Prisma.PostDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.Product$UserArgs<ExtArgs>
+  receiver?: boolean | Prisma.Product$receiverArgs<ExtArgs>
 }
 
 export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Product"
   objects: {
     post: Prisma.$PostPayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs> | null
-    request: Prisma.$RequestPayload<ExtArgs> | null
+    receiver: Prisma.$UserPayload<ExtArgs> | null
+    requests: Prisma.$RequestPayload<ExtArgs>[]
+    reviews: Prisma.$ReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
-    name: string
+    id: string
+    postId: string
+    title: string
     description: string
     images: string[]
     status: $Enums.ProductStatus
-    postId: number
-    receiverId: number | null
+    receiverId: string | null
+    receivedAt: Date | null
   }, ExtArgs["result"]["product"]>
   composites: {}
 }
@@ -1248,8 +1419,9 @@ readonly fields: ProductFieldRefs;
 export interface Prisma__ProductClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   post<T extends Prisma.PostDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PostDefaultArgs<ExtArgs>>): Prisma.Prisma__PostClient<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.Product$UserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$UserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  request<T extends Prisma.Product$requestArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$requestArgs<ExtArgs>>): Prisma.Prisma__RequestClient<runtime.Types.Result.GetResult<Prisma.$RequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  receiver<T extends Prisma.Product$receiverArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$receiverArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  requests<T extends Prisma.Product$requestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$requestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviews<T extends Prisma.Product$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1279,13 +1451,14 @@ export interface Prisma__ProductClient<T, Null = never, ExtArgs extends runtime.
  * Fields of the Product model
  */
 export interface ProductFieldRefs {
-  readonly id: Prisma.FieldRef<"Product", 'Int'>
-  readonly name: Prisma.FieldRef<"Product", 'String'>
+  readonly id: Prisma.FieldRef<"Product", 'String'>
+  readonly postId: Prisma.FieldRef<"Product", 'String'>
+  readonly title: Prisma.FieldRef<"Product", 'String'>
   readonly description: Prisma.FieldRef<"Product", 'String'>
   readonly images: Prisma.FieldRef<"Product", 'String[]'>
   readonly status: Prisma.FieldRef<"Product", 'ProductStatus'>
-  readonly postId: Prisma.FieldRef<"Product", 'Int'>
-  readonly receiverId: Prisma.FieldRef<"Product", 'Int'>
+  readonly receiverId: Prisma.FieldRef<"Product", 'String'>
+  readonly receivedAt: Prisma.FieldRef<"Product", 'DateTime'>
 }
     
 
@@ -1682,9 +1855,9 @@ export type ProductDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Product.User
+ * Product.receiver
  */
-export type Product$UserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Product$receiverArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the User
    */
@@ -1701,9 +1874,9 @@ export type Product$UserArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 }
 
 /**
- * Product.request
+ * Product.requests
  */
-export type Product$requestArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Product$requestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Request
    */
@@ -1717,6 +1890,35 @@ export type Product$requestArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   include?: Prisma.RequestInclude<ExtArgs> | null
   where?: Prisma.RequestWhereInput
+  orderBy?: Prisma.RequestOrderByWithRelationInput | Prisma.RequestOrderByWithRelationInput[]
+  cursor?: Prisma.RequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RequestScalarFieldEnum | Prisma.RequestScalarFieldEnum[]
+}
+
+/**
+ * Product.reviews
+ */
+export type Product$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
 }
 
 /**

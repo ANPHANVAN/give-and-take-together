@@ -27,61 +27,57 @@ export type AggregateUser = {
 }
 
 export type UserAvgAggregateOutputType = {
-  id: number | null
   trustScore: number | null
   givenCount: number | null
   receivedCount: number | null
-  onTimeRate: number | null
 }
 
 export type UserSumAggregateOutputType = {
-  id: number | null
   trustScore: number | null
   givenCount: number | null
   receivedCount: number | null
-  onTimeRate: number | null
 }
 
 export type UserMinAggregateOutputType = {
-  id: number | null
-  username: string | null
+  id: string | null
+  fullname: string | null
   email: string | null
   passwordHash: string | null
+  avatarUrl: string | null
   phone: string | null
   trustScore: number | null
   givenCount: number | null
   receivedCount: number | null
-  onTimeRate: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
-  id: number | null
-  username: string | null
+  id: string | null
+  fullname: string | null
   email: string | null
   passwordHash: string | null
+  avatarUrl: string | null
   phone: string | null
   trustScore: number | null
   givenCount: number | null
   receivedCount: number | null
-  onTimeRate: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
   id: number
-  username: number
+  fullname: number
   email: number
   passwordHash: number
+  avatarUrl: number
   phone: number
   socialLinks: number
   trustScore: number
   badges: number
   givenCount: number
   receivedCount: number
-  onTimeRate: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -89,61 +85,57 @@ export type UserCountAggregateOutputType = {
 
 
 export type UserAvgAggregateInputType = {
-  id?: true
   trustScore?: true
   givenCount?: true
   receivedCount?: true
-  onTimeRate?: true
 }
 
 export type UserSumAggregateInputType = {
-  id?: true
   trustScore?: true
   givenCount?: true
   receivedCount?: true
-  onTimeRate?: true
 }
 
 export type UserMinAggregateInputType = {
   id?: true
-  username?: true
+  fullname?: true
   email?: true
   passwordHash?: true
+  avatarUrl?: true
   phone?: true
   trustScore?: true
   givenCount?: true
   receivedCount?: true
-  onTimeRate?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type UserMaxAggregateInputType = {
   id?: true
-  username?: true
+  fullname?: true
   email?: true
   passwordHash?: true
+  avatarUrl?: true
   phone?: true
   trustScore?: true
   givenCount?: true
   receivedCount?: true
-  onTimeRate?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type UserCountAggregateInputType = {
   id?: true
-  username?: true
+  fullname?: true
   email?: true
   passwordHash?: true
+  avatarUrl?: true
   phone?: true
   socialLinks?: true
   trustScore?: true
   badges?: true
   givenCount?: true
   receivedCount?: true
-  onTimeRate?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -236,17 +228,17 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 
 export type UserGroupByOutputType = {
-  id: number
-  username: string
+  id: string
+  fullname: string
   email: string
   passwordHash: string
+  avatarUrl: string | null
   phone: string | null
   socialLinks: runtime.JsonValue | null
   trustScore: number
   badges: string[]
   givenCount: number
   receivedCount: number
-  onTimeRate: number
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -275,89 +267,92 @@ export type UserWhereInput = {
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  id?: Prisma.IntFilter<"User"> | number
-  username?: Prisma.StringFilter<"User"> | string
+  id?: Prisma.StringFilter<"User"> | string
+  fullname?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
   passwordHash?: Prisma.StringFilter<"User"> | string
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   socialLinks?: Prisma.JsonNullableFilter<"User">
   trustScore?: Prisma.FloatFilter<"User"> | number
   badges?: Prisma.StringNullableListFilter<"User">
   givenCount?: Prisma.IntFilter<"User"> | number
   receivedCount?: Prisma.IntFilter<"User"> | number
-  onTimeRate?: Prisma.FloatFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  chatsAsUser1?: Prisma.ChatListRelationFilter
-  chatsAsUser2?: Prisma.ChatListRelationFilter
-  notifications?: Prisma.NotificationListRelationFilter
   posts?: Prisma.PostListRelationFilter
-  Product?: Prisma.ProductListRelationFilter
+  sentMessages?: Prisma.MessageListRelationFilter
+  chatRooms?: Prisma.ChatRoomListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
+  reviewsGiven?: Prisma.ReviewListRelationFilter
+  reviewsReceived?: Prisma.ReviewListRelationFilter
+  receivedProducts?: Prisma.ProductListRelationFilter
   requests?: Prisma.RequestListRelationFilter
-  reviews?: Prisma.ReviewListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  username?: Prisma.SortOrder
+  fullname?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   socialLinks?: Prisma.SortOrderInput | Prisma.SortOrder
   trustScore?: Prisma.SortOrder
   badges?: Prisma.SortOrder
   givenCount?: Prisma.SortOrder
   receivedCount?: Prisma.SortOrder
-  onTimeRate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  chatsAsUser1?: Prisma.ChatOrderByRelationAggregateInput
-  chatsAsUser2?: Prisma.ChatOrderByRelationAggregateInput
-  notifications?: Prisma.NotificationOrderByRelationAggregateInput
   posts?: Prisma.PostOrderByRelationAggregateInput
-  Product?: Prisma.ProductOrderByRelationAggregateInput
+  sentMessages?: Prisma.MessageOrderByRelationAggregateInput
+  chatRooms?: Prisma.ChatRoomOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
+  reviewsGiven?: Prisma.ReviewOrderByRelationAggregateInput
+  reviewsReceived?: Prisma.ReviewOrderByRelationAggregateInput
+  receivedProducts?: Prisma.ProductOrderByRelationAggregateInput
   requests?: Prisma.RequestOrderByRelationAggregateInput
-  reviews?: Prisma.ReviewOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
-  username?: string
+  id?: string
   email?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
+  fullname?: Prisma.StringFilter<"User"> | string
   passwordHash?: Prisma.StringFilter<"User"> | string
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   socialLinks?: Prisma.JsonNullableFilter<"User">
   trustScore?: Prisma.FloatFilter<"User"> | number
   badges?: Prisma.StringNullableListFilter<"User">
   givenCount?: Prisma.IntFilter<"User"> | number
   receivedCount?: Prisma.IntFilter<"User"> | number
-  onTimeRate?: Prisma.FloatFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  chatsAsUser1?: Prisma.ChatListRelationFilter
-  chatsAsUser2?: Prisma.ChatListRelationFilter
-  notifications?: Prisma.NotificationListRelationFilter
   posts?: Prisma.PostListRelationFilter
-  Product?: Prisma.ProductListRelationFilter
+  sentMessages?: Prisma.MessageListRelationFilter
+  chatRooms?: Prisma.ChatRoomListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
+  reviewsGiven?: Prisma.ReviewListRelationFilter
+  reviewsReceived?: Prisma.ReviewListRelationFilter
+  receivedProducts?: Prisma.ProductListRelationFilter
   requests?: Prisma.RequestListRelationFilter
-  reviews?: Prisma.ReviewListRelationFilter
-}, "id" | "username" | "email">
+}, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  username?: Prisma.SortOrder
+  fullname?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   socialLinks?: Prisma.SortOrderInput | Prisma.SortOrder
   trustScore?: Prisma.SortOrder
   badges?: Prisma.SortOrder
   givenCount?: Prisma.SortOrder
   receivedCount?: Prisma.SortOrder
-  onTimeRate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -371,154 +366,161 @@ export type UserScalarWhereWithAggregatesInput = {
   AND?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   OR?: Prisma.UserScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"User"> | number
-  username?: Prisma.StringWithAggregatesFilter<"User"> | string
+  id?: Prisma.StringWithAggregatesFilter<"User"> | string
+  fullname?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
+  avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   socialLinks?: Prisma.JsonNullableWithAggregatesFilter<"User">
   trustScore?: Prisma.FloatWithAggregatesFilter<"User"> | number
   badges?: Prisma.StringNullableListFilter<"User">
   givenCount?: Prisma.IntWithAggregatesFilter<"User"> | number
   receivedCount?: Prisma.IntWithAggregatesFilter<"User"> | number
-  onTimeRate?: Prisma.FloatWithAggregatesFilter<"User"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
 export type UserCreateInput = {
-  username: string
+  id?: string
+  fullname: string
   email: string
   passwordHash: string
+  avatarUrl?: string | null
   phone?: string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
   givenCount?: number
   receivedCount?: number
-  onTimeRate?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  chatsAsUser1?: Prisma.ChatCreateNestedManyWithoutUser1Input
-  chatsAsUser2?: Prisma.ChatCreateNestedManyWithoutUser2Input
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutGiverInput
-  Product?: Prisma.ProductCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  chatRooms?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutReviewedInput
+  receivedProducts?: Prisma.ProductCreateNestedManyWithoutReceiverInput
   requests?: Prisma.RequestCreateNestedManyWithoutReceiverInput
-  reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateInput = {
-  id?: number
-  username: string
+  id?: string
+  fullname: string
   email: string
   passwordHash: string
+  avatarUrl?: string | null
   phone?: string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
   givenCount?: number
   receivedCount?: number
-  onTimeRate?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  chatsAsUser1?: Prisma.ChatUncheckedCreateNestedManyWithoutUser1Input
-  chatsAsUser2?: Prisma.ChatUncheckedCreateNestedManyWithoutUser2Input
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
-  Product?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  chatRooms?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewedInput
+  receivedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutReceiverInput
   requests?: Prisma.RequestUncheckedCreateNestedManyWithoutReceiverInput
-  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUpdateInput = {
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser1?: Prisma.ChatUpdateManyWithoutUser1NestedInput
-  chatsAsUser2?: Prisma.ChatUpdateManyWithoutUser2NestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
-  Product?: Prisma.ProductUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  chatRooms?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutReviewedNestedInput
+  receivedProducts?: Prisma.ProductUpdateManyWithoutReceiverNestedInput
   requests?: Prisma.RequestUpdateManyWithoutReceiverNestedInput
-  reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser1?: Prisma.ChatUncheckedUpdateManyWithoutUser1NestedInput
-  chatsAsUser2?: Prisma.ChatUncheckedUpdateManyWithoutUser2NestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
-  Product?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  chatRooms?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutReviewedNestedInput
+  receivedProducts?: Prisma.ProductUncheckedUpdateManyWithoutReceiverNestedInput
   requests?: Prisma.RequestUncheckedUpdateManyWithoutReceiverNestedInput
-  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserCreateManyInput = {
-  id?: number
-  username: string
+  id?: string
+  fullname: string
   email: string
   passwordHash: string
+  avatarUrl?: string | null
   phone?: string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
   givenCount?: number
   receivedCount?: number
-  onTimeRate?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type UserUpdateManyMutationInput = {
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -533,62 +535,58 @@ export type StringNullableListFilter<$PrismaModel = never> = {
 
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  username?: Prisma.SortOrder
+  fullname?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   socialLinks?: Prisma.SortOrder
   trustScore?: Prisma.SortOrder
   badges?: Prisma.SortOrder
   givenCount?: Prisma.SortOrder
   receivedCount?: Prisma.SortOrder
-  onTimeRate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   trustScore?: Prisma.SortOrder
   givenCount?: Prisma.SortOrder
   receivedCount?: Prisma.SortOrder
-  onTimeRate?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  username?: Prisma.SortOrder
+  fullname?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   trustScore?: Prisma.SortOrder
   givenCount?: Prisma.SortOrder
   receivedCount?: Prisma.SortOrder
-  onTimeRate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  username?: Prisma.SortOrder
+  fullname?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   trustScore?: Prisma.SortOrder
   givenCount?: Prisma.SortOrder
   receivedCount?: Prisma.SortOrder
-  onTimeRate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   trustScore?: Prisma.SortOrder
   givenCount?: Prisma.SortOrder
   receivedCount?: Prisma.SortOrder
-  onTimeRate?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -599,6 +597,16 @@ export type UserScalarRelationFilter = {
 export type UserNullableScalarRelationFilter = {
   is?: Prisma.UserWhereInput | null
   isNot?: Prisma.UserWhereInput | null
+}
+
+export type UserListRelationFilter = {
+  every?: Prisma.UserWhereInput
+  some?: Prisma.UserWhereInput
+  none?: Prisma.UserWhereInput
+}
+
+export type UserOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type UserCreatebadgesInput = {
@@ -652,20 +660,20 @@ export type UserUpdateOneRequiredWithoutPostsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPostsInput, Prisma.UserUpdateWithoutPostsInput>, Prisma.UserUncheckedUpdateWithoutPostsInput>
 }
 
-export type UserCreateNestedOneWithoutProductInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutProductInput, Prisma.UserUncheckedCreateWithoutProductInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProductInput
+export type UserCreateNestedOneWithoutReceivedProductsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedProductsInput, Prisma.UserUncheckedCreateWithoutReceivedProductsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedProductsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneWithoutProductNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutProductInput, Prisma.UserUncheckedCreateWithoutProductInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProductInput
-  upsert?: Prisma.UserUpsertWithoutProductInput
+export type UserUpdateOneWithoutReceivedProductsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedProductsInput, Prisma.UserUncheckedCreateWithoutReceivedProductsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedProductsInput
+  upsert?: Prisma.UserUpsertWithoutReceivedProductsInput
   disconnect?: Prisma.UserWhereInput | boolean
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProductInput, Prisma.UserUpdateWithoutProductInput>, Prisma.UserUncheckedUpdateWithoutProductInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReceivedProductsInput, Prisma.UserUpdateWithoutReceivedProductsInput>, Prisma.UserUncheckedUpdateWithoutReceivedProductsInput>
 }
 
 export type UserCreateNestedOneWithoutRequestsInput = {
@@ -682,32 +690,84 @@ export type UserUpdateOneRequiredWithoutRequestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRequestsInput, Prisma.UserUpdateWithoutRequestsInput>, Prisma.UserUncheckedUpdateWithoutRequestsInput>
 }
 
-export type UserCreateNestedOneWithoutChatsAsUser1Input = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutChatsAsUser1Input, Prisma.UserUncheckedCreateWithoutChatsAsUser1Input>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatsAsUser1Input
+export type UserCreateNestedManyWithoutChatRoomsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatRoomsInput, Prisma.UserUncheckedCreateWithoutChatRoomsInput> | Prisma.UserCreateWithoutChatRoomsInput[] | Prisma.UserUncheckedCreateWithoutChatRoomsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatRoomsInput | Prisma.UserCreateOrConnectWithoutChatRoomsInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUncheckedCreateNestedManyWithoutChatRoomsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatRoomsInput, Prisma.UserUncheckedCreateWithoutChatRoomsInput> | Prisma.UserCreateWithoutChatRoomsInput[] | Prisma.UserUncheckedCreateWithoutChatRoomsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatRoomsInput | Prisma.UserCreateOrConnectWithoutChatRoomsInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUpdateManyWithoutChatRoomsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatRoomsInput, Prisma.UserUncheckedCreateWithoutChatRoomsInput> | Prisma.UserCreateWithoutChatRoomsInput[] | Prisma.UserUncheckedCreateWithoutChatRoomsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatRoomsInput | Prisma.UserCreateOrConnectWithoutChatRoomsInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutChatRoomsInput | Prisma.UserUpsertWithWhereUniqueWithoutChatRoomsInput[]
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutChatRoomsInput | Prisma.UserUpdateWithWhereUniqueWithoutChatRoomsInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutChatRoomsInput | Prisma.UserUpdateManyWithWhereWithoutChatRoomsInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserUncheckedUpdateManyWithoutChatRoomsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatRoomsInput, Prisma.UserUncheckedCreateWithoutChatRoomsInput> | Prisma.UserCreateWithoutChatRoomsInput[] | Prisma.UserUncheckedCreateWithoutChatRoomsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatRoomsInput | Prisma.UserCreateOrConnectWithoutChatRoomsInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutChatRoomsInput | Prisma.UserUpsertWithWhereUniqueWithoutChatRoomsInput[]
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutChatRoomsInput | Prisma.UserUpdateWithWhereUniqueWithoutChatRoomsInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutChatRoomsInput | Prisma.UserUpdateManyWithWhereWithoutChatRoomsInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserCreateNestedOneWithoutSentMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserCreateNestedOneWithoutChatsAsUser2Input = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutChatsAsUser2Input, Prisma.UserUncheckedCreateWithoutChatsAsUser2Input>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatsAsUser2Input
+export type UserUpdateOneRequiredWithoutSentMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
+  upsert?: Prisma.UserUpsertWithoutSentMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentMessagesInput, Prisma.UserUpdateWithoutSentMessagesInput>, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
+}
+
+export type UserCreateNestedOneWithoutReviewsGivenInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsGivenInput, Prisma.UserUncheckedCreateWithoutReviewsGivenInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsGivenInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutChatsAsUser1NestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutChatsAsUser1Input, Prisma.UserUncheckedCreateWithoutChatsAsUser1Input>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatsAsUser1Input
-  upsert?: Prisma.UserUpsertWithoutChatsAsUser1Input
+export type UserCreateNestedOneWithoutReviewsReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutReviewsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsReceivedInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutChatsAsUser1Input, Prisma.UserUpdateWithoutChatsAsUser1Input>, Prisma.UserUncheckedUpdateWithoutChatsAsUser1Input>
 }
 
-export type UserUpdateOneRequiredWithoutChatsAsUser2NestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutChatsAsUser2Input, Prisma.UserUncheckedCreateWithoutChatsAsUser2Input>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatsAsUser2Input
-  upsert?: Prisma.UserUpsertWithoutChatsAsUser2Input
+export type UserUpdateOneRequiredWithoutReviewsGivenNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsGivenInput, Prisma.UserUncheckedCreateWithoutReviewsGivenInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsGivenInput
+  upsert?: Prisma.UserUpsertWithoutReviewsGivenInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutChatsAsUser2Input, Prisma.UserUpdateWithoutChatsAsUser2Input>, Prisma.UserUncheckedUpdateWithoutChatsAsUser2Input>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsGivenInput, Prisma.UserUpdateWithoutReviewsGivenInput>, Prisma.UserUncheckedUpdateWithoutReviewsGivenInput>
+}
+
+export type UserUpdateOneRequiredWithoutReviewsReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutReviewsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsReceivedInput
+  upsert?: Prisma.UserUpsertWithoutReviewsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsReceivedInput, Prisma.UserUpdateWithoutReviewsReceivedInput>, Prisma.UserUncheckedUpdateWithoutReviewsReceivedInput>
 }
 
 export type UserCreateNestedOneWithoutNotificationsInput = {
@@ -724,61 +784,50 @@ export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
 }
 
-export type UserCreateNestedOneWithoutReviewsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutReviewsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsInput
-  upsert?: Prisma.UserUpsertWithoutReviewsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsInput, Prisma.UserUpdateWithoutReviewsInput>, Prisma.UserUncheckedUpdateWithoutReviewsInput>
-}
-
 export type UserCreateWithoutPostsInput = {
-  username: string
+  id?: string
+  fullname: string
   email: string
   passwordHash: string
+  avatarUrl?: string | null
   phone?: string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
   givenCount?: number
   receivedCount?: number
-  onTimeRate?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  chatsAsUser1?: Prisma.ChatCreateNestedManyWithoutUser1Input
-  chatsAsUser2?: Prisma.ChatCreateNestedManyWithoutUser2Input
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  chatRooms?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  Product?: Prisma.ProductCreateNestedManyWithoutUserInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutReviewedInput
+  receivedProducts?: Prisma.ProductCreateNestedManyWithoutReceiverInput
   requests?: Prisma.RequestCreateNestedManyWithoutReceiverInput
-  reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutPostsInput = {
-  id?: number
-  username: string
+  id?: string
+  fullname: string
   email: string
   passwordHash: string
+  avatarUrl?: string | null
   phone?: string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
   givenCount?: number
   receivedCount?: number
-  onTimeRate?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  chatsAsUser1?: Prisma.ChatUncheckedCreateNestedManyWithoutUser1Input
-  chatsAsUser2?: Prisma.ChatUncheckedCreateNestedManyWithoutUser2Input
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  chatRooms?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  Product?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewedInput
+  receivedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutReceiverInput
   requests?: Prisma.RequestUncheckedCreateNestedManyWithoutReceiverInput
-  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutPostsInput = {
@@ -798,191 +847,203 @@ export type UserUpdateToOneWithWhereWithoutPostsInput = {
 }
 
 export type UserUpdateWithoutPostsInput = {
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser1?: Prisma.ChatUpdateManyWithoutUser1NestedInput
-  chatsAsUser2?: Prisma.ChatUpdateManyWithoutUser2NestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  chatRooms?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  Product?: Prisma.ProductUpdateManyWithoutUserNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutReviewedNestedInput
+  receivedProducts?: Prisma.ProductUpdateManyWithoutReceiverNestedInput
   requests?: Prisma.RequestUpdateManyWithoutReceiverNestedInput
-  reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser1?: Prisma.ChatUncheckedUpdateManyWithoutUser1NestedInput
-  chatsAsUser2?: Prisma.ChatUncheckedUpdateManyWithoutUser2NestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  chatRooms?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  Product?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutReviewedNestedInput
+  receivedProducts?: Prisma.ProductUncheckedUpdateManyWithoutReceiverNestedInput
   requests?: Prisma.RequestUncheckedUpdateManyWithoutReceiverNestedInput
-  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
-export type UserCreateWithoutProductInput = {
-  username: string
+export type UserCreateWithoutReceivedProductsInput = {
+  id?: string
+  fullname: string
   email: string
   passwordHash: string
+  avatarUrl?: string | null
   phone?: string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
   givenCount?: number
   receivedCount?: number
-  onTimeRate?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  chatsAsUser1?: Prisma.ChatCreateNestedManyWithoutUser1Input
-  chatsAsUser2?: Prisma.ChatCreateNestedManyWithoutUser2Input
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutGiverInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  chatRooms?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutReviewedInput
   requests?: Prisma.RequestCreateNestedManyWithoutReceiverInput
-  reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
 }
 
-export type UserUncheckedCreateWithoutProductInput = {
-  id?: number
-  username: string
+export type UserUncheckedCreateWithoutReceivedProductsInput = {
+  id?: string
+  fullname: string
   email: string
   passwordHash: string
+  avatarUrl?: string | null
   phone?: string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
   givenCount?: number
   receivedCount?: number
-  onTimeRate?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  chatsAsUser1?: Prisma.ChatUncheckedCreateNestedManyWithoutUser1Input
-  chatsAsUser2?: Prisma.ChatUncheckedCreateNestedManyWithoutUser2Input
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  chatRooms?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewedInput
   requests?: Prisma.RequestUncheckedCreateNestedManyWithoutReceiverInput
-  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
 }
 
-export type UserCreateOrConnectWithoutProductInput = {
+export type UserCreateOrConnectWithoutReceivedProductsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutProductInput, Prisma.UserUncheckedCreateWithoutProductInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedProductsInput, Prisma.UserUncheckedCreateWithoutReceivedProductsInput>
 }
 
-export type UserUpsertWithoutProductInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutProductInput, Prisma.UserUncheckedUpdateWithoutProductInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutProductInput, Prisma.UserUncheckedCreateWithoutProductInput>
+export type UserUpsertWithoutReceivedProductsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReceivedProductsInput, Prisma.UserUncheckedUpdateWithoutReceivedProductsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedProductsInput, Prisma.UserUncheckedCreateWithoutReceivedProductsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutProductInput = {
+export type UserUpdateToOneWithWhereWithoutReceivedProductsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutProductInput, Prisma.UserUncheckedUpdateWithoutProductInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReceivedProductsInput, Prisma.UserUncheckedUpdateWithoutReceivedProductsInput>
 }
 
-export type UserUpdateWithoutProductInput = {
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+export type UserUpdateWithoutReceivedProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser1?: Prisma.ChatUpdateManyWithoutUser1NestedInput
-  chatsAsUser2?: Prisma.ChatUpdateManyWithoutUser2NestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  chatRooms?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutReviewedNestedInput
   requests?: Prisma.RequestUpdateManyWithoutReceiverNestedInput
-  reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
 }
 
-export type UserUncheckedUpdateWithoutProductInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+export type UserUncheckedUpdateWithoutReceivedProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser1?: Prisma.ChatUncheckedUpdateManyWithoutUser1NestedInput
-  chatsAsUser2?: Prisma.ChatUncheckedUpdateManyWithoutUser2NestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  chatRooms?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutReviewedNestedInput
   requests?: Prisma.RequestUncheckedUpdateManyWithoutReceiverNestedInput
-  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserCreateWithoutRequestsInput = {
-  username: string
+  id?: string
+  fullname: string
   email: string
   passwordHash: string
+  avatarUrl?: string | null
   phone?: string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
   givenCount?: number
   receivedCount?: number
-  onTimeRate?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  chatsAsUser1?: Prisma.ChatCreateNestedManyWithoutUser1Input
-  chatsAsUser2?: Prisma.ChatCreateNestedManyWithoutUser2Input
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutGiverInput
-  Product?: Prisma.ProductCreateNestedManyWithoutUserInput
-  reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  chatRooms?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutReviewedInput
+  receivedProducts?: Prisma.ProductCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutRequestsInput = {
-  id?: number
-  username: string
+  id?: string
+  fullname: string
   email: string
   passwordHash: string
+  avatarUrl?: string | null
   phone?: string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
   givenCount?: number
   receivedCount?: number
-  onTimeRate?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  chatsAsUser1?: Prisma.ChatUncheckedCreateNestedManyWithoutUser1Input
-  chatsAsUser2?: Prisma.ChatUncheckedCreateNestedManyWithoutUser2Input
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
-  Product?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
-  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  chatRooms?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewedInput
+  receivedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutRequestsInput = {
@@ -1002,293 +1063,505 @@ export type UserUpdateToOneWithWhereWithoutRequestsInput = {
 }
 
 export type UserUpdateWithoutRequestsInput = {
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser1?: Prisma.ChatUpdateManyWithoutUser1NestedInput
-  chatsAsUser2?: Prisma.ChatUpdateManyWithoutUser2NestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
-  Product?: Prisma.ProductUpdateManyWithoutUserNestedInput
-  reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  chatRooms?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutReviewedNestedInput
+  receivedProducts?: Prisma.ProductUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser1?: Prisma.ChatUncheckedUpdateManyWithoutUser1NestedInput
-  chatsAsUser2?: Prisma.ChatUncheckedUpdateManyWithoutUser2NestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
-  Product?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
-  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  chatRooms?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutReviewedNestedInput
+  receivedProducts?: Prisma.ProductUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
-export type UserCreateWithoutChatsAsUser1Input = {
-  username: string
+export type UserCreateWithoutChatRoomsInput = {
+  id?: string
+  fullname: string
   email: string
   passwordHash: string
+  avatarUrl?: string | null
   phone?: string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
   givenCount?: number
   receivedCount?: number
-  onTimeRate?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  chatsAsUser2?: Prisma.ChatCreateNestedManyWithoutUser2Input
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutGiverInput
-  Product?: Prisma.ProductCreateNestedManyWithoutUserInput
-  requests?: Prisma.RequestCreateNestedManyWithoutReceiverInput
-  reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
-}
-
-export type UserUncheckedCreateWithoutChatsAsUser1Input = {
-  id?: number
-  username: string
-  email: string
-  passwordHash: string
-  phone?: string | null
-  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  trustScore?: number
-  badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: number
-  receivedCount?: number
-  onTimeRate?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  chatsAsUser2?: Prisma.ChatUncheckedCreateNestedManyWithoutUser2Input
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
-  Product?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
-  requests?: Prisma.RequestUncheckedCreateNestedManyWithoutReceiverInput
-  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
-}
-
-export type UserCreateOrConnectWithoutChatsAsUser1Input = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutChatsAsUser1Input, Prisma.UserUncheckedCreateWithoutChatsAsUser1Input>
-}
-
-export type UserCreateWithoutChatsAsUser2Input = {
-  username: string
-  email: string
-  passwordHash: string
-  phone?: string | null
-  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  trustScore?: number
-  badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: number
-  receivedCount?: number
-  onTimeRate?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  chatsAsUser1?: Prisma.ChatCreateNestedManyWithoutUser1Input
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  posts?: Prisma.PostCreateNestedManyWithoutGiverInput
-  Product?: Prisma.ProductCreateNestedManyWithoutUserInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutReviewedInput
+  receivedProducts?: Prisma.ProductCreateNestedManyWithoutReceiverInput
   requests?: Prisma.RequestCreateNestedManyWithoutReceiverInput
-  reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
 }
 
-export type UserUncheckedCreateWithoutChatsAsUser2Input = {
-  id?: number
-  username: string
+export type UserUncheckedCreateWithoutChatRoomsInput = {
+  id?: string
+  fullname: string
   email: string
   passwordHash: string
+  avatarUrl?: string | null
   phone?: string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
   givenCount?: number
   receivedCount?: number
-  onTimeRate?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  chatsAsUser1?: Prisma.ChatUncheckedCreateNestedManyWithoutUser1Input
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
-  Product?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewedInput
+  receivedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutReceiverInput
   requests?: Prisma.RequestUncheckedCreateNestedManyWithoutReceiverInput
-  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
 }
 
-export type UserCreateOrConnectWithoutChatsAsUser2Input = {
+export type UserCreateOrConnectWithoutChatRoomsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutChatsAsUser2Input, Prisma.UserUncheckedCreateWithoutChatsAsUser2Input>
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatRoomsInput, Prisma.UserUncheckedCreateWithoutChatRoomsInput>
 }
 
-export type UserUpsertWithoutChatsAsUser1Input = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutChatsAsUser1Input, Prisma.UserUncheckedUpdateWithoutChatsAsUser1Input>
-  create: Prisma.XOR<Prisma.UserCreateWithoutChatsAsUser1Input, Prisma.UserUncheckedCreateWithoutChatsAsUser1Input>
+export type UserUpsertWithWhereUniqueWithoutChatRoomsInput = {
+  where: Prisma.UserWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserUpdateWithoutChatRoomsInput, Prisma.UserUncheckedUpdateWithoutChatRoomsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatRoomsInput, Prisma.UserUncheckedCreateWithoutChatRoomsInput>
+}
+
+export type UserUpdateWithWhereUniqueWithoutChatRoomsInput = {
+  where: Prisma.UserWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutChatRoomsInput, Prisma.UserUncheckedUpdateWithoutChatRoomsInput>
+}
+
+export type UserUpdateManyWithWhereWithoutChatRoomsInput = {
+  where: Prisma.UserScalarWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutChatRoomsInput>
+}
+
+export type UserScalarWhereInput = {
+  AND?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  OR?: Prisma.UserScalarWhereInput[]
+  NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  id?: Prisma.StringFilter<"User"> | string
+  fullname?: Prisma.StringFilter<"User"> | string
+  email?: Prisma.StringFilter<"User"> | string
+  passwordHash?: Prisma.StringFilter<"User"> | string
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
+  socialLinks?: Prisma.JsonNullableFilter<"User">
+  trustScore?: Prisma.FloatFilter<"User"> | number
+  badges?: Prisma.StringNullableListFilter<"User">
+  givenCount?: Prisma.IntFilter<"User"> | number
+  receivedCount?: Prisma.IntFilter<"User"> | number
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+}
+
+export type UserCreateWithoutSentMessagesInput = {
+  id?: string
+  fullname: string
+  email: string
+  passwordHash: string
+  avatarUrl?: string | null
+  phone?: string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trustScore?: number
+  badges?: Prisma.UserCreatebadgesInput | string[]
+  givenCount?: number
+  receivedCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostCreateNestedManyWithoutGiverInput
+  chatRooms?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutReviewedInput
+  receivedProducts?: Prisma.ProductCreateNestedManyWithoutReceiverInput
+  requests?: Prisma.RequestCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutSentMessagesInput = {
+  id?: string
+  fullname: string
+  email: string
+  passwordHash: string
+  avatarUrl?: string | null
+  phone?: string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trustScore?: number
+  badges?: Prisma.UserCreatebadgesInput | string[]
+  givenCount?: number
+  receivedCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
+  chatRooms?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewedInput
+  receivedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutReceiverInput
+  requests?: Prisma.RequestUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutSentMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+}
+
+export type UserUpsertWithoutSentMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSentMessagesInput, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutChatsAsUser1Input = {
+export type UserUpdateToOneWithWhereWithoutSentMessagesInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutChatsAsUser1Input, Prisma.UserUncheckedUpdateWithoutChatsAsUser1Input>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSentMessagesInput, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
 }
 
-export type UserUpdateWithoutChatsAsUser1Input = {
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+export type UserUpdateWithoutSentMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser2?: Prisma.ChatUpdateManyWithoutUser2NestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
-  Product?: Prisma.ProductUpdateManyWithoutUserNestedInput
-  requests?: Prisma.RequestUpdateManyWithoutReceiverNestedInput
-  reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
-}
-
-export type UserUncheckedUpdateWithoutChatsAsUser1Input = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
-  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser2?: Prisma.ChatUncheckedUpdateManyWithoutUser2NestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
-  Product?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
-  requests?: Prisma.RequestUncheckedUpdateManyWithoutReceiverNestedInput
-  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
-}
-
-export type UserUpsertWithoutChatsAsUser2Input = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutChatsAsUser2Input, Prisma.UserUncheckedUpdateWithoutChatsAsUser2Input>
-  create: Prisma.XOR<Prisma.UserCreateWithoutChatsAsUser2Input, Prisma.UserUncheckedCreateWithoutChatsAsUser2Input>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutChatsAsUser2Input = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutChatsAsUser2Input, Prisma.UserUncheckedUpdateWithoutChatsAsUser2Input>
-}
-
-export type UserUpdateWithoutChatsAsUser2Input = {
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
-  badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
-  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser1?: Prisma.ChatUpdateManyWithoutUser1NestedInput
+  chatRooms?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
-  Product?: Prisma.ProductUpdateManyWithoutUserNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutReviewedNestedInput
+  receivedProducts?: Prisma.ProductUpdateManyWithoutReceiverNestedInput
   requests?: Prisma.RequestUpdateManyWithoutReceiverNestedInput
-  reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
 }
 
-export type UserUncheckedUpdateWithoutChatsAsUser2Input = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+export type UserUncheckedUpdateWithoutSentMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser1?: Prisma.ChatUncheckedUpdateManyWithoutUser1NestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
-  Product?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
+  chatRooms?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutReviewedNestedInput
+  receivedProducts?: Prisma.ProductUncheckedUpdateManyWithoutReceiverNestedInput
   requests?: Prisma.RequestUncheckedUpdateManyWithoutReceiverNestedInput
-  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+}
+
+export type UserCreateWithoutReviewsGivenInput = {
+  id?: string
+  fullname: string
+  email: string
+  passwordHash: string
+  avatarUrl?: string | null
+  phone?: string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trustScore?: number
+  badges?: Prisma.UserCreatebadgesInput | string[]
+  givenCount?: number
+  receivedCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostCreateNestedManyWithoutGiverInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  chatRooms?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutReviewedInput
+  receivedProducts?: Prisma.ProductCreateNestedManyWithoutReceiverInput
+  requests?: Prisma.RequestCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutReviewsGivenInput = {
+  id?: string
+  fullname: string
+  email: string
+  passwordHash: string
+  avatarUrl?: string | null
+  phone?: string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trustScore?: number
+  badges?: Prisma.UserCreatebadgesInput | string[]
+  givenCount?: number
+  receivedCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  chatRooms?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewedInput
+  receivedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutReceiverInput
+  requests?: Prisma.RequestUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutReviewsGivenInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsGivenInput, Prisma.UserUncheckedCreateWithoutReviewsGivenInput>
+}
+
+export type UserCreateWithoutReviewsReceivedInput = {
+  id?: string
+  fullname: string
+  email: string
+  passwordHash: string
+  avatarUrl?: string | null
+  phone?: string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trustScore?: number
+  badges?: Prisma.UserCreatebadgesInput | string[]
+  givenCount?: number
+  receivedCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostCreateNestedManyWithoutGiverInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  chatRooms?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  receivedProducts?: Prisma.ProductCreateNestedManyWithoutReceiverInput
+  requests?: Prisma.RequestCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutReviewsReceivedInput = {
+  id?: string
+  fullname: string
+  email: string
+  passwordHash: string
+  avatarUrl?: string | null
+  phone?: string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trustScore?: number
+  badges?: Prisma.UserCreatebadgesInput | string[]
+  givenCount?: number
+  receivedCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  chatRooms?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  receivedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutReceiverInput
+  requests?: Prisma.RequestUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutReviewsReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutReviewsReceivedInput>
+}
+
+export type UserUpsertWithoutReviewsGivenInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewsGivenInput, Prisma.UserUncheckedUpdateWithoutReviewsGivenInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsGivenInput, Prisma.UserUncheckedCreateWithoutReviewsGivenInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewsGivenInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewsGivenInput, Prisma.UserUncheckedUpdateWithoutReviewsGivenInput>
+}
+
+export type UserUpdateWithoutReviewsGivenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  badges?: Prisma.UserUpdatebadgesInput | string[]
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  chatRooms?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutReviewedNestedInput
+  receivedProducts?: Prisma.ProductUpdateManyWithoutReceiverNestedInput
+  requests?: Prisma.RequestUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewsGivenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  badges?: Prisma.UserUpdatebadgesInput | string[]
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  chatRooms?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutReviewedNestedInput
+  receivedProducts?: Prisma.ProductUncheckedUpdateManyWithoutReceiverNestedInput
+  requests?: Prisma.RequestUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUpsertWithoutReviewsReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewsReceivedInput, Prisma.UserUncheckedUpdateWithoutReviewsReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutReviewsReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewsReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewsReceivedInput, Prisma.UserUncheckedUpdateWithoutReviewsReceivedInput>
+}
+
+export type UserUpdateWithoutReviewsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  badges?: Prisma.UserUpdatebadgesInput | string[]
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  chatRooms?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  receivedProducts?: Prisma.ProductUpdateManyWithoutReceiverNestedInput
+  requests?: Prisma.RequestUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  badges?: Prisma.UserUpdatebadgesInput | string[]
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  chatRooms?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  receivedProducts?: Prisma.ProductUncheckedUpdateManyWithoutReceiverNestedInput
+  requests?: Prisma.RequestUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
-  username: string
+  id?: string
+  fullname: string
   email: string
   passwordHash: string
+  avatarUrl?: string | null
   phone?: string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
   givenCount?: number
   receivedCount?: number
-  onTimeRate?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  chatsAsUser1?: Prisma.ChatCreateNestedManyWithoutUser1Input
-  chatsAsUser2?: Prisma.ChatCreateNestedManyWithoutUser2Input
   posts?: Prisma.PostCreateNestedManyWithoutGiverInput
-  Product?: Prisma.ProductCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  chatRooms?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutReviewedInput
+  receivedProducts?: Prisma.ProductCreateNestedManyWithoutReceiverInput
   requests?: Prisma.RequestCreateNestedManyWithoutReceiverInput
-  reviews?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
-  id?: number
-  username: string
+  id?: string
+  fullname: string
   email: string
   passwordHash: string
+  avatarUrl?: string | null
   phone?: string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
   givenCount?: number
   receivedCount?: number
-  onTimeRate?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  chatsAsUser1?: Prisma.ChatUncheckedCreateNestedManyWithoutUser1Input
-  chatsAsUser2?: Prisma.ChatUncheckedCreateNestedManyWithoutUser2Input
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
-  Product?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  chatRooms?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewedInput
+  receivedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutReceiverInput
   requests?: Prisma.RequestUncheckedCreateNestedManyWithoutReceiverInput
-  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1308,148 +1581,111 @@ export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
 }
 
 export type UserUpdateWithoutNotificationsInput = {
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser1?: Prisma.ChatUpdateManyWithoutUser1NestedInput
-  chatsAsUser2?: Prisma.ChatUpdateManyWithoutUser2NestedInput
   posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
-  Product?: Prisma.ProductUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  chatRooms?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutReviewedNestedInput
+  receivedProducts?: Prisma.ProductUpdateManyWithoutReceiverNestedInput
   requests?: Prisma.RequestUpdateManyWithoutReceiverNestedInput
-  reviews?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser1?: Prisma.ChatUncheckedUpdateManyWithoutUser1NestedInput
-  chatsAsUser2?: Prisma.ChatUncheckedUpdateManyWithoutUser2NestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
-  Product?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  chatRooms?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutReviewedNestedInput
+  receivedProducts?: Prisma.ProductUncheckedUpdateManyWithoutReceiverNestedInput
   requests?: Prisma.RequestUncheckedUpdateManyWithoutReceiverNestedInput
-  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
-export type UserCreateWithoutReviewsInput = {
-  username: string
-  email: string
-  passwordHash: string
-  phone?: string | null
-  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  trustScore?: number
-  badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: number
-  receivedCount?: number
-  onTimeRate?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  chatsAsUser1?: Prisma.ChatCreateNestedManyWithoutUser1Input
-  chatsAsUser2?: Prisma.ChatCreateNestedManyWithoutUser2Input
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  posts?: Prisma.PostCreateNestedManyWithoutGiverInput
-  Product?: Prisma.ProductCreateNestedManyWithoutUserInput
-  requests?: Prisma.RequestCreateNestedManyWithoutReceiverInput
-}
-
-export type UserUncheckedCreateWithoutReviewsInput = {
-  id?: number
-  username: string
-  email: string
-  passwordHash: string
-  phone?: string | null
-  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  trustScore?: number
-  badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: number
-  receivedCount?: number
-  onTimeRate?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  chatsAsUser1?: Prisma.ChatUncheckedCreateNestedManyWithoutUser1Input
-  chatsAsUser2?: Prisma.ChatUncheckedCreateNestedManyWithoutUser2Input
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
-  Product?: Prisma.ProductUncheckedCreateNestedManyWithoutUserInput
-  requests?: Prisma.RequestUncheckedCreateNestedManyWithoutReceiverInput
-}
-
-export type UserCreateOrConnectWithoutReviewsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
-}
-
-export type UserUpsertWithoutReviewsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewsInput, Prisma.UserUncheckedUpdateWithoutReviewsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutReviewsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewsInput, Prisma.UserUncheckedUpdateWithoutReviewsInput>
-}
-
-export type UserUpdateWithoutReviewsInput = {
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+export type UserUpdateWithoutChatRoomsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser1?: Prisma.ChatUpdateManyWithoutUser1NestedInput
-  chatsAsUser2?: Prisma.ChatUpdateManyWithoutUser2NestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
-  Product?: Prisma.ProductUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutReviewedNestedInput
+  receivedProducts?: Prisma.ProductUpdateManyWithoutReceiverNestedInput
   requests?: Prisma.RequestUpdateManyWithoutReceiverNestedInput
 }
 
-export type UserUncheckedUpdateWithoutReviewsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  username?: Prisma.StringFieldUpdateOperationsInput | string
+export type UserUncheckedUpdateWithoutChatRoomsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
   givenCount?: Prisma.IntFieldUpdateOperationsInput | number
   receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
-  onTimeRate?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chatsAsUser1?: Prisma.ChatUncheckedUpdateManyWithoutUser1NestedInput
-  chatsAsUser2?: Prisma.ChatUncheckedUpdateManyWithoutUser2NestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
-  Product?: Prisma.ProductUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutReviewedNestedInput
+  receivedProducts?: Prisma.ProductUncheckedUpdateManyWithoutReceiverNestedInput
   requests?: Prisma.RequestUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateManyWithoutChatRoomsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  badges?: Prisma.UserUpdatebadgesInput | string[]
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1458,23 +1694,25 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
  */
 
 export type UserCountOutputType = {
-  chatsAsUser1: number
-  chatsAsUser2: number
-  notifications: number
   posts: number
-  Product: number
+  sentMessages: number
+  chatRooms: number
+  notifications: number
+  reviewsGiven: number
+  reviewsReceived: number
+  receivedProducts: number
   requests: number
-  reviews: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  chatsAsUser1?: boolean | UserCountOutputTypeCountChatsAsUser1Args
-  chatsAsUser2?: boolean | UserCountOutputTypeCountChatsAsUser2Args
-  notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   posts?: boolean | UserCountOutputTypeCountPostsArgs
-  Product?: boolean | UserCountOutputTypeCountProductArgs
+  sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
+  chatRooms?: boolean | UserCountOutputTypeCountChatRoomsArgs
+  notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+  reviewsGiven?: boolean | UserCountOutputTypeCountReviewsGivenArgs
+  reviewsReceived?: boolean | UserCountOutputTypeCountReviewsReceivedArgs
+  receivedProducts?: boolean | UserCountOutputTypeCountReceivedProductsArgs
   requests?: boolean | UserCountOutputTypeCountRequestsArgs
-  reviews?: boolean | UserCountOutputTypeCountReviewsArgs
 }
 
 /**
@@ -1490,15 +1728,22 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountChatsAsUser1Args<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ChatWhereInput
+export type UserCountOutputTypeCountPostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PostWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountChatsAsUser2Args<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ChatWhereInput
+export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountChatRoomsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ChatRoomWhereInput
 }
 
 /**
@@ -1511,14 +1756,21 @@ export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Ty
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountPostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PostWhereInput
+export type UserCountOutputTypeCountReviewsGivenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountProductArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserCountOutputTypeCountReviewsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReceivedProductsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProductWhereInput
 }
 
@@ -1529,95 +1781,90 @@ export type UserCountOutputTypeCountRequestsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.RequestWhereInput
 }
 
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ReviewWhereInput
-}
-
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  username?: boolean
+  fullname?: boolean
   email?: boolean
   passwordHash?: boolean
+  avatarUrl?: boolean
   phone?: boolean
   socialLinks?: boolean
   trustScore?: boolean
   badges?: boolean
   givenCount?: boolean
   receivedCount?: boolean
-  onTimeRate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  chatsAsUser1?: boolean | Prisma.User$chatsAsUser1Args<ExtArgs>
-  chatsAsUser2?: boolean | Prisma.User$chatsAsUser2Args<ExtArgs>
-  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
-  Product?: boolean | Prisma.User$ProductArgs<ExtArgs>
+  sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
+  chatRooms?: boolean | Prisma.User$chatRoomsArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  reviewsGiven?: boolean | Prisma.User$reviewsGivenArgs<ExtArgs>
+  reviewsReceived?: boolean | Prisma.User$reviewsReceivedArgs<ExtArgs>
+  receivedProducts?: boolean | Prisma.User$receivedProductsArgs<ExtArgs>
   requests?: boolean | Prisma.User$requestsArgs<ExtArgs>
-  reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  username?: boolean
+  fullname?: boolean
   email?: boolean
   passwordHash?: boolean
+  avatarUrl?: boolean
   phone?: boolean
   socialLinks?: boolean
   trustScore?: boolean
   badges?: boolean
   givenCount?: boolean
   receivedCount?: boolean
-  onTimeRate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  username?: boolean
+  fullname?: boolean
   email?: boolean
   passwordHash?: boolean
+  avatarUrl?: boolean
   phone?: boolean
   socialLinks?: boolean
   trustScore?: boolean
   badges?: boolean
   givenCount?: boolean
   receivedCount?: boolean
-  onTimeRate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
   id?: boolean
-  username?: boolean
+  fullname?: boolean
   email?: boolean
   passwordHash?: boolean
+  avatarUrl?: boolean
   phone?: boolean
   socialLinks?: boolean
   trustScore?: boolean
   badges?: boolean
   givenCount?: boolean
   receivedCount?: boolean
-  onTimeRate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "email" | "passwordHash" | "phone" | "socialLinks" | "trustScore" | "badges" | "givenCount" | "receivedCount" | "onTimeRate" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullname" | "email" | "passwordHash" | "avatarUrl" | "phone" | "socialLinks" | "trustScore" | "badges" | "givenCount" | "receivedCount" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  chatsAsUser1?: boolean | Prisma.User$chatsAsUser1Args<ExtArgs>
-  chatsAsUser2?: boolean | Prisma.User$chatsAsUser2Args<ExtArgs>
-  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
-  Product?: boolean | Prisma.User$ProductArgs<ExtArgs>
+  sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
+  chatRooms?: boolean | Prisma.User$chatRoomsArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  reviewsGiven?: boolean | Prisma.User$reviewsGivenArgs<ExtArgs>
+  reviewsReceived?: boolean | Prisma.User$reviewsReceivedArgs<ExtArgs>
+  receivedProducts?: boolean | Prisma.User$receivedProductsArgs<ExtArgs>
   requests?: boolean | Prisma.User$requestsArgs<ExtArgs>
-  reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1626,26 +1873,27 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    chatsAsUser1: Prisma.$ChatPayload<ExtArgs>[]
-    chatsAsUser2: Prisma.$ChatPayload<ExtArgs>[]
-    notifications: Prisma.$NotificationPayload<ExtArgs>[]
     posts: Prisma.$PostPayload<ExtArgs>[]
-    Product: Prisma.$ProductPayload<ExtArgs>[]
+    sentMessages: Prisma.$MessagePayload<ExtArgs>[]
+    chatRooms: Prisma.$ChatRoomPayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    reviewsGiven: Prisma.$ReviewPayload<ExtArgs>[]
+    reviewsReceived: Prisma.$ReviewPayload<ExtArgs>[]
+    receivedProducts: Prisma.$ProductPayload<ExtArgs>[]
     requests: Prisma.$RequestPayload<ExtArgs>[]
-    reviews: Prisma.$ReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
-    username: string
+    id: string
+    fullname: string
     email: string
     passwordHash: string
+    avatarUrl: string | null
     phone: string | null
     socialLinks: runtime.JsonValue | null
     trustScore: number
     badges: string[]
     givenCount: number
     receivedCount: number
-    onTimeRate: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -2042,13 +2290,14 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  chatsAsUser1<T extends Prisma.User$chatsAsUser1Args<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatsAsUser1Args<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  chatsAsUser2<T extends Prisma.User$chatsAsUser2Args<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatsAsUser2Args<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   posts<T extends Prisma.User$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  Product<T extends Prisma.User$ProductArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ProductArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sentMessages<T extends Prisma.User$sentMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  chatRooms<T extends Prisma.User$chatRoomsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatRoomsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewsGiven<T extends Prisma.User$reviewsGivenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsGivenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewsReceived<T extends Prisma.User$reviewsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  receivedProducts<T extends Prisma.User$receivedProductsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedProductsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   requests<T extends Prisma.User$requestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$requestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  reviews<T extends Prisma.User$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2078,17 +2327,17 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
  * Fields of the User model
  */
 export interface UserFieldRefs {
-  readonly id: Prisma.FieldRef<"User", 'Int'>
-  readonly username: Prisma.FieldRef<"User", 'String'>
+  readonly id: Prisma.FieldRef<"User", 'String'>
+  readonly fullname: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
+  readonly avatarUrl: Prisma.FieldRef<"User", 'String'>
   readonly phone: Prisma.FieldRef<"User", 'String'>
   readonly socialLinks: Prisma.FieldRef<"User", 'Json'>
   readonly trustScore: Prisma.FieldRef<"User", 'Float'>
   readonly badges: Prisma.FieldRef<"User", 'String[]'>
   readonly givenCount: Prisma.FieldRef<"User", 'Int'>
   readonly receivedCount: Prisma.FieldRef<"User", 'Int'>
-  readonly onTimeRate: Prisma.FieldRef<"User", 'Float'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -2479,51 +2728,75 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.chatsAsUser1
+ * User.posts
  */
-export type User$chatsAsUser1Args<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$postsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Chat
+   * Select specific fields to fetch from the Post
    */
-  select?: Prisma.ChatSelect<ExtArgs> | null
+  select?: Prisma.PostSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Chat
+   * Omit specific fields from the Post
    */
-  omit?: Prisma.ChatOmit<ExtArgs> | null
+  omit?: Prisma.PostOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ChatInclude<ExtArgs> | null
-  where?: Prisma.ChatWhereInput
-  orderBy?: Prisma.ChatOrderByWithRelationInput | Prisma.ChatOrderByWithRelationInput[]
-  cursor?: Prisma.ChatWhereUniqueInput
+  include?: Prisma.PostInclude<ExtArgs> | null
+  where?: Prisma.PostWhereInput
+  orderBy?: Prisma.PostOrderByWithRelationInput | Prisma.PostOrderByWithRelationInput[]
+  cursor?: Prisma.PostWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.ChatScalarFieldEnum | Prisma.ChatScalarFieldEnum[]
+  distinct?: Prisma.PostScalarFieldEnum | Prisma.PostScalarFieldEnum[]
 }
 
 /**
- * User.chatsAsUser2
+ * User.sentMessages
  */
-export type User$chatsAsUser2Args<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$sentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Chat
+   * Select specific fields to fetch from the Message
    */
-  select?: Prisma.ChatSelect<ExtArgs> | null
+  select?: Prisma.MessageSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Chat
+   * Omit specific fields from the Message
    */
-  omit?: Prisma.ChatOmit<ExtArgs> | null
+  omit?: Prisma.MessageOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ChatInclude<ExtArgs> | null
-  where?: Prisma.ChatWhereInput
-  orderBy?: Prisma.ChatOrderByWithRelationInput | Prisma.ChatOrderByWithRelationInput[]
-  cursor?: Prisma.ChatWhereUniqueInput
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.ChatScalarFieldEnum | Prisma.ChatScalarFieldEnum[]
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * User.chatRooms
+ */
+export type User$chatRoomsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChatRoom
+   */
+  select?: Prisma.ChatRoomSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChatRoom
+   */
+  omit?: Prisma.ChatRoomOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChatRoomInclude<ExtArgs> | null
+  where?: Prisma.ChatRoomWhereInput
+  orderBy?: Prisma.ChatRoomOrderByWithRelationInput | Prisma.ChatRoomOrderByWithRelationInput[]
+  cursor?: Prisma.ChatRoomWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ChatRoomScalarFieldEnum | Prisma.ChatRoomScalarFieldEnum[]
 }
 
 /**
@@ -2551,33 +2824,57 @@ export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * User.posts
+ * User.reviewsGiven
  */
-export type User$postsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$reviewsGivenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Post
+   * Select specific fields to fetch from the Review
    */
-  select?: Prisma.PostSelect<ExtArgs> | null
+  select?: Prisma.ReviewSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Post
+   * Omit specific fields from the Review
    */
-  omit?: Prisma.PostOmit<ExtArgs> | null
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.PostInclude<ExtArgs> | null
-  where?: Prisma.PostWhereInput
-  orderBy?: Prisma.PostOrderByWithRelationInput | Prisma.PostOrderByWithRelationInput[]
-  cursor?: Prisma.PostWhereUniqueInput
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.PostScalarFieldEnum | Prisma.PostScalarFieldEnum[]
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
 }
 
 /**
- * User.Product
+ * User.reviewsReceived
  */
-export type User$ProductArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$reviewsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
+}
+
+/**
+ * User.receivedProducts
+ */
+export type User$receivedProductsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Product
    */
@@ -2620,30 +2917,6 @@ export type User$requestsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.RequestScalarFieldEnum | Prisma.RequestScalarFieldEnum[]
-}
-
-/**
- * User.reviews
- */
-export type User$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Review
-   */
-  select?: Prisma.ReviewSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Review
-   */
-  omit?: Prisma.ReviewOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ReviewInclude<ExtArgs> | null
-  where?: Prisma.ReviewWhereInput
-  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
-  cursor?: Prisma.ReviewWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
 }
 
 /**
