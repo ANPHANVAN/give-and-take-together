@@ -17,8 +17,8 @@ model User {
   socialLinks   Json? // Có thể đổi thành Json nếu muốn lưu cấu trúc
   trustScore    Float    @default(0.0)
   badges        String[] // Postgres array
-  givenCount    BigInt   @default(0)
-  receivedCount BigInt   @default(0)
+  givenCount    Int      @default(0)
+  receivedCount Int      @default(0)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 

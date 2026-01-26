@@ -34,8 +34,8 @@ export type UserAvgAggregateOutputType = {
 
 export type UserSumAggregateOutputType = {
   trustScore: number | null
-  givenCount: bigint | null
-  receivedCount: bigint | null
+  givenCount: number | null
+  receivedCount: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -46,8 +46,8 @@ export type UserMinAggregateOutputType = {
   avatarUrl: string | null
   phone: string | null
   trustScore: number | null
-  givenCount: bigint | null
-  receivedCount: bigint | null
+  givenCount: number | null
+  receivedCount: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -60,8 +60,8 @@ export type UserMaxAggregateOutputType = {
   avatarUrl: string | null
   phone: string | null
   trustScore: number | null
-  givenCount: bigint | null
-  receivedCount: bigint | null
+  givenCount: number | null
+  receivedCount: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -237,8 +237,8 @@ export type UserGroupByOutputType = {
   socialLinks: runtime.JsonValue | null
   trustScore: number
   badges: string[]
-  givenCount: bigint
-  receivedCount: bigint
+  givenCount: number
+  receivedCount: number
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -276,8 +276,8 @@ export type UserWhereInput = {
   socialLinks?: Prisma.JsonNullableFilter<"User">
   trustScore?: Prisma.FloatFilter<"User"> | number
   badges?: Prisma.StringNullableListFilter<"User">
-  givenCount?: Prisma.BigIntFilter<"User"> | bigint | number
-  receivedCount?: Prisma.BigIntFilter<"User"> | bigint | number
+  givenCount?: Prisma.IntFilter<"User"> | number
+  receivedCount?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   posts?: Prisma.PostListRelationFilter
@@ -327,8 +327,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   socialLinks?: Prisma.JsonNullableFilter<"User">
   trustScore?: Prisma.FloatFilter<"User"> | number
   badges?: Prisma.StringNullableListFilter<"User">
-  givenCount?: Prisma.BigIntFilter<"User"> | bigint | number
-  receivedCount?: Prisma.BigIntFilter<"User"> | bigint | number
+  givenCount?: Prisma.IntFilter<"User"> | number
+  receivedCount?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   posts?: Prisma.PostListRelationFilter
@@ -375,8 +375,8 @@ export type UserScalarWhereWithAggregatesInput = {
   socialLinks?: Prisma.JsonNullableWithAggregatesFilter<"User">
   trustScore?: Prisma.FloatWithAggregatesFilter<"User"> | number
   badges?: Prisma.StringNullableListFilter<"User">
-  givenCount?: Prisma.BigIntWithAggregatesFilter<"User"> | bigint | number
-  receivedCount?: Prisma.BigIntWithAggregatesFilter<"User"> | bigint | number
+  givenCount?: Prisma.IntWithAggregatesFilter<"User"> | number
+  receivedCount?: Prisma.IntWithAggregatesFilter<"User"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -391,8 +391,8 @@ export type UserCreateInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutGiverInput
@@ -415,8 +415,8 @@ export type UserUncheckedCreateInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
@@ -439,8 +439,8 @@ export type UserUpdateInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
@@ -463,8 +463,8 @@ export type UserUncheckedUpdateInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
@@ -487,8 +487,8 @@ export type UserCreateManyInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -503,8 +503,8 @@ export type UserUpdateManyMutationInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -519,8 +519,8 @@ export type UserUncheckedUpdateManyInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -634,12 +634,12 @@ export type UserUpdatebadgesInput = {
   push?: string | string[]
 }
 
-export type BigIntFieldUpdateOperationsInput = {
-  set?: bigint | number
-  increment?: bigint | number
-  decrement?: bigint | number
-  multiply?: bigint | number
-  divide?: bigint | number
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -794,8 +794,8 @@ export type UserCreateWithoutPostsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
@@ -817,8 +817,8 @@ export type UserUncheckedCreateWithoutPostsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -856,8 +856,8 @@ export type UserUpdateWithoutPostsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
@@ -879,8 +879,8 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -902,8 +902,8 @@ export type UserCreateWithoutReceivedProductsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutGiverInput
@@ -925,8 +925,8 @@ export type UserUncheckedCreateWithoutReceivedProductsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
@@ -964,8 +964,8 @@ export type UserUpdateWithoutReceivedProductsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
@@ -987,8 +987,8 @@ export type UserUncheckedUpdateWithoutReceivedProductsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
@@ -1010,8 +1010,8 @@ export type UserCreateWithoutRequestsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutGiverInput
@@ -1033,8 +1033,8 @@ export type UserUncheckedCreateWithoutRequestsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
@@ -1072,8 +1072,8 @@ export type UserUpdateWithoutRequestsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
@@ -1095,8 +1095,8 @@ export type UserUncheckedUpdateWithoutRequestsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
@@ -1118,8 +1118,8 @@ export type UserCreateWithoutChatRoomsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutGiverInput
@@ -1141,8 +1141,8 @@ export type UserUncheckedCreateWithoutChatRoomsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
@@ -1188,8 +1188,8 @@ export type UserScalarWhereInput = {
   socialLinks?: Prisma.JsonNullableFilter<"User">
   trustScore?: Prisma.FloatFilter<"User"> | number
   badges?: Prisma.StringNullableListFilter<"User">
-  givenCount?: Prisma.BigIntFilter<"User"> | bigint | number
-  receivedCount?: Prisma.BigIntFilter<"User"> | bigint | number
+  givenCount?: Prisma.IntFilter<"User"> | number
+  receivedCount?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
@@ -1204,8 +1204,8 @@ export type UserCreateWithoutSentMessagesInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutGiverInput
@@ -1227,8 +1227,8 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
@@ -1266,8 +1266,8 @@ export type UserUpdateWithoutSentMessagesInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
@@ -1289,8 +1289,8 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
@@ -1312,8 +1312,8 @@ export type UserCreateWithoutReviewsGivenInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutGiverInput
@@ -1335,8 +1335,8 @@ export type UserUncheckedCreateWithoutReviewsGivenInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
@@ -1363,8 +1363,8 @@ export type UserCreateWithoutReviewsReceivedInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutGiverInput
@@ -1386,8 +1386,8 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
@@ -1425,8 +1425,8 @@ export type UserUpdateWithoutReviewsGivenInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
@@ -1448,8 +1448,8 @@ export type UserUncheckedUpdateWithoutReviewsGivenInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
@@ -1482,8 +1482,8 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
@@ -1505,8 +1505,8 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
@@ -1528,8 +1528,8 @@ export type UserCreateWithoutNotificationsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutGiverInput
@@ -1551,8 +1551,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: number
   badges?: Prisma.UserCreatebadgesInput | string[]
-  givenCount?: bigint | number
-  receivedCount?: bigint | number
+  givenCount?: number
+  receivedCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutGiverInput
@@ -1590,8 +1590,8 @@ export type UserUpdateWithoutNotificationsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
@@ -1613,8 +1613,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
@@ -1636,8 +1636,8 @@ export type UserUpdateWithoutChatRoomsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutGiverNestedInput
@@ -1659,8 +1659,8 @@ export type UserUncheckedUpdateWithoutChatRoomsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutGiverNestedInput
@@ -1682,8 +1682,8 @@ export type UserUncheckedUpdateManyWithoutChatRoomsInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   trustScore?: Prisma.FloatFieldUpdateOperationsInput | number
   badges?: Prisma.UserUpdatebadgesInput | string[]
-  givenCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  receivedCount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  givenCount?: Prisma.IntFieldUpdateOperationsInput | number
+  receivedCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1892,8 +1892,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     socialLinks: runtime.JsonValue | null
     trustScore: number
     badges: string[]
-    givenCount: bigint
-    receivedCount: bigint
+    givenCount: number
+    receivedCount: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -2336,8 +2336,8 @@ export interface UserFieldRefs {
   readonly socialLinks: Prisma.FieldRef<"User", 'Json'>
   readonly trustScore: Prisma.FieldRef<"User", 'Float'>
   readonly badges: Prisma.FieldRef<"User", 'String[]'>
-  readonly givenCount: Prisma.FieldRef<"User", 'BigInt'>
-  readonly receivedCount: Prisma.FieldRef<"User", 'BigInt'>
+  readonly givenCount: Prisma.FieldRef<"User", 'Int'>
+  readonly receivedCount: Prisma.FieldRef<"User", 'Int'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
