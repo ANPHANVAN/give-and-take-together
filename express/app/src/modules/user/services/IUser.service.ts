@@ -1,3 +1,6 @@
+import { Prisma, User } from '@/generated/client';
+
 export interface IUserService {
-  createUser(email: string): Promise<unknown>;
+  createUser(userCreateData: Prisma.UserCreateInput): Promise<unknown>;
+  getAllUser(): Promise<User[]>;
 }

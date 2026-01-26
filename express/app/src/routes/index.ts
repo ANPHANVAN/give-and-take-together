@@ -6,6 +6,7 @@ import authRouter from '../modules/auth/auth.route';
 // const allowRole = require('../middleware/allowRole');
 // const meRouter = require('./me');
 // const guestRouter = require('./guest.js');
+import userRouter from '@/modules/user/user.route';
 
 function route(app: Application) {
   // [GET] /health
@@ -16,6 +17,7 @@ function route(app: Application) {
   // app.use('/auth', authRouter);
   // app.use('/guest', guestRouter);
   // app.use('/me', meRouter);
+  app.use('/user', userRouter);
   app.use('/', (req: Request, res: Response) => {
     res.status(200).json({ message: 'Wellcome An API' });
   });

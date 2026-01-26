@@ -1,16 +1,12 @@
 import { IUserRepository } from '../IUser.repository';
 import { Prisma, User } from '@/generated/client';
+import { AppError } from '@/middlewares/errorHandler';
 import { BaseRepository } from '@/modules/shared/database/base.repository';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 
 export class UserPrismaRepository extends BaseRepository implements IUserRepository {
-  async createUser(email: string) {
-    let user: Prisma.UserCreateInput;
-    user = {
-      fullname: 'string',
-      email: email,
-      passwordHash: 'hello',
-    };
-    return await this.db.user.create({ data: user });
+  async createUser(userData: Prisma.UserCreateInput): Promise<User> {
+    return await this.db.user.create({ data: userData });
   }
 
   async findUserById(id: string): Promise<User | null> {
@@ -19,20 +15,30 @@ export class UserPrismaRepository extends BaseRepository implements IUserReposit
     });
   }
 
-  // async findOneByEmail(email: string) {
-  //   return await this.db.user.findUnique({
-  //     where: { email: email },
-  //     omit: { passwordHash: true },
-  //   });
-  // }
+  async findUserByEmail(email: string): Promise<User | null> {
+    return this.db.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+  }
 
-  // async findManyByGivenCount(countMin: number) {
-  //   return this.db.user.findMany({
-  //     select: { email: true, fullname: true },
-  //     where: { givenCount: countMin },
-  //     orderBy: { fullname: 'asc' },
-  //     take: 10,
-  //     skip: 2,
-  //   });
-  // }
+  async findAllUser(): Promise<User[]> {
+    return this.db.user.findMany({});
+  }
+
+  async updateAllField(id: string, data: Prisma.UserUpdateInput): Promise<User> {
+    return this.db.user.update({
+      where: { id: id },
+      data: data,
+    });
+  }
+
+  async deleteUserById(id: string): Promise<User> {
+    return this.db.user.delete({
+      where: {
+        id: id,
+      },
+    });
+  }
 }
