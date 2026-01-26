@@ -10,11 +10,9 @@
 */
 
 export const PostStatus = {
-  POSTED: 'POSTED',
-  PENDING_MATCH: 'PENDING_MATCH',
-  AWAITING_DELIVERY: 'AWAITING_DELIVERY',
-  COMPLETED: 'COMPLETED',
-  CANCELED: 'CANCELED'
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  COMPLETED: 'COMPLETED'
 } as const
 
 export type PostStatus = (typeof PostStatus)[keyof typeof PostStatus]
@@ -22,9 +20,8 @@ export type PostStatus = (typeof PostStatus)[keyof typeof PostStatus]
 
 export const ProductStatus = {
   AVAILABLE: 'AVAILABLE',
-  REQUESTED: 'REQUESTED',
-  DELIVERED: 'DELIVERED',
-  CANCELED: 'CANCELED'
+  RESERVED: 'RESERVED',
+  GIVEN: 'GIVEN'
 } as const
 
 export type ProductStatus = (typeof ProductStatus)[keyof typeof ProductStatus]
@@ -32,10 +29,16 @@ export type ProductStatus = (typeof ProductStatus)[keyof typeof ProductStatus]
 
 export const RequestStatus = {
   PENDING: 'PENDING',
-  APPROVED: 'APPROVED',
-  REJECTED: 'REJECTED',
-  COMPLETED: 'COMPLETED',
-  CANCELED: 'CANCELED'
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED'
 } as const
 
 export type RequestStatus = (typeof RequestStatus)[keyof typeof RequestStatus]
+
+
+export const NotificationStatus = {
+  READ: 'READ',
+  UNREAD: 'UNREAD'
+} as const
+
+export type NotificationStatus = (typeof NotificationStatus)[keyof typeof NotificationStatus]

@@ -1,37 +1,44 @@
 import { IUserRepository } from '../IUser.repository';
-import { Prisma } from '@/generated/client';
-import { TransactionClient } from '@/generated/internal/prismaNamespace';
+import { Prisma, User } from '@/generated/client';
+import { AppError } from '@/middlewares/errorHandler';
 import { BaseRepository } from '@/modules/shared/database/base.repository';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 
 export class UserPrismaRepository extends BaseRepository implements IUserRepository {
-  createNewRepo(txCallback: TransactionClient) {
-    return new UserPrismaRepository(txCallback);
+  async createUser(userData: Prisma.UserCreateInput): Promise<User> {
+    return await this.db.user.create({ data: userData });
   }
 
-  async createUser(email: string) {
-    let user: Prisma.UserCreateInput;
-    user = {
-      username: 'string',
-      email: email,
-      passwordHash: 'helo',
-    };
-    return await this.db.user.create({ data: user });
-  }
-
-  async findOneByEmail(email: string) {
+  async findUserById(id: string): Promise<User | null> {
     return await this.db.user.findUnique({
-      where: { email: email },
-      omit: { passwordHash: true },
+      where: { id: id },
     });
   }
 
-  async findManyByGivenCount(countMin: number) {
-    return this.db.user.findMany({
-      select: { email: true, username: true },
-      where: { givenCount: countMin },
-      orderBy: { username: 'asc' },
-      take: 10,
-      skip: 2,
+  async findUserByEmail(email: string): Promise<User | null> {
+    return this.db.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+  }
+
+  async findAllUser(): Promise<User[]> {
+    return this.db.user.findMany({});
+  }
+
+  async updateAllField(id: string, data: Prisma.UserUpdateInput): Promise<User> {
+    return this.db.user.update({
+      where: { id: id },
+      data: data,
+    });
+  }
+
+  async deleteUserById(id: string): Promise<User> {
+    return this.db.user.delete({
+      where: {
+        id: id,
+      },
     });
   }
 }

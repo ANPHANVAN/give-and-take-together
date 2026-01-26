@@ -3,7 +3,7 @@ import http from 'http';
 import app from './app';
 import envConfig from './config/envConfig';
 import { storage } from '@/providers/storage.provider';
-import { database } from '@/providers/datatbase.provider';
+import { database } from '@/providers/database.provider';
 
 const server = http.createServer(app);
 

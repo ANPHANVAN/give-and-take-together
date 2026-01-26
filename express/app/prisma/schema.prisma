@@ -8,140 +8,173 @@ datasource db {
 }
 
 model User {
-  id            Int            @id @default(autoincrement())
-  username      String         @unique
-  email         String         @unique
+  id            String   @id @default(uuid())
+  fullname      String
+  email         String   @unique
   passwordHash  String
+  avatarUrl     String?
   phone         String?
-  socialLinks   Json?
-  trustScore    Float          @default(0.0)
-  badges        String[]
-  givenCount    Int            @default(0)
-  receivedCount Int            @default(0)
-  onTimeRate    Float          @default(1.0)
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  chatsAsUser1  Chat[]         @relation("User1Chats")
-  chatsAsUser2  Chat[]         @relation("User2Chats")
+  socialLinks   Json? // Có thể đổi thành Json nếu muốn lưu cấu trúc
+  trustScore    Float    @default(0.0)
+  badges        String[] // Postgres array
+  givenCount    Int      @default(0)
+  receivedCount Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relationships
+  posts         Post[]         @relation("UserPosts")
+  sentMessages  Message[]      @relation("UserMessages")
+  chatRooms     ChatRoom[] // Quan hệ nhiều-nhiều ngầm định (participants)
   notifications Notification[]
-  posts         Post[]
-  Product       Product[]
-  requests      Request[]
-  reviews       Review[]
+
+  // Reviews
+  reviewsGiven    Review[] @relation("Reviewer")
+  reviewsReceived Review[] @relation("Reviewed")
+
+  // Logic nhận đồ (Receiver)
+  receivedProducts Product[] @relation("UserReceivedProducts")
+  requests         Request[] @relation("UserRequests") // Các yêu cầu người này gửi đi
 }
 
 model Post {
-  id              Int        @id @default(autoincrement())
-  title           String
-  description     String
-  locationLat     Float?
-  locationLong    Float?
-  locationText    String?
-  maxRequests     Int        @default(5)
-  minTrustScore   Float?
-  requireVerified Boolean    @default(false)
-  status          PostStatus @default(POSTED)
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-  giverId         Int
-  giver           User       @relation(fields: [giverId], references: [id])
-  products        Product[]
-  requests        Request[]
+  id            String     @id @default(uuid())
+  giverId       String
+  title         String
+  description   String     @db.Text
+  locationLat   Float?
+  locationLong  Float?
+  locationText  String?
+  maxRequests   Int        @default(1)
+  minTrustScore Float      @default(0.0)
+  verified      String[]
+  status        PostStatus @default(ACTIVE)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  // Relationships
+  giver    User      @relation("UserPosts", fields: [giverId], references: [id])
+  products Product[]
+  requests Request[]
 }
 
 model Product {
-  id          Int           @id @default(autoincrement())
-  name        String
-  description String
+  id          String        @id @default(uuid())
+  postId      String
+  title       String
+  description String        @db.Text
   images      String[]
   status      ProductStatus @default(AVAILABLE)
-  postId      Int
-  receiverId  Int?
-  post        Post          @relation(fields: [postId], references: [id])
-  User        User?         @relation(fields: [receiverId], references: [id], onDelete: Restrict, map: "Product_receiverId_fk")
-  request     Request?
+  receiverId  String? // Nullable vì lúc mới tạo chưa ai nhận
+  receivedAt  DateTime?
+
+  // Relationships
+  post     Post  @relation(fields: [postId], references: [id])
+  receiver User? @relation("UserReceivedProducts", fields: [receiverId], references: [id])
+
+  // Quan hệ với Request (Một request có thể gồm nhiều sản phẩm - dựa trên productId serial[] trong sơ đồ)
+  requests Request[]
+
+  reviews Review[]
 }
 
 model Request {
-  id               Int           @id @default(autoincrement())
-  message          String
-  status           RequestStatus @default(PENDING)
-  deliveryTime     DateTime?
-  deliveryLocation String?
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
-  receiverId       Int
-  postId           Int
-  productId        Int?          @unique
-  chat             Chat?
-  post             Post          @relation(fields: [postId], references: [id])
-  product          Product?      @relation(fields: [productId], references: [id])
-  receiver         User          @relation(fields: [receiverId], references: [id])
+  id         String        @id @default(uuid())
+  message    String        @db.Text
+  status     RequestStatus @default(PENDING)
+  receiverId String // Người gửi yêu cầu (Requester)
+  postId     String
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  // Relationships
+  receiver User @relation("UserRequests", fields: [receiverId], references: [id])
+  post     Post @relation(fields: [postId], references: [id])
+
+  // Quan hệ nhiều-nhiều với Product (dựa trên productId[] trong sơ đồ)
+  products Product[]
+
+  // 1 Request thường dẫn tới 1 ChatRoom
+  chatRoom ChatRoom?
 }
 
-model Chat {
-  id        Int       @id @default(autoincrement())
-  user1Id   Int
-  user2Id   Int
-  requestId Int?      @unique
-  createdAt DateTime  @default(now())
-  request   Request?  @relation(fields: [requestId], references: [id])
-  user1     User      @relation("User1Chats", fields: [user1Id], references: [id])
-  user2     User      @relation("User2Chats", fields: [user2Id], references: [id])
-  messages  Message[]
+model ChatRoom {
+  id        String   @id @default(uuid())
+  name      String?
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  requestId String   @unique // Unique để đảm bảo 1-1 nếu muốn
+
+  // Relationships
+  request      Request   @relation(fields: [requestId], references: [id])
+  messages     Message[]
+  participants User[] // Dựa trên userId serial[] -> Quan hệ nhiều-nhiều
 }
 
 model Message {
-  id        Int      @id @default(autoincrement())
-  content   String
-  imageUrl  String?
-  location  Json?
-  senderId  Int
-  chatId    Int
-  createdAt DateTime @default(now())
-  chat      Chat     @relation(fields: [chatId], references: [id])
-}
+  id           String   @id @default(uuid())
+  chatId       String
+  senderId     String
+  content      String?  @db.Text
+  imageUrl     String?
+  locationLat  Float?
+  locationLong Float?
+  createdAt    DateTime @default(now())
 
-model Notification {
-  id        Int      @id @default(autoincrement())
-  type      String
-  content   String
-  read      Boolean  @default(false)
-  userId    Int
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
+  // Relationships
+  chatRoom ChatRoom @relation(fields: [chatId], references: [id])
+  sender   User     @relation("UserMessages", fields: [senderId], references: [id])
 }
 
 model Review {
-  id         Int      @id @default(autoincrement())
-  rating     Int
-  comment    String
-  reviewerId Int
-  reviewedId Int
-  requestId  Int?
-  createdAt  DateTime @default(now())
-  reviewer   User     @relation(fields: [reviewerId], references: [id])
+  id         String   @id @default(uuid())
+  rate       Int
+  comment    String   @db.Text
+  reviewerId String
+  reviewedId String
+  productId  String
+  imageUrl   String[]
+
+  // Relationships
+  reviewer User    @relation("Reviewer", fields: [reviewerId], references: [id])
+  reviewed User    @relation("Reviewed", fields: [reviewedId], references: [id])
+  product  Product @relation(fields: [productId], references: [id])
+}
+
+model Notification {
+  id        String             @id @default(uuid())
+  userId    String
+  type      String
+  content   String             @db.Text
+  status    NotificationStatus @default(UNREAD) // read | unread
+  createdAt DateTime           @default(now())
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id])
 }
 
 enum PostStatus {
-  POSTED
-  PENDING_MATCH
-  AWAITING_DELIVERY
+  ACTIVE
+  INACTIVE
   COMPLETED
-  CANCELED
+  // Thêm các trạng thái khác nếu cần
 }
 
 enum ProductStatus {
   AVAILABLE
-  REQUESTED
-  DELIVERED
-  CANCELED
+  RESERVED
+  GIVEN
+  // Thêm các trạng thái khác nếu cần
 }
 
 enum RequestStatus {
   PENDING
-  APPROVED
+  ACCEPTED
   REJECTED
-  COMPLETED
-  CANCELED
+  // Thêm các trạng thái khác nếu cần
+}
+
+enum NotificationStatus {
+  READ
+  UNREAD
 }
