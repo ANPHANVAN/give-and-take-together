@@ -1,5 +1,5 @@
 import { UserService } from '@/modules/user/services/user.service';
-import { IUserRepository } from '@/modules/user/repository/IUser.repository';
+import { IUserRepository } from '@/modules/user/repositories/IUser.repository';
 
 /**
  * Unit tests for UserService.createUser()

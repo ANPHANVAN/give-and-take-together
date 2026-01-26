@@ -1,6 +1,6 @@
 import { IUserService } from './IUser.service';
-import { IUserRepository } from '../repository/IUser.repository';
-import { UserPrismaRepository } from '../repository/prisma/user.prisma.repository';
+import { IUserRepository } from '../repositories/IUser.repository';
+import { UserPrismaRepository } from '../repositories/prisma/user.prisma.repository';
 import { runTransaction } from '../../shared/database/transactionManager';
 import { Prisma, User } from '@/generated/client';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';

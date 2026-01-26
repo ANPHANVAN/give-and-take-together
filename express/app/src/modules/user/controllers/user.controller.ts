@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { UserPrismaRepository } from '../repository/prisma/user.prisma.repository';
+import { UserPrismaRepository } from '../repositories/prisma/user.prisma.repository';
 import { UserService } from '../services/user.service';
 import { Prisma } from '@/generated/client';
 import { AppError } from '@/middlewares/errorHandler';
