@@ -1,12 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { EErrorCodes } from '@/constants/errorCode';
+import { EErrorCodes, ErrorCodeType } from '@/constants/errorCode';
 import { ERROR_MESSAGES } from '@/constants/errorMessage';
 
-export interface AppError extends Error {
-  status: number;
-  errorCode: string;
-  details: any[];
-}
 export class AppError extends Error {
   status: number;
   errorCode: string;
@@ -21,7 +16,14 @@ export class AppError extends Error {
   }
 }
 
-export const errorHandler = (err: AppError, req: Request, res: Response) => {
+export class AppCodeError extends AppError {
+  constructor(errorCode: ErrorCodeType = EErrorCodes.INTERNAL_SERVER_ERROR) {
+    super(ERROR_MESSAGES[errorCode]?.message, ERROR_MESSAGES[errorCode]?.status, errorCode, []);
+    this.name = 'AppCodeError';
+  }
+}
+
+export const errorHandler = (err: AppError, req: Request, res: Response, next: NextFunction) => {
   console.error(err);
 
   return res.status(err.status).json({
