@@ -5,9 +5,14 @@ import { runTransaction } from '../../shared/database/transactionManager';
 import { Prisma, User } from '@/generated/client';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 import { AppError } from '@/middlewares/errorHandler';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 export class UserService implements IUserService {
-  constructor(private userRepo: IUserRepository) {}
+  constructor(
+    @inject('IUserRepository')
+    private userRepo: IUserRepository,
+  ) {}
 
   async createUser(userCreateData: Prisma.UserCreateInput) {
     try {

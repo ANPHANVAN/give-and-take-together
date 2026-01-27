@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
-import { UserPrismaRepository } from '../repositories/prisma/user.prisma.repository';
-import { UserService } from '../services/user.service';
+import { IUserService } from '../services/IUser.service';
 import { Prisma } from '@/generated/client';
 import { AppError } from '@/middlewares/errorHandler';
+import { injectable, inject } from 'tsyringe';
 
+@injectable()
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(@inject('IUserService') private userService: IUserService) {}
 
   createUser = async (req: Request, res: Response) => {
     try {
@@ -27,9 +28,3 @@ export class UserController {
     }
   };
 }
-
-const userRepository = new UserPrismaRepository();
-const userServiceSingleton = new UserService(userRepository);
-const userController = new UserController(userServiceSingleton);
-
-export default userController;

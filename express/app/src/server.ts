@@ -1,5 +1,7 @@
-import http from 'http';
+// Dependency Injection
+import 'reflect-metadata';
 
+import http from 'http';
 import app from './app';
 import envConfig from './config/envConfig';
 import { storage } from '@/providers/storage.provider';

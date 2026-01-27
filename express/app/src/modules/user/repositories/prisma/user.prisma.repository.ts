@@ -3,7 +3,9 @@ import { Prisma, User } from '@/generated/client';
 import { AppError } from '@/middlewares/errorHandler';
 import { BaseRepository } from '@/modules/shared/database/base.repository';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
+import { injectable } from 'tsyringe';
 
+@injectable()
 export class UserPrismaRepository extends BaseRepository implements IUserRepository {
   async createUser(userData: Prisma.UserCreateInput): Promise<User> {
     return await this.db.user.create({ data: userData });
