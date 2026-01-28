@@ -8,12 +8,20 @@ interface IErrorDefinition {
 
 // Map Code -> Definition
 export const ERROR_MESSAGES: Record<string, IErrorDefinition> = {
+  [EErrorCodes.MISSING_FIELDS]: {
+    message: 'Thiếu trường thông tin cần thiết',
+    status: 400,
+  },
   [EErrorCodes.AUTH_LOGIN_FAIL]: {
     message: 'Email hoặc mật khẩu không chính xác',
     status: 401,
   },
   [EErrorCodes.AUTH_EMAIL_EXIST]: {
     message: 'Email này đã được đăng ký',
+    status: 400,
+  },
+  [EErrorCodes.AUTH_WRONG_PASSWORD]: {
+    message: 'Mật khẩu không chính xác',
     status: 400,
   },
   [EErrorCodes.USER_NOT_FOUND]: {

@@ -1,95 +1,51 @@
-import bcrypt from 'bcrypt';
-import axios from 'axios';
+import { inject, injectable } from 'tsyringe';
+import { TLoginByFormDTO } from '../dto/login.dto';
+import { IAuthResult, IAuthService } from './IAuth.service';
+import { IUserRepository } from '@/modules/user/repositories/IUser.repository';
+import { AppCodeError } from '@/middlewares/errorHandler';
+import { EErrorCodes } from '@/constants/errorCode';
+import { verifyPassword } from '@/modules/shared/security/password';
 import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
-
 import envConfig from '@/config/envConfig';
-import { userRepository } from '../repository/user.repository';
-import { userSecurityRepository } from '../repository/userSecurity.repository';
-import { otpRepository } from '../repository/otp.repository';
-import { AppError } from '@/middlewares/errorHandler';
-import { generateRandomString } from '@/utils/auth';
 
-export class AuthService {
-  constructor() {}
+const JWT_SECRET = envConfig.jwt.JWT_SECRET;
 
-  async registerNew(userData: any) {
-    const username = userData.username.trim().toLowerCase();
-    const email = userData.email.trim().toLowerCase();
+@injectable()
+export class AuthService implements IAuthService {
+  constructor(@inject('IUserRepository') private userRepo: IUserRepository) {}
 
-    const exist = await userRepository.findByUsernameOrEmail(username, email);
-    if (exist) throw new AppError('Username hoặc Email đã tồn tại', 409);
+  async loginByForm(dto: TLoginByFormDTO): Promise<IAuthResult> {
+    const userInfo = await this.userRepo.findUserByEmail(dto.email);
+    if (!userInfo) throw new AppCodeError(EErrorCodes.USER_NOT_FOUND);
 
-    const hashPassword = await bcrypt.hash(userData.password, envConfig.jwt.HASH_SALT);
+    const isMatch = await verifyPassword(dto.password, userInfo.passwordHash);
+    if (!isMatch) throw new AppCodeError(EErrorCodes.AUTH_WRONG_PASSWORD);
 
-    const user = await userRepository.createUser({ ...userData, username, email });
-    await userSecurityRepository.createSecurity(user._id, username, hashPassword);
-
-    return { message: 'Đăng Ký Thành Công' };
-  }
-
-  async login(username: string, password: string) {
-    username = username.trim().toLowerCase();
-
-    const sec = await userSecurityRepository.findByUsername(username);
-    if (!sec) throw new AppError('Username không tồn tại', 404);
-
-    const match = await bcrypt.compare(password, sec.hashPassword);
-    if (!match) throw new AppError('Mật khẩu sai', 401);
-
-    return sec._id.toString();
-  }
-
-  async createJWT(payload: any) {
-    return jwt.sign(payload, envConfig.jwt.JWT_SECRET, { expiresIn: '24h' });
-  }
-
-  async sendOTP(email: string) {
-    email = email.trim().toLowerCase();
-
-    const user = await userRepository.findByUsernameOrEmail('', email);
-    if (!user) throw new AppError('Email không tồn tại', 404);
-
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
-
-    await otpRepository.removeAll(email);
-    await otpRepository.create(email, otp, expiresAt);
-
-    await this.sendEmail(email, otp, user.username);
-
-    return { message: 'OTP đã gửi' };
-  }
-
-  async resetPassword(email: string, otp: string, newPassword: string) {
-    const record = await otpRepository.find(email, otp);
-
-    if (!record || record.expiresAt < new Date()) throw new AppError('OTP sai hoặc hết hạn', 400);
-
-    const user = await userRepository.findByUsernameOrEmail('', email);
-    if (!user) throw new AppError('User không tồn tại', 404);
-
-    const hashPassword = await bcrypt.hash(newPassword, envConfig.jwt.HASH_SALT);
-    await userSecurityRepository.updatePassword(user._id, hashPassword);
-
-    await otpRepository.removeAll(email);
-
-    return { message: 'Đổi mật khẩu thành công' };
-  }
-
-  async sendEmail(email: string, otp: string, username: string) {
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: envConfig.auth.GMAIL,
-        pass: envConfig.auth.GMAIL_PASSWORD,
+    const payload = { id: userInfo.id, role: userInfo.role };
+    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' });
+    const refeshToken = jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' });
+    return {
+      user: {
+        id: userInfo.id,
+        email: userInfo.email,
       },
-    });
+      accessToken: token,
+      refreshToken: refeshToken,
+    };
+  }
 
-    await transporter.sendMail({
-      to: email,
-      subject: 'Mã OTP của bạn',
-      text: `Username: ${username}\nOTP: ${otp}`,
-    });
+  // TODO: do this function
+  async logout(userId: string, refreshToken?: string): Promise<void> {}
+
+  // TODO: do this function
+  async refreshToken(refreshToken: string): Promise<IAuthResult> {
+    return {
+      user: {
+        id: 'mock',
+        email: 'mock',
+      },
+      accessToken: 'mock',
+      refreshToken: 'mock',
+    };
   }
 }

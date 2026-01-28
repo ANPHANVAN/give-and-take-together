@@ -17,7 +17,7 @@ function route(app: Application) {
   // app.use('/auth', authRouter);
   // app.use('/guest', guestRouter);
   // app.use('/me', meRouter);
-  app.use('/user', userRouter);
+  app.use('/api/users', userRouter);
   app.use('/', (req: Request, res: Response) => {
     res.status(200).json({ message: 'Wellcome An API' });
   });

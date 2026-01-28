@@ -12,6 +12,7 @@ model User {
   fullname      String
   email         String   @unique
   passwordHash  String
+  role          Role     @default(USER)
   avatarUrl     String?
   phone         String?
   socialLinks   Json? // Có thể đổi thành Json nếu muốn lưu cấu trúc
@@ -151,6 +152,11 @@ model Notification {
 
   // Relationships
   user User @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  ADMIN
+  USER
 }
 
 enum PostStatus {
