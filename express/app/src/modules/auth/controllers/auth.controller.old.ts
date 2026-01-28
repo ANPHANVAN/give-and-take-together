@@ -10,13 +10,25 @@ import { OtpResetModel } from '../models/otpResetModel';
 import { generateRandomString } from '../utils/auth';
 import axios from 'axios';
 import { AppError } from '../middlewares/errorHandler';
-const domain = envConfig.FRONTEND_HOST.split('//')[1];
+
+// env variable
+const NODE_ENV = envConfig.app.NODE_ENV;
+const GOOGLE_REDIRECT_URI = envConfig.auth.GOOGLE_REDIRECT_URI;
+const GOOGLE_CLIENT_ID = envConfig.auth.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = envConfig.auth.GOOGLE_CLIENT_SECRET;
+const JWT_SECRET = envConfig.jwt.JWT_SECRET;
+const FRONTEN_HOST = envConfig.app.FRONTEND_HOST;
+const HASH_SALT = envConfig.jwt.HASH_SALT;
+const GMAIL_HOST = envConfig.auth.GMAIL;
+const GMAIL_PASSWORD = envConfig.auth.GMAIL_PASSWORD;
+
+const domain = envConfig.app.FRONTEND_HOST.split('//')[1];
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: `${envConfig.GMAIL}`,
-    pass: `${envConfig.GMAIL_PASSWORD}`,
+    user: `${GMAIL_HOST}`,
+    pass: `${GMAIL_PASSWORD}`,
   },
 });
 
@@ -44,8 +56,8 @@ class AuthController {
       const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
       // Tạo URL OAuth2 với các tham số bắt buộc
       const options = {
-        redirect_uri: envConfig.GOOGLE_REDIRECT_URI, // https://localhost:8000/auth/login/google/callback
-        client_id: envConfig.GOOGLE_CLIENT_ID,
+        redirect_uri: GOOGLE_REDIRECT_URI, // https://localhost:8000/auth/login/google/callback
+        client_id: GOOGLE_CLIENT_ID,
         access_type: 'offline',
         response_type: 'code',
         prompt: 'consent',
@@ -67,9 +79,9 @@ class AuthController {
     try {
       const tokenResponse = await axios.post('https://oauth2.googleapis.com/token', {
         code: code,
-        client_id: envConfig.GOOGLE_CLIENT_ID,
-        client_secret: envConfig.GOOGLE_CLIENT_SECRET,
-        redirect_uri: envConfig.GOOGLE_REDIRECT_URI,
+        client_id: GOOGLE_CLIENT_ID,
+        client_secret: GOOGLE_CLIENT_SECRET,
+        redirect_uri: GOOGLE_REDIRECT_URI,
         grant_type: 'authorization_code',
       });
 
@@ -92,9 +104,9 @@ class AuthController {
       }
 
       const payload = { userId: user._id, email: user.email, role: user.role };
-      const token = jwt.sign(payload, envConfig.JWT_SECRET, { expiresIn: '24h' });
+      const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' });
 
-      const isDevelopment = envConfig.NODE_ENV === 'development';
+      const isDevelopment = NODE_ENV === 'development';
       res.cookie('token', token, {
         httpOnly: true,
         maxAge: 1 * 24 * 60 * 60 * 1000,
@@ -102,10 +114,10 @@ class AuthController {
         secure: isDevelopment ? false : true,
         sameSite: isDevelopment ? 'lax' : 'none',
       });
-      res.status(200).redirect(`${envConfig.FRONTEND_HOST}/`);
+      res.status(200).redirect(`${FRONTEN_HOST}/`);
     } catch (error) {
       console.error('OAuth Error:', error);
-      res.redirect(`${envConfig.FRONTEND_HOST}/login?error=auth_failed`);
+      res.redirect(`${FRONTEN_HOST}/login?error=auth_failed`);
     }
   }
 
@@ -128,7 +140,7 @@ class AuthController {
         return res.status(409).json({ message: message });
       }
 
-      const hashPassword = await bcrypt.hash(userData.password, envConfig.HASH_SALT);
+      const hashPassword = await bcrypt.hash(userData.password, HASH_SALT);
 
       let user = await UserModel.create(userData);
       await UserSecurity.create({
@@ -170,7 +182,7 @@ class AuthController {
         return res.status(404).json({ message: 'Dont found this user!' });
       }
 
-      const token = jwt.sign({ _id: userIdAccessApi, role: userData.role }, envConfig.JWT_SECRET, {
+      const token = jwt.sign({ _id: userIdAccessApi, role: userData.role }, JWT_SECRET, {
         expiresIn: '24h',
       });
 
@@ -212,7 +224,7 @@ class AuthController {
         return;
       }
       await transporter.sendMail({
-        from: `"Trung Tâm Hiếu Học" <${envConfig.GMAIL}>`,
+        from: `"Trung Tâm Hiếu Học" <${GMAIL_HOST}>`,
         to: email,
         subject: '🔐 Yêu cầu đặt lại mật khẩu - OTP của bạn',
         text: `Username của bạn là: ${user.username} \nMã OTP của bạn là: ${otp} (hết hạn sau 15 phút)`, // fallback nếu không đọc được HTML
@@ -255,7 +267,7 @@ class AuthController {
       if (!record || record.expiresAt < new Date()) {
         return res.status(400).json({ message: 'OTP không hợp lệ hoặc đã hết hạn' });
       }
-      const hashPassword = await bcrypt.hash(newPassword, envConfig.HASH_SALT);
+      const hashPassword = await bcrypt.hash(newPassword, HASH_SALT);
 
       const user = await UserModel.findOne({ email: email });
       if (!user) {
@@ -306,7 +318,7 @@ class AuthController {
         return;
       }
 
-      const hashPassword = await bcrypt.hash(newPassword, envConfig.HASH_SALT);
+      const hashPassword = await bcrypt.hash(newPassword, HASH_SALT);
 
       const changePassword = await UserSecurity.findByIdAndUpdate(userId, {
         hashPassword: hashPassword,

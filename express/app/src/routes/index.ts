@@ -1,11 +1,12 @@
 import { Application } from 'express';
 import { Request, Response } from 'express';
 import { errorHandler } from '../middlewares/errorHandler';
-import authRouter from './auth';
+import authRouter from '../modules/auth/auth.route';
 // const authMiddleware = require('../middleware/authMiddleware');
 // const allowRole = require('../middleware/allowRole');
 // const meRouter = require('./me');
 // const guestRouter = require('./guest.js');
+import userRouter from '@/modules/user/user.route';
 
 function route(app: Application) {
   // [GET] /health
@@ -13,9 +14,10 @@ function route(app: Application) {
     res.status(200).send('OK');
   });
 
-  app.use('/auth', authRouter);
+  // app.use('/auth', authRouter);
   // app.use('/guest', guestRouter);
   // app.use('/me', meRouter);
+  app.use('/api/users', userRouter);
   app.use('/', (req: Request, res: Response) => {
     res.status(200).json({ message: 'Wellcome An API' });
   });

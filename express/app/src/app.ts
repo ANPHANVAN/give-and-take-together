@@ -16,9 +16,9 @@ app.use(express.urlencoded({ extended: true })); // Đọc form (x-www-form-urle
 app.use(
   cors({
     origin: [
-      envConfig.FRONTEND_HOST,
-      envConfig.API_HOST,
-      envConfig.NODE_ENV === 'development' && 'http://localhost:3000',
+      envConfig.app.FRONTEND_HOST,
+      envConfig.app.API_HOST,
+      envConfig.app.NODE_ENV === 'development' && 'http://localhost:3000',
     ],
     credentials: true,
   }),

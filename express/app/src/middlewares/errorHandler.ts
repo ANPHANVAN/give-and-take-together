@@ -1,25 +1,34 @@
 import { Request, Response, NextFunction } from 'express';
-
-export interface AppError extends Error {
-  status?: number;
-  detailBackendErrorMessage?: string;
-}
+import { EErrorCodes, ErrorCodeType } from '@/constants/errorCode';
+import { ERROR_MESSAGES } from '@/constants/errorMessage';
 
 export class AppError extends Error {
-  status?: number;
-  detailBackendErrorMessage?: string;
+  status: number;
+  errorCode: string;
+  details: any[];
 
-  constructor(message: string, status?: number, detail?: string) {
-    super(message);
+  constructor(message?: string, status?: number, errorCode?: string, details?: any[]) {
+    super(message || ERROR_MESSAGES[EErrorCodes.INTERNAL_SERVER_ERROR]?.message);
     this.name = 'AppError';
+    this.errorCode = errorCode || EErrorCodes.INTERNAL_SERVER_ERROR;
     this.status = status || 500;
-    this.detailBackendErrorMessage = detail || 'No Detail Message: ';
+    this.details = details || [];
+  }
+}
+
+export class AppCodeError extends AppError {
+  constructor(errorCode: ErrorCodeType = EErrorCodes.INTERNAL_SERVER_ERROR) {
+    super(ERROR_MESSAGES[errorCode]?.message, ERROR_MESSAGES[errorCode]?.status, errorCode, []);
+    this.name = 'AppCodeError';
   }
 }
 
 export const errorHandler = (err: AppError, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.detailBackendErrorMessage ? err.detailBackendErrorMessage + ': ' + err : err);
-  res.status(err.status || 500).json({
-    message: err.message || 'Internal Server Error',
+  console.error(err);
+
+  return res.status(err.status).json({
+    message: err.message,
+    status: err.status,
+    errorCode: err.errorCode,
   });
 };
