@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { EErrorCodes, ErrorCodeType } from '@/constants/errorCode';
+import { EErrorCodes, TErrorCode } from '@/constants/errorCode.enum';
 import { ERROR_MESSAGES } from '@/constants/errorMessage';
 
 export class AppError extends Error {
@@ -17,7 +17,7 @@ export class AppError extends Error {
 }
 
 export class AppCodeError extends AppError {
-  constructor(errorCode: ErrorCodeType = EErrorCodes.INTERNAL_SERVER_ERROR) {
+  constructor(errorCode: TErrorCode = EErrorCodes.INTERNAL_SERVER_ERROR) {
     super(ERROR_MESSAGES[errorCode]?.message, ERROR_MESSAGES[errorCode]?.status, errorCode, []);
     this.name = 'AppCodeError';
   }

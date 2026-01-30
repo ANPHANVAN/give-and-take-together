@@ -1,9 +1,10 @@
 import { TLoginByFormDTO } from '../dto/login.dto';
+import { Role } from '../../../generated/enums';
 
 export interface IAuthResult {
   user: {
     id: string;
-    email: string;
+    role: Role;
     name?: string;
   };
   accessToken: string;

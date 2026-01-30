@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import { Prisma, User } from '@/generated/client';
 import { AppCodeError } from '@/middlewares/errorHandler';
-import { EErrorCodes } from '@/constants/errorCode';
+import { EErrorCodes } from '@/constants/errorCode.enum';
 import { hashPassword } from '@/modules/shared/security/password';
 import { IUserService } from './IUser.service';
 import { IUserRepository } from '../repositories/IUser.repository';
