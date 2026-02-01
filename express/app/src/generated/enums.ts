@@ -50,3 +50,12 @@ export const NotificationStatus = {
 } as const
 
 export type NotificationStatus = (typeof NotificationStatus)[keyof typeof NotificationStatus]
+
+
+export const AuthProvider = {
+  GOOGLE: 'GOOGLE',
+  GITHUB: 'GITHUB',
+  FACEBOOK: 'FACEBOOK'
+} as const
+
+export type AuthProvider = (typeof AuthProvider)[keyof typeof AuthProvider]
