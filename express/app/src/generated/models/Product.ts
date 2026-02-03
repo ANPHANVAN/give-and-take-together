@@ -495,10 +495,6 @@ export type EnumProductStatusFieldUpdateOperationsInput = {
   set?: $Enums.ProductStatus
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type ProductCreateNestedManyWithoutRequestsInput = {
   create?: Prisma.XOR<Prisma.ProductCreateWithoutRequestsInput, Prisma.ProductUncheckedCreateWithoutRequestsInput> | Prisma.ProductCreateWithoutRequestsInput[] | Prisma.ProductUncheckedCreateWithoutRequestsInput[]
   connectOrCreate?: Prisma.ProductCreateOrConnectWithoutRequestsInput | Prisma.ProductCreateOrConnectWithoutRequestsInput[]

@@ -10,8 +10,8 @@ datasource db {
 model User {
   id            String   @id @default(uuid())
   fullname      String
-  email         String   @unique
-  passwordHash  String
+  email         String?  @unique
+  passwordHash  String?
   role          Role     @default(USER)
   avatarUrl     String?
   phone         String?
@@ -28,6 +28,7 @@ model User {
   sentMessages  Message[]      @relation("UserMessages")
   chatRooms     ChatRoom[] // Quan hệ nhiều-nhiều ngầm định (participants)
   notifications Notification[]
+  identities    UserIdentity[]
 
   // Reviews
   reviewsGiven    Review[] @relation("Reviewer")
@@ -36,6 +37,21 @@ model User {
   // Logic nhận đồ (Receiver)
   receivedProducts Product[] @relation("UserReceivedProducts")
   requests         Request[] @relation("UserRequests") // Các yêu cầu người này gửi đi
+}
+
+model UserIdentity {
+  id             String       @id @default(cuid())
+  userId         String
+  provider       AuthProvider
+  providerUserId String
+  email          String?
+  accessToken    String?
+  refreshToken   String?
+  expiresAt      DateTime?
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([provider, providerUserId])
 }
 
 model Post {
@@ -183,4 +199,10 @@ enum RequestStatus {
 enum NotificationStatus {
   READ
   UNREAD
+}
+
+enum AuthProvider {
+  GOOGLE
+  GITHUB
+  FACEBOOK
 }

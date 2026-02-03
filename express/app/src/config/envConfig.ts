@@ -92,6 +92,8 @@ export const jwtConfig = {
 export const authConfig = {
   GOOGLE_CLIENT_ID: getEnv('GOOGLE_CLIENT_ID', 'exampleGOOGLE_CLIENT_ID'),
   GOOGLE_CLIENT_SECRET: getEnv('GOOGLE_CLIENT_SECRET', 'exampleGOOGLE_CLIENT_SECRET'),
+  FACEBOOK_CLIENT_ID: getEnv('FACEBOOK_CLIENT_ID', 'exampleFACEBOOK_CLIENT_ID'),
+  FACEBOOK_CLIENT_SECRET: getEnv('FACEBOOK_CLIENT_SECRET', 'exampleFACEBOOK_CLIENT_SECRET'),
   GOOGLE_REDIRECT_URI: getEnv('GOOGLE_REDIRECT_URI', 'exampleGOOGLE_REDIRECT_URI'),
   GMAIL: getEnv('GMAIL', 'example@gmail.com'),
   GMAIL_PASSWORD: getEnv('GMAIL_PASSWORD', 'exampleOneTimeGmailPassword'),

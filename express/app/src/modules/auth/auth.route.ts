@@ -1,32 +1,52 @@
 import express, { Router } from 'express';
-import authController from './controllers/auth.controller';
+import { container } from '@/config/container';
+import { AuthController } from './controllers/auth.controller';
+import passport from 'passport';
 
+const authController = container.resolve(AuthController);
 const router: Router = express.Router();
 
 // base /api/auth
 
-// [GET] /api/auth/logout
-router.get('/logout', authController.logout);
+// [post] /api/auth/form
+router.post('/form', authController.loginByForm);
 
-// [GET] /api/auth/login/google
-router.get('/login/google', authController.redirectToGoogle);
+// [post] /api/auth/refresh-token
+router.post('/refresh-token', authController.refreshToken);
 
-// [GET] /api/auth/login/google/callback
-router.get('/login/google/callback', authController.googleCallback);
+// [delete] /api/auth/logout
+router.delete('/logout', authController.clearToken);
 
-// [POST] /api/auth/login/authentication
-router.post('/login/authentication', authController.authentication);
+// [get] /api/auth/google
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-// [POST] /api/auth/register-new
-router.post('/register-new', authController.registerNew);
+// [get] /api/auth/google/callback
+router.get(
+  '/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login', session: false }),
+  authController.loginWithOAuth,
+);
 
-// [POST] /api/auth/api/forgot-password
-router.post('/api/forgot-password', authController.forgotPassword);
+// [get] /api/auth/facebook
+router.get('/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
 
-// [POST] /api/auth/api/reset-password/
-router.post('/api/reset-password', authController.resetPassword);
+// [get] /api/auth/facebook/callback
+router.get(
+  '/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login', failureMessage: true, session: false }),
+  authController.loginWithOAuth,
+);
 
-// [PUT] /api/auth/change-password
-router.put('/change-password', authController.putPassword);
+// // [post] /api/auth/register
+// router.post('/register', authController.registerUser);
+
+// // [post] /api/auth/forgot-password
+// router.post('/forgot-password', authController.forgotPassword);
+
+// // [post] /api/auth/reset-password
+// router.post('/reset-password', authController.resetPassword);
+
+// // [PUT] /api/auth/change-password
+// router.put('/change-password', authController.putPassword);
 
 export default router;
