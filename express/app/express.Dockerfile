@@ -13,6 +13,7 @@ COPY package*.json ./
 # Cài dependencies (bao gồm devDependencies vì cần nodemon)
 RUN npm ci
 
+USER node
 # Mở cổng 3000 (Express)
 EXPOSE 8000
 

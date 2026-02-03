@@ -352,7 +352,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   reviewsReceived?: Prisma.ReviewListRelationFilter
   receivedProducts?: Prisma.ProductListRelationFilter
   requests?: Prisma.RequestListRelationFilter
-}, "id" | "id" | "email">
+}, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
