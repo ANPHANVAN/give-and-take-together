@@ -53,6 +53,10 @@ export const ERROR_MESSAGES: Record<EErrorCodes, IErrorDefinition> = {
     message: 'Refresh token không hợp lệ',
     status: 401,
   },
+  [EErrorCodes.AUTH_LOGIN_METHOD_MISMATCH]: {
+    message: 'Tài khoản này được đăng ký bằng đăng nhập mạng xã hội. Vui lòng đăng nhập bằng Google/Facebook.',
+    status: 409,
+  },
 
   /* =====================
    * AUTH - REGISTER

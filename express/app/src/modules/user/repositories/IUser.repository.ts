@@ -1,4 +1,5 @@
 import { Prisma, User } from '@/generated/client';
+import { TLoginByOAuthDTO } from '@/modules/auth/dto/login.dto';
 
 export interface IUserRepository {
   // CREATE

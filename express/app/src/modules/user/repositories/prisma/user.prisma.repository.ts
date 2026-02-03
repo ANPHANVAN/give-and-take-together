@@ -1,6 +1,7 @@
 import { IUserRepository } from '../IUser.repository';
 import { Prisma, User } from '@/generated/client';
 import { AppError } from '@/middlewares/errorHandler';
+import { TLoginByOAuthDTO } from '@/modules/auth/dto/login.dto';
 import { BaseRepository } from '@/modules/shared/database/base.repository';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 import { injectable } from 'tsyringe';

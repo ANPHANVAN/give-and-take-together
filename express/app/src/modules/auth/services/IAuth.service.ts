@@ -1,4 +1,4 @@
-import { TLoginByFormDTO } from '../dto/login.dto';
+import { TLoginByFormDTO, TLoginByOAuthDTO } from '../dto/login.dto';
 import { Role } from '../../../generated/enums';
 
 export interface IAuthResult {
@@ -17,4 +17,10 @@ export interface IAuthService {
   refreshToken(refreshToken: string): Promise<IAuthResult>;
 
   logout(userId: string, refreshToken?: string): Promise<void>;
+
+  getUrlredirectToGoogleLogin(): Promise<string>;
+
+  loginByGoogle(code: string): Promise<IAuthResult>;
+
+  loginWithOAuth(dto: TLoginByOAuthDTO): Promise<IAuthResult>;
 }

@@ -6,6 +6,9 @@ import cookieParser from 'cookie-parser';
 import envConfig from './config/envConfig';
 import route from './routes';
 
+import passport from 'passport';
+import '@/modules/auth/initPassport';
+
 const app = express();
 
 app.use(morgan('combined'));
@@ -25,7 +28,7 @@ app.use(
 );
 
 app.use(cookieParser());
-
+app.use(passport.initialize());
 route(app);
 
 export default app;
