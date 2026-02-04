@@ -46,7 +46,7 @@ router.get(
 // // [post] /api/auth/reset-password
 // router.post('/reset-password', authController.resetPassword);
 
-// // [PUT] /api/auth/change-password
-// router.put('/change-password', authController.putPassword);
+// [PUT] /api/auth/change-password
+router.put('/change-password', authController.putPassword);
 
 export default router;

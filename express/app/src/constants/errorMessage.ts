@@ -69,6 +69,10 @@ export const ERROR_MESSAGES: Record<EErrorCodes, IErrorDefinition> = {
     message: 'Mật khẩu không chính xác',
     status: 401,
   },
+  [EErrorCodes.AUTH_PASSWORD_NOT_SET]: {
+    message: 'Tài khoản này chưa thiết lập mật khẩu. Vui lòng tạo mật khẩu trước.',
+    status: 400,
+  },
 
   /* =====================
    * USER

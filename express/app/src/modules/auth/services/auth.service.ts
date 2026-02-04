@@ -4,7 +4,7 @@ import { IAuthResult, IAuthService } from './IAuth.service';
 import { IUserRepository } from '@/modules/user/repositories/IUser.repository';
 import { AppCodeError, AppError } from '@/middlewares/errorHandler';
 import { EErrorCodes } from '@/constants/errorCode.enum';
-import { verifyPassword } from '@/modules/shared/security/password';
+import { hashPassword, verifyPassword } from '@/modules/shared/security/password';
 import jwt from 'jsonwebtoken';
 import envConfig from '@/config/envConfig';
 import { generateRandomString } from '@/utils/auth';
@@ -13,6 +13,7 @@ import { IUserIdentityRepository } from '@/modules/user/repositories/IUserIdenti
 import { runTransaction } from '@/modules/shared/database/transactionManager';
 import { UserPrismaRepository } from '@/modules/user/repositories/prisma/user.prisma.repository';
 import { UserIdentityPrismaRepository } from '@/modules/user/repositories/prisma/userIdentity.repository';
+import { ChangePasswordDTO, TChangePasswordDTO } from '../dto/changePassword.dto';
 
 const JWT_SECRET = envConfig.jwt.JWT_SECRET;
 
@@ -117,5 +118,19 @@ export class AuthService implements IAuthService {
     });
     payload = { id: newUser.id, role: newUser.role };
     return this.getAuthResultBySignToken(payload);
+  }
+
+  async changePassword(changePasswordDTO: TChangePasswordDTO): Promise<void> {
+    const userInfo = await this.userRepo.findUserById(changePasswordDTO.userId);
+    if (!userInfo) throw new AppCodeError(EErrorCodes.USER_NOT_FOUND);
+
+    if (!userInfo.passwordHash) throw new AppCodeError(EErrorCodes.AUTH_PASSWORD_NOT_SET);
+
+    const isMatch = await verifyPassword(changePasswordDTO.oldPassword, userInfo.passwordHash);
+    if (!isMatch) throw new AppCodeError(EErrorCodes.AUTH_WRONG_PASSWORD);
+
+    this.userRepo.updateAllField(changePasswordDTO.userId, {
+      passwordHash: await hashPassword(changePasswordDTO.newPassword),
+    });
   }
 }

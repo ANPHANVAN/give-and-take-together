@@ -4,6 +4,7 @@ import { IAuthResult, IAuthService } from '../services/IAuth.service';
 import { catchAsync } from '@/utils/catchAsync';
 import { LoginByFormDTO } from '../dto/login.dto';
 import { ETokenType } from '@/constants/tokenType.enum';
+import { ChangePasswordDTO } from '../dto/changePassword.dto';
 
 @injectable()
 export class AuthController {
@@ -31,13 +32,13 @@ export class AuthController {
     const loginDataParsed = LoginByFormDTO.parse(req.body);
     const authResult = await this.authService.loginByForm(loginDataParsed);
     this.resTokenCookies(res, authResult);
-    return res.status(200).json({ message: 'Login success' });
+    return res.status(200).json({ message: 'Login by form successful' });
   });
 
   refreshToken = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const newAuthResult = await this.authService.refreshToken(req.cookies.refreshToken);
     this.resTokenCookies(res, newAuthResult);
-    return res.status(200).json({ message: newAuthResult });
+    return res.status(200).json({ message: 'Login by OAuth successfull', user: newAuthResult.user });
   });
 
   clearToken = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -57,7 +58,14 @@ export class AuthController {
   });
 
   loginWithOAuth = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    this.resTokenCookies(res, req.user as IAuthResult);
-    return res.status(200).json({ message: 'newAuthResult' });
+    const authResult = req.user as IAuthResult;
+    this.resTokenCookies(res, authResult);
+    return res.status(200).json({ message: 'Login by OAuth successfull', user: authResult.user });
+  });
+
+  putPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const changePasswordDTO = ChangePasswordDTO.parse(req.body);
+    await this.authService.changePassword(changePasswordDTO);
+    return res.status(200).json({ message: 'Change password successful' });
   });
 }

@@ -1,5 +1,6 @@
 import { TLoginByFormDTO, TLoginByOAuthDTO } from '../dto/login.dto';
 import { Role } from '../../../generated/enums';
+import { TChangePasswordDTO } from '../dto/changePassword.dto';
 
 export interface IAuthResult {
   user: {
@@ -23,4 +24,6 @@ export interface IAuthService {
   loginByGoogle(code: string): Promise<IAuthResult>;
 
   loginWithOAuth(dto: TLoginByOAuthDTO): Promise<IAuthResult>;
+
+  changePassword(changePasswordDTO: TChangePasswordDTO): Promise<void>;
 }

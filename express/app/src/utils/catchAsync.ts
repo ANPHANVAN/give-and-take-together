@@ -10,7 +10,7 @@ export const catchAsync = (fn: any) => {
       } else if (err instanceof z.ZodError) {
         next(new AppCodeError(EErrorCodes.VALIDATION_ERROR));
       } else {
-        next(new AppCodeError(EErrorCodes.INTERNAL_SERVER_ERROR));
+        next(new AppError(EErrorCodes.INTERNAL_SERVER_ERROR, 500, EErrorCodes.INTERNAL_SERVER_ERROR, [err]));
       }
     });
   };
