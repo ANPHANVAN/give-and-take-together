@@ -5,6 +5,9 @@ import { catchAsync } from '@/utils/catchAsync';
 import { LoginByFormDTO } from '../dto/login.dto';
 import { ETokenType } from '@/constants/tokenType.enum';
 import { ChangePasswordDTO } from '../dto/changePassword.dto';
+import { SetPasswordDTO } from '../dto/setPassword.dto';
+import { AppCodeError } from '@/middlewares/errorHandler';
+import { EErrorCodes } from '@/constants/errorCode.enum';
 
 @injectable()
 export class AuthController {
@@ -64,8 +67,20 @@ export class AuthController {
   });
 
   putPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const changePasswordDTO = ChangePasswordDTO.parse(req.body);
+    const userId = req.user?.id;
+    if (!userId) throw new AppCodeError(EErrorCodes.AUTH_UNAUTHORIZED);
+
+    const changePasswordDTO = ChangePasswordDTO.parse({ ...req.body, userId: userId });
     await this.authService.changePassword(changePasswordDTO);
     return res.status(200).json({ message: 'Change password successful' });
+  });
+
+  setPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?.id;
+    if (!userId) throw new AppCodeError(EErrorCodes.AUTH_UNAUTHORIZED);
+
+    const setPassBody = SetPasswordDTO.parse({ ...req.body, userId: userId });
+    await this.authService.setPasswordFirstTime(setPassBody);
+    return res.status(201).json({ message: 'Tạo mật khẩu lần đầu thành công' });
   });
 }

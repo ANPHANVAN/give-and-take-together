@@ -14,6 +14,7 @@ import { runTransaction } from '@/modules/shared/database/transactionManager';
 import { UserPrismaRepository } from '@/modules/user/repositories/prisma/user.prisma.repository';
 import { UserIdentityPrismaRepository } from '@/modules/user/repositories/prisma/userIdentity.repository';
 import { ChangePasswordDTO, TChangePasswordDTO } from '../dto/changePassword.dto';
+import { TSetPasswordDTO } from '../dto/setPassword.dto';
 
 const JWT_SECRET = envConfig.jwt.JWT_SECRET;
 
@@ -118,6 +119,17 @@ export class AuthService implements IAuthService {
     });
     payload = { id: newUser.id, role: newUser.role };
     return this.getAuthResultBySignToken(payload);
+  }
+
+  async setPasswordFirstTime(setPasswordDTO: TSetPasswordDTO): Promise<void> {
+    const userInfo = await this.userRepo.findUserById(setPasswordDTO.userId);
+    if (!userInfo) throw new AppCodeError(EErrorCodes.USER_NOT_FOUND);
+
+    if (userInfo.passwordHash) throw new AppCodeError(EErrorCodes.AUTH_PASSWORD_ALREADY_SET);
+
+    await this.userRepo.updateAllField(setPasswordDTO.userId, {
+      passwordHash: await hashPassword(setPasswordDTO.newPassword),
+    });
   }
 
   async changePassword(changePasswordDTO: TChangePasswordDTO): Promise<void> {

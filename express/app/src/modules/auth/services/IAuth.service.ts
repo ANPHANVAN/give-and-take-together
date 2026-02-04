@@ -1,6 +1,7 @@
 import { TLoginByFormDTO, TLoginByOAuthDTO } from '../dto/login.dto';
 import { Role } from '../../../generated/enums';
 import { TChangePasswordDTO } from '../dto/changePassword.dto';
+import { TSetPasswordDTO } from '../dto/setPassword.dto';
 
 export interface IAuthResult {
   user: {
@@ -26,4 +27,6 @@ export interface IAuthService {
   loginWithOAuth(dto: TLoginByOAuthDTO): Promise<IAuthResult>;
 
   changePassword(changePasswordDTO: TChangePasswordDTO): Promise<void>;
+
+  setPasswordFirstTime(setPasswordDTO: TSetPasswordDTO): Promise<void>;
 }

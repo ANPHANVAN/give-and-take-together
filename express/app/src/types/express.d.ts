@@ -1,5 +1,7 @@
+import { IAuthResult } from '@/modules/auth/services/IAuth.service';
+
 interface IUserRequest {
-  _id: string;
+  id: string;
   role: string;
 }
 
@@ -10,8 +12,9 @@ interface IFileRequest extends Express.Multer.File {
 
 declare global {
   namespace Express {
+    interface User extends IUserRequest, IAuthResult {}
+
     interface Request {
-      user?: TUserRequest;
       file?: IFileRequest;
     }
   }

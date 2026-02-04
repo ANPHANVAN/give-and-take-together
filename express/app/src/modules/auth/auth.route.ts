@@ -2,6 +2,7 @@ import express, { Router } from 'express';
 import { container } from '@/config/container';
 import { AuthController } from './controllers/auth.controller';
 import passport from 'passport';
+import { authMiddleware } from '@/middlewares/auth.middleware';
 
 const authController = container.resolve(AuthController);
 const router: Router = express.Router();
@@ -28,7 +29,7 @@ router.get(
 );
 
 // [get] /api/auth/facebook
-router.get('/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
+router.get('/facebook', passport.authenticate('facebook', { scope: [/* 'email', */ 'public_profile'] }));
 
 // [get] /api/auth/facebook/callback
 router.get(
@@ -46,7 +47,10 @@ router.get(
 // // [post] /api/auth/reset-password
 // router.post('/reset-password', authController.resetPassword);
 
-// [PUT] /api/auth/change-password
-router.put('/change-password', authController.putPassword);
+// [put] /api/auth/change-password
+router.put('/change-password', authMiddleware, authController.putPassword);
+
+// [post] /api/auth/set-password
+router.post('/set-password', authMiddleware, authController.setPassword);
 
 export default router;

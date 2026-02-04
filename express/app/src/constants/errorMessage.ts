@@ -74,6 +74,11 @@ export const ERROR_MESSAGES: Record<EErrorCodes, IErrorDefinition> = {
     status: 400,
   },
 
+  [EErrorCodes.AUTH_PASSWORD_ALREADY_SET]: {
+    message: 'Tài khoản đã có mật khẩu.',
+    status: 400,
+  },
+
   /* =====================
    * USER
    * ===================== */
