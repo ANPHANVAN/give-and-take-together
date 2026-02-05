@@ -13,14 +13,18 @@ passport.use(
         '/api/auth/google/callback',
     },
     async function (_accessToken, _refreshToken, profile, cb) {
-      const authService = container.resolve(AuthService);
-      const result = await authService.loginWithOAuth({
-        provider: 'GOOGLE',
-        providerUserId: profile.id,
-        email: profile.emails?.[0]?.value,
-        name: profile.displayName,
-      });
-      cb(null, result);
+      try {
+        const authService = container.resolve(AuthService);
+        const result = await authService.loginWithOAuth({
+          provider: 'GOOGLE',
+          providerUserId: profile.id,
+          email: profile.emails?.[0]?.value,
+          name: profile.displayName,
+        });
+        cb(null, result as any);
+      } catch (error) {
+        cb(error);
+      }
     },
   ),
 );

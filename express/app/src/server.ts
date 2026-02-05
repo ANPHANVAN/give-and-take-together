@@ -1,6 +1,3 @@
-// Dependency Injection
-import 'reflect-metadata';
-
 import http from 'http';
 import app from './app';
 import envConfig from './config/envConfig';
@@ -43,7 +40,7 @@ async function checkDatabase() {
   }
 }
 
-async function bootstrap() {
+export async function bootstrap() {
   console.log('🚀 Bootstrapping application...');
 
   await Promise.all([checkStorage(), checkDatabase()]);

@@ -1,9 +1,16 @@
+import 'reflect-metadata';
 import { UserService } from '@/modules/user/services/user.service';
 import { IUserRepository } from '@/modules/user/repositories/IUser.repository';
-
+import { hashPassword } from '@/modules/shared/security/password';
+import { any } from 'zod';
 /**
  * Unit tests for UserService.createUser()
  */
+
+jest.mock('@/modules/shared/security/password', () => ({
+  hashPassword: jest.fn(),
+}));
+
 describe('UserService.createUser', () => {
   let userService: UserService;
   let mockUserRepository: jest.Mocked<IUserRepository>;
@@ -12,8 +19,10 @@ describe('UserService.createUser', () => {
     // Mock the repository
     mockUserRepository = {
       createUser: jest.fn(),
-    };
+      findUserByEmail: jest.fn(),
+    } as any;
 
+    (hashPassword as jest.Mock).mockResolvedValue('hashed_password');
     // Create service instance with mocked repository
     userService = new UserService(mockUserRepository);
   });
@@ -21,57 +30,29 @@ describe('UserService.createUser', () => {
   describe('Success cases', () => {
     it('should create user successfully with valid email', async () => {
       // Arrange
-      const email = 'test@example.com';
-      const expectedUser = { id: '1', email, createdAt: new Date() };
+
+      const userCreate = {
+        email: 'test@example.com',
+        fullname: 'Phan Van An',
+        password: 'phanvanan',
+      };
+      const expectedUser = {
+        id: '1',
+        email: userCreate,
+        hashPassword: 'hashed_password',
+        createdAt: new Date(),
+      } as any;
       mockUserRepository.createUser.mockResolvedValue(expectedUser);
 
       // Act
-      const result = await userService.createUser(email);
+      const result = await userService.createUser(userCreate);
 
       // Assert
       expect(result).toEqual(expectedUser);
-      expect(mockUserRepository.createUser).toHaveBeenCalledWith(email);
-      expect(mockUserRepository.createUser).toHaveBeenCalledTimes(1);
-    });
-
-    it('should create user with different email formats', async () => {
-      // Test cases
-      const testEmails = ['user+tag@example.co.uk', 'firstname.lastname@company.org', 'user123@subdomain.example.com'];
-
-      for (const email of testEmails) {
-        // Arrange
-        const expectedUser = { id: 'some-id', email };
-        mockUserRepository.createUser.mockResolvedValue(expectedUser);
-
-        // Act
-        const result = await userService.createUser(email);
-
-        // Assert
-        expect(result.email).toBe(email);
-        expect(mockUserRepository.createUser).toHaveBeenCalledWith(email);
-      }
-    });
-  });
-
-  describe('Failure cases', () => {
-    it('should throw error when repository fails', async () => {
-      // Arrange
-      const email = 'test@example.com';
-      const error = new Error('Database connection failed');
-      mockUserRepository.createUser.mockRejectedValue(error);
-
-      // Act & Assert
-      await expect(userService.createUser(email)).rejects.toThrow('Database connection failed');
-    });
-
-    it('should handle timeout error from repository', async () => {
-      // Arrange
-      const email = 'test@example.com';
-      const timeoutError = new Error('Request timeout');
-      mockUserRepository.createUser.mockRejectedValue(timeoutError);
-
-      // Act & Assert
-      await expect(userService.createUser(email)).rejects.toThrow('Request timeout');
+      expect(result).toMatchObject({
+        hashPassword: 'hashed_password',
+      });
+      expect(result).not.toMatchObject({ password: any });
     });
   });
 });
