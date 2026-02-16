@@ -38,19 +38,16 @@ router.get(
   authController.loginWithOAuth,
 );
 
-// // [post] /api/auth/register
-// router.post('/register', authController.registerUser);
+// [post] /api/auth/otp
+router.post('/otp', authController.resetOtp);
 
-// // [post] /api/auth/forgot-password
-// router.post('/forgot-password', authController.forgotPassword);
+// [post] /api/auth/password/otp
+router.post('/password/otp', authController.setPasswordByOTP);
 
-// // [post] /api/auth/reset-password
-// router.post('/reset-password', authController.resetPassword);
+// [put] /api/auth/password/token
+router.put('/password/token', authMiddleware, authController.putPassword);
 
-// [put] /api/auth/change-password
-router.put('/change-password', authMiddleware, authController.putPassword);
-
-// [post] /api/auth/set-password
-router.post('/set-password', authMiddleware, authController.setPassword);
+// [post] /api/auth/password/token
+router.post('/password/token', authMiddleware, authController.setPassword);
 
 export default router;

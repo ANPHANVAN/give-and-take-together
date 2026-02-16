@@ -78,6 +78,10 @@ export const ERROR_MESSAGES: Record<EErrorCodes, IErrorDefinition> = {
     message: 'Tài khoản đã có mật khẩu.',
     status: 400,
   },
+  [EErrorCodes.AUTH_OTP_NOT_FOUND_OR_EXPRIRED]: {
+    message: 'Chưa tạo OTP hoặc OTP hết hạn.',
+    status: 400,
+  },
 
   /* =====================
    * USER

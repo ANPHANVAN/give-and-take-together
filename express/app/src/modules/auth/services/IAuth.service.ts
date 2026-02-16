@@ -2,6 +2,7 @@ import { TLoginByFormDTO, TLoginByOAuthDTO } from '../dto/login.dto';
 import { Role } from '../../../generated/enums';
 import { TChangePasswordDTO } from '../dto/changePassword.dto';
 import { TSetPasswordDTO } from '../dto/setPassword.dto';
+import { TResetOtp } from '../dto/resetOtp.dto';
 
 export interface IAuthResult {
   user: {
@@ -29,4 +30,8 @@ export interface IAuthService {
   changePassword(changePasswordDTO: TChangePasswordDTO): Promise<void>;
 
   setPasswordFirstTime(setPasswordDTO: TSetPasswordDTO): Promise<void>;
+
+  resetOtp(resetOtp: TResetOtp): Promise<void>;
+
+  setPasswordByOtp(email: string, otp: string, password: string): Promise<void>;
 }

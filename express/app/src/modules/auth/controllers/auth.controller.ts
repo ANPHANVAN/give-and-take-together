@@ -8,6 +8,8 @@ import { ChangePasswordDTO } from '../dto/changePassword.dto';
 import { SetPasswordDTO } from '../dto/setPassword.dto';
 import { AppCodeError } from '@/middlewares/errorHandler';
 import { EErrorCodes } from '@/constants/errorCode.enum';
+import { ResetOtp } from '../dto/resetOtp.dto';
+import { ResetPasswordByOtp } from '../dto/resetPasswordByOtp.dto';
 
 @injectable()
 export class AuthController {
@@ -82,5 +84,17 @@ export class AuthController {
     const setPassBody = SetPasswordDTO.parse({ ...req.body, userId: userId });
     await this.authService.setPasswordFirstTime(setPassBody);
     return res.status(201).json({ message: 'Tạo mật khẩu lần đầu thành công' });
+  });
+
+  resetOtp = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const resetOtp = ResetOtp.parse(req.body);
+    await this.authService.resetOtp(resetOtp);
+    return res.status(201).json({ message: 'Otp thay đổi mật khẩu đã được gửi về email' });
+  });
+
+  setPasswordByOTP = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const { email, otp, password } = ResetPasswordByOtp.parse(req.body);
+    await this.authService.setPasswordByOtp(email, otp, password);
+    return res.status(200).json({ message: 'Mật khẩu đã thay đổi thành công' });
   });
 }
