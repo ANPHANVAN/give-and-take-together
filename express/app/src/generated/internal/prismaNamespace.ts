@@ -386,6 +386,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   UserIdentity: 'UserIdentity',
+  OtpReset: 'OtpReset',
   Post: 'Post',
   Product: 'Product',
   Request: 'Request',
@@ -408,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userIdentity" | "post" | "product" | "request" | "chatRoom" | "message" | "review" | "notification"
+    modelProps: "user" | "userIdentity" | "otpReset" | "post" | "product" | "request" | "chatRoom" | "message" | "review" | "notification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -557,6 +558,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserIdentityCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserIdentityCountAggregateOutputType> | number
+        }
+      }
+    }
+    OtpReset: {
+      payload: Prisma.$OtpResetPayload<ExtArgs>
+      fields: Prisma.OtpResetFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OtpResetFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpResetPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OtpResetFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpResetPayload>
+        }
+        findFirst: {
+          args: Prisma.OtpResetFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpResetPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OtpResetFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpResetPayload>
+        }
+        findMany: {
+          args: Prisma.OtpResetFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpResetPayload>[]
+        }
+        create: {
+          args: Prisma.OtpResetCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpResetPayload>
+        }
+        createMany: {
+          args: Prisma.OtpResetCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OtpResetCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpResetPayload>[]
+        }
+        delete: {
+          args: Prisma.OtpResetDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpResetPayload>
+        }
+        update: {
+          args: Prisma.OtpResetUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpResetPayload>
+        }
+        deleteMany: {
+          args: Prisma.OtpResetDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OtpResetUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OtpResetUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpResetPayload>[]
+        }
+        upsert: {
+          args: Prisma.OtpResetUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpResetPayload>
+        }
+        aggregate: {
+          args: Prisma.OtpResetAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOtpReset>
+        }
+        groupBy: {
+          args: Prisma.OtpResetGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OtpResetGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OtpResetCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OtpResetCountAggregateOutputType> | number
         }
       }
     }
@@ -1151,6 +1226,16 @@ export const UserIdentityScalarFieldEnum = {
 export type UserIdentityScalarFieldEnum = (typeof UserIdentityScalarFieldEnum)[keyof typeof UserIdentityScalarFieldEnum]
 
 
+export const OtpResetScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  otp: 'otp',
+  expiresAt: 'expiresAt'
+} as const
+
+export type OtpResetScalarFieldEnum = (typeof OtpResetScalarFieldEnum)[keyof typeof OtpResetScalarFieldEnum]
+
+
 export const PostScalarFieldEnum = {
   id: 'id',
   giverId: 'giverId',
@@ -1544,6 +1629,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   userIdentity?: Prisma.UserIdentityOmit
+  otpReset?: Prisma.OtpResetOmit
   post?: Prisma.PostOmit
   product?: Prisma.ProductOmit
   request?: Prisma.RequestOmit

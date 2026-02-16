@@ -48,6 +48,11 @@ export type User = Prisma.UserModel
  */
 export type UserIdentity = Prisma.UserIdentityModel
 /**
+ * Model OtpReset
+ * 
+ */
+export type OtpReset = Prisma.OtpResetModel
+/**
  * Model Post
  * 
  */

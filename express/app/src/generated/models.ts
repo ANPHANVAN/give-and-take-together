@@ -10,6 +10,7 @@
  */
 export type * from './models/User'
 export type * from './models/UserIdentity'
+export type * from './models/OtpReset'
 export type * from './models/Post'
 export type * from './models/Product'
 export type * from './models/Request'

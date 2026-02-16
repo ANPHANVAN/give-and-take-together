@@ -54,6 +54,13 @@ model UserIdentity {
   @@unique([provider, providerUserId])
 }
 
+model OtpReset {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  otp       String
+  expiresAt DateTime
+}
+
 model Post {
   id            String     @id @default(uuid())
   giverId       String
