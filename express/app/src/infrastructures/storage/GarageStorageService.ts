@@ -6,20 +6,22 @@ import {
   ListBucketsCommand,
 } from '@aws-sdk/client-s3';
 import { IStorageService } from './IStorageService';
+import { IStorageConfig } from './IStorageConfig';
 
 export class GarageStorageService implements IStorageService {
   private client: S3Client;
   private bucket: string;
 
-  constructor(config: { endpoint: string; accessKeyId: string; secretAccessKey: string; bucket: string }) {
+  constructor(config: IStorageConfig) {
     this.client = new S3Client({
       endpoint: config.endpoint,
       region: 'garage',
-      credentials: {
-        accessKeyId: config.accessKeyId,
-        secretAccessKey: config.secretAccessKey,
-      },
       forcePathStyle: true,
+      credentials: {
+        accessKeyId: config.credentials.accessKeyId,
+        secretAccessKey: config.credentials.secretAccessKey,
+      },
+      maxAttempts: config.maxAttempts,
     });
     this.bucket = config.bucket;
   }

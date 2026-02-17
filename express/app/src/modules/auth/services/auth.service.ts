@@ -15,6 +15,9 @@ import { UserPrismaRepository } from '@/modules/user/repositories/prisma/user.pr
 import { UserIdentityPrismaRepository } from '@/modules/user/repositories/prisma/userIdentity.repository';
 import { ChangePasswordDTO, TChangePasswordDTO } from '../dto/changePassword.dto';
 import { TSetPasswordDTO } from '../dto/setPassword.dto';
+import { TResetOtp } from '../dto/resetOtp.dto';
+import { IOtpResetRepository } from '../repositories/IOtpReset.repository';
+import nodemailer from 'nodemailer';
 
 const JWT_SECRET = envConfig.jwt.JWT_SECRET;
 
@@ -28,6 +31,7 @@ export class AuthService implements IAuthService {
   constructor(
     @inject('IUserRepository') private userRepo: IUserRepository,
     @inject('IUserIdentityRepository') private userIdentityRepo: IUserIdentityRepository,
+    @inject('IOtpResetRepository') private otpResetRepo: IOtpResetRepository,
   ) {}
 
   getAuthResultBySignToken(payload: IPayloadJWT): IAuthResult {
@@ -145,4 +149,73 @@ export class AuthService implements IAuthService {
       passwordHash: await hashPassword(changePasswordDTO.newPassword),
     });
   }
+
+  async resetOtp(resetOtp: TResetOtp): Promise<void> {
+    const userEmail = resetOtp.email;
+
+    const userData = this.userRepo.findUserByEmail(userEmail);
+    if (!userData) throw new AppCodeError(EErrorCodes.USER_NOT_FOUND);
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString(); // 6 character
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+
+    await this.otpResetRepo.deleteManyByEmail(userEmail);
+
+    await this.otpResetRepo.create({
+      email: userEmail,
+      otp: otp,
+      expiresAt: expiresAt,
+    });
+
+    await sendOtpResetPassword(userEmail, otp);
+  }
+
+  async setPasswordByOtp(email: string, otp: string, password: string): Promise<void> {
+    const otpResetData = await this.otpResetRepo.findByEmailAndOtp(email, otp);
+    if (!otpResetData || otpResetData.expiresAt < new Date())
+      throw new AppCodeError(EErrorCodes.AUTH_OTP_NOT_FOUND_OR_EXPRIRED);
+
+    const hashedPassword = await hashPassword(password);
+    const userData = await this.userRepo.findUserByEmail(otpResetData.email);
+    if (!userData) throw new AppCodeError(EErrorCodes.USER_NOT_FOUND);
+
+    await this.userRepo.updateAllField(userData.id, {
+      passwordHash: hashedPassword,
+    });
+
+    await this.otpResetRepo.deleteByEmail(email);
+  }
 }
+
+const sendOtpResetPassword = async (userEmail: string, otp: string) => {
+  const GMAIL_HOST = envConfig.auth.GMAIL;
+  const GMAIL_PASSWORD = envConfig.auth.GMAIL_PASSWORD;
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: `${GMAIL_HOST}`,
+      pass: `${GMAIL_PASSWORD}`,
+    },
+  });
+  await transporter.sendMail({
+    from: `"Give And Take Together" <${GMAIL_HOST}>`,
+    to: userEmail,
+    subject: '🔐 Yêu cầu đặt lại mật khẩu - OTP của bạn',
+    text: `Mã OTP của bạn là: ${otp} (hết hạn sau 15 phút)`, // fallback nếu không đọc được HTML
+    html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+        <h2 style="color: #007bff;">👋 Xin chào,</h2>
+        <p>Bạn (hoặc ai đó) đã yêu cầu đặt lại mật khẩu cho tài khoản trên <strong>Website Give And Take Together</strong>.</p>
+        <p style="font-size: 16px;">Mã OTP của bạn là:</p>
+        <div style="font-size: 28px; font-weight: bold; background: #f8f9fa; padding: 12px 20px; border-radius: 5px; text-align: center; letter-spacing: 2px;">
+            ${otp}
+        </div>
+        <p>Mã OTP này sẽ <strong>hết hạn sau 15 phút</strong>. Vui lòng không chia sẻ mã này với bất kỳ ai.</p>
+        <hr />
+        <p style="font-size: 13px; color: #777;">Nếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này.</p>
+        <p style="font-size: 13px; color: #777;">Trân trọng,<br/>Đội ngũ Give And Take Together</p>
+        </div>
+    `,
+  });
+};

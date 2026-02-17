@@ -8,28 +8,22 @@ import {
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { IStorageService } from './IStorageService';
+import { IStorageConfig } from './IStorageConfig';
 
 export class MinioStorageService implements IStorageService {
   private client: S3Client;
   private bucket: string;
 
-  constructor(config: {
-    endPoint: string;
-    port: number;
-    accessKey: string;
-    secretKey: string;
-    bucket: string;
-    region?: string;
-    ssl?: boolean;
-  }) {
+  constructor(config: IStorageConfig) {
     this.client = new S3Client({
-      region: config.region ?? 'us-east-1',
+      endpoint: config.endpoint,
+      region: 'us-east-1',
       forcePathStyle: true, // QUAN TRỌNG CHO MINIO
-      endpoint: `${config.ssl ? 'https' : 'http'}://${config.endPoint}:${config.port}`,
       credentials: {
-        accessKeyId: config.accessKey,
-        secretAccessKey: config.secretKey,
+        accessKeyId: config.credentials.accessKeyId,
+        secretAccessKey: config.credentials.secretAccessKey,
       },
+      maxAttempts: config.maxAttempts,
     });
 
     this.bucket = config.bucket;
@@ -50,7 +44,7 @@ export class MinioStorageService implements IStorageService {
       await this.client.send(new ListBucketsCommand({}));
       return true;
     } catch (e) {
-      return false;
+      throw e;
     }
   }
 

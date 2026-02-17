@@ -103,12 +103,11 @@ export const minioConfig = {
   MINIO_REGION: getEnv('MINIO_REGION', 'us-east-1'),
   MINIO_ROOT_USER: getEnv('MINIO_ROOT_USER', 'username'),
   MINIO_ROOT_PASSWORD: getEnv('MINIO_ROOT_PASSWORD', 'minioPassword'),
-  ENDPOINT: getEnv('MINIO_ENDPOINT', 'localhost'),
+  ENDPOINT: getEnv('MINIO_ENDPOINT', 'http://localhost:9000'),
   PORT: getEnvNumber('MINIO_PORT', 9000),
-  USE_SSL: getEnv('MINIO_USE_SSL', 'false') === 'true',
   BUCKET_NAME: getEnv('MINIO_BUCKET', 'exam-platform'),
-  ACCESS_KEY: getEnv('MINIO_ACCESS_KEY', 'minioadmin'),
-  SECRET_KEY: getEnv('MINIO_SECRET_KEY', 'minioadmin'),
+  ACCESS_KEY: getEnv('MINIO_ROOT_USER', 'username'),
+  SECRET_KEY: getEnv('MINIO_ROOT_PASSWORD', 'minioPassword'),
 };
 
 export const envConfig = {

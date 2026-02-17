@@ -2,13 +2,14 @@ import { IStorageService } from './IStorageService';
 import { S3StorageService } from './S3StorageService';
 import { MinioStorageService } from './MinioStorageService';
 import { GarageStorageService } from './GarageStorageService';
+import { IStorageConfig } from './IStorageConfig';
 
 type TDatabase = 'aws' | 'minio' | 'garage';
 
 export class StorageFactory {
   private static storage: Map<TDatabase, IStorageService> = new Map();
 
-  static create(provider: TDatabase, config: any): IStorageService {
+  static create(provider: TDatabase, config: IStorageConfig): IStorageService {
     if (this.storage.has(provider)) return this.storage.get(provider)!;
 
     switch (provider) {
