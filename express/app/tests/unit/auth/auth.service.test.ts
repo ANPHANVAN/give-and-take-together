@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import jwt from 'jsonwebtoken';
 import { AuthService } from '@/modules/auth/services/auth.service';
-import { IUserRepository } from '@/modules/user/repositories/IUser.repository';
-import { IUserIdentityRepository } from '@/modules/user/repositories/IUserIdentity.repository';
+import { IUserRepository } from '@/modules/users/repositories/IUser.repository';
+import { IUserIdentityRepository } from '@/modules/users/repositories/IUserIdentity.repository';
 import { EErrorCodes } from '@/constants/errorCode.enum';
 import { Role } from '@/generated/enums';
 

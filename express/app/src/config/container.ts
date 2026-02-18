@@ -1,8 +1,8 @@
 import { container } from 'tsyringe';
-import { UserPrismaRepository } from '@/modules/user/repositories/prisma/user.prisma.repository';
-import { UserService } from '@/modules/user/services/user.service';
+import { UserPrismaRepository } from '@/modules/users/repositories/prisma/user.prisma.repository';
+import { UserService } from '@/modules/users/services/user.service';
 import { AuthService } from '@/modules/auth/services/auth.service';
-import { UserIdentityPrismaRepository } from '@/modules/user/repositories/prisma/userIdentity.repository';
+import { UserIdentityPrismaRepository } from '@/modules/users/repositories/prisma/userIdentity.repository';
 import { OtpResetPrismaRepository } from '@/modules/auth/repositories/prisma/otpResetPrisma.repository';
 
 // Singleton mặc định, hoặc dùng .registerType nếu transient

@@ -6,7 +6,7 @@ import authRouter from '../modules/auth/auth.route';
 // const allowRole = require('../middleware/allowRole');
 // const meRouter = require('./me');
 // const guestRouter = require('./guest.js');
-import userRouter from '@/modules/user/user.route';
+import userRouter from '@/modules/users/user.route';
 
 function route(app: Application) {
   // [GET] /health
