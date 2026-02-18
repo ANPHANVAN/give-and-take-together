@@ -6,11 +6,12 @@ import { UserIdentityPrismaRepository } from '@/modules/users/repositories/prism
 import { OtpResetPrismaRepository } from '@/modules/auth/repositories/prisma/otpResetPrisma.repository';
 
 // Singleton mặc định, hoặc dùng .registerType nếu transient
-container.registerSingleton('IUserRepository', UserPrismaRepository);
 container.registerSingleton('IUserService', UserService);
 container.registerSingleton('IAuthService', AuthService);
+container.registerSingleton('PostsService', AuthService);
+container.registerSingleton('IUserRepository', UserPrismaRepository);
 container.registerSingleton('IUserIdentityRepository', UserIdentityPrismaRepository);
 container.registerSingleton('IOtpResetRepository', OtpResetPrismaRepository);
+container.registerSingleton('IPostsRepository', OtpResetPrismaRepository);
 
-// Export container để dùng ở nơi khác nếu cần
 export { container };
