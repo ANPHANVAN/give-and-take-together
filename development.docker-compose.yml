@@ -21,14 +21,6 @@ services:
       - "5432"
     # restart: always
 
-  adminer:
-    image: adminer
-    networks:
-      - app-network
-    # restart: always
-    ports:
-      - 8080:8080
-
   redis:
     image: redis:7.2
     container_name: give_and_take-redis
