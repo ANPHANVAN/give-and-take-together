@@ -3,6 +3,7 @@ import app from './app';
 import envConfig from './config/envConfig';
 import { storage } from '@/providers/storage.provider';
 import { database } from '@/providers/database.provider';
+import { connectRedis } from './providers/redis.provider';
 
 const server = http.createServer(app);
 
@@ -10,14 +11,14 @@ async function checkStorage() {
   try {
     const ok = await storage.healthCheck();
     if (!ok) {
-      throw new Error('Storage healthCheck failure');
+      throw new Error('Storage healthCheck failed');
     }
 
     await storage.ensureBucket();
-    console.log('Bucket ready');
-    console.log('Connect Storage Successful');
+    console.log('Storage Connection Successful');
   } catch (error) {
-    console.error('Connect Storage Failure \n' + error);
+    console.error('Storage Connection Failed');
+    console.error(error);
   }
 }
 
@@ -28,15 +29,15 @@ async function checkDatabase() {
       throw new Error('Database healthCheck failed');
     }
 
-    console.log('Database Connect Successful');
+    console.log('Database Connection Successful');
   } catch (error) {
-    console.error('Database connect failure');
+    console.error('Database connection failed');
     throw error;
   }
 }
 
 export async function bootstrap() {
-  await Promise.all([checkStorage(), checkDatabase()]);
+  await Promise.all([checkStorage(), checkDatabase(), connectRedis()]);
 }
 
 async function startServer() {

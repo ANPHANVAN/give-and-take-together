@@ -77,10 +77,11 @@ export const postgresConfig = {
 };
 
 export const redisConfig = {
-  REDIS_HOST: getEnv('REDIS_HOST', 'localhost'),
+  REDIS_HOST: getEnv('REDIS_HOST', 'redis'),
   REDIS_PORT: getEnvNumber('REDIS_PORT', 6379),
-  REDIS_PASSWORD: getEnv('REDIS_PASSWORD', ''),
+  REDIS_PASSWORD: getEnv('REDIS_PASSWORD', 'redisPassword'),
   REDIS_DB: getEnvNumber('REDIS_DB', 0),
+  REDIS_URL: getEnv('REDIS_URL', 'redis://redis:6379'),
 };
 
 export const jwtConfig = {
