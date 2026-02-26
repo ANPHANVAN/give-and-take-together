@@ -11,4 +11,18 @@ export class PostsPrismaRepository extends BaseRepository implements IPostsRepos
   findAllPost(): Promise<Post[]> {
     return this.db.post.findMany();
   }
+  findPostById(id: string): Promise<Post | null> {
+    return this.db.post.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  }
+  deletePostById(id: string): Promise<Post> {
+    return this.db.post.delete({
+      where: {
+        id: id,
+      },
+    });
+  }
 }
