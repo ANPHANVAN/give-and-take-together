@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '@/modules/users/repositories/IUser.repository';
 import { IUserIdentityRepository } from '@/modules/users/repositories/IUserIdentity.repository';
-import { IPostsRepository } from '../repositories/posts.repository';
+import { IPostsRepository } from './repositories/posts.repository';
 import { Post } from '@/generated/client';
 
 @injectable()

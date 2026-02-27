@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { inject, injectable } from 'tsyringe';
 import { catchAsync } from '@/utils/catchAsync';
-import { PostsService } from '../services/posts.service';
+import { PostsService } from './posts.service';
 
 @injectable()
 export class PostsController {

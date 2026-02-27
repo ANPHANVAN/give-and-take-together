@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { PostsController } from './controllers/posts.controller';
+import { PostsController } from './posts.controller';
 import { container } from '@/config/container';
 
 const postsController = container.resolve(PostsController);
