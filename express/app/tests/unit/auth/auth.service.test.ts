@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import jwt from 'jsonwebtoken';
-import { AuthService } from '@/modules/auth/services/auth.service';
+import { AuthService } from '@/modules/auth/auth.service';
 import { IUserRepository } from '@/modules/users/repositories/IUser.repository';
 import { IUserIdentityRepository } from '@/modules/users/repositories/IUserIdentity.repository';
 import { EErrorCodes } from '@/constants/errorCode.enum';
@@ -19,7 +19,7 @@ describe('getAuthResultBySignToken', () => {
   let service: AuthService;
 
   beforeEach(() => {
-    service = new AuthService({} as IUserRepository, {} as IUserIdentityRepository);
+    service = new AuthService({} as IUserRepository, {} as IUserIdentityRepository, {} as IOtpResetRepository);
   });
 
   it('should return accessToken & refreshToken correctly', () => {
@@ -42,6 +42,7 @@ describe('getAuthResultBySignToken', () => {
 });
 
 import { hashPassword } from '@/modules/shared/security/password';
+import { IOtpResetRepository } from '@/modules/auth/repositories/IOtpReset.repository';
 
 jest.mock('@/modules/shared/security/password', () => ({
   hashPassword: jest.fn(),
@@ -51,6 +52,7 @@ describe('AuthService - setPasswordFirstTime', () => {
   let service: AuthService;
   let userRepo: jest.Mocked<IUserRepository>;
   let userIdentityRepo: jest.Mocked<IUserIdentityRepository>;
+  let otpResetRepo: jest.Mocked<IOtpResetRepository>;
 
   beforeEach(() => {
     userRepo = {
@@ -59,8 +61,9 @@ describe('AuthService - setPasswordFirstTime', () => {
     } as any;
 
     userIdentityRepo = {} as any;
+    otpResetRepo = {} as any;
 
-    service = new AuthService(userRepo, userIdentityRepo);
+    service = new AuthService(userRepo, userIdentityRepo, otpResetRepo);
   });
 
   afterEach(() => {

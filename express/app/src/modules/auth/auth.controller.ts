@@ -1,19 +1,19 @@
 import { Request, Response, NextFunction } from 'express';
 import { inject, injectable } from 'tsyringe';
-import { IAuthResult, IAuthService } from '../services/IAuth.service';
+import { IAuthResult, AuthService } from './auth.service';
 import { catchAsync } from '@/utils/catchAsync';
-import { LoginByFormDTO } from '../dto/login.dto';
+import { LoginByFormDTO } from './dto/login.dto';
 import { ETokenType } from '@/constants/tokenType.enum';
-import { ChangePasswordDTO } from '../dto/changePassword.dto';
-import { SetPasswordDTO } from '../dto/setPassword.dto';
+import { ChangePasswordDTO } from './dto/changePassword.dto';
+import { SetPasswordDTO } from './dto/setPassword.dto';
 import { AppCodeError } from '@/middlewares/errorHandler';
 import { EErrorCodes } from '@/constants/errorCode.enum';
-import { ResetOtp } from '../dto/resetOtp.dto';
-import { ResetPasswordByOtp } from '../dto/resetPasswordByOtp.dto';
+import { ResetOtp } from './dto/resetOtp.dto';
+import { ResetPasswordByOtp } from './dto/resetPasswordByOtp.dto';
 
 @injectable()
 export class AuthController {
-  constructor(@inject('IAuthService') private authService: IAuthService) {}
+  constructor(@inject('AuthService') private authService: AuthService) {}
 
   resTokenCookies = (res: Response, authResult: IAuthResult) => {
     res.cookie(ETokenType.accessToken, authResult.accessToken, {

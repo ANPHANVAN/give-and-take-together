@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
 import { container } from '@/config/container';
-import { AuthController } from './controllers/auth.controller';
+import { AuthController } from './auth.controller';
 import passport from 'passport';
 import { authMiddleware } from '@/middlewares/auth.middleware';
 

@@ -1,8 +1,8 @@
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import passport from 'passport';
 import { container } from '@/config/container';
-import envConfig from '../../../config/envConfig';
-import { AuthService } from '../services/auth.service';
+import envConfig from '@/config/envConfig';
+import { AuthService } from '../auth.service';
 passport.use(
   new GoogleStrategy(
     {

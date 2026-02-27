@@ -1,4 +1,4 @@
-import { IAuthResult } from '@/modules/auth/services/IAuth.service';
+import { IAuthResult } from '@/modules/auth/auth.service';
 
 interface IUserRequest {
   id: string;

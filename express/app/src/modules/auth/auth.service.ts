@@ -1,6 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { TLoginByFormDTO, TLoginByOAuthDTO } from '../dto/login.dto';
-import { IAuthResult, IAuthService } from './IAuth.service';
+import { TLoginByFormDTO, TLoginByOAuthDTO } from './dto/login.dto';
 import { IUserRepository } from '@/modules/users/repositories/IUser.repository';
 import { AppCodeError, AppError } from '@/middlewares/errorHandler';
 import { EErrorCodes } from '@/constants/errorCode.enum';
@@ -13,10 +12,10 @@ import { IUserIdentityRepository } from '@/modules/users/repositories/IUserIdent
 import { runTransaction } from '@/modules/shared/database/transactionManager';
 import { UserPrismaRepository } from '@/modules/users/repositories/prisma/user.prisma.repository';
 import { UserIdentityPrismaRepository } from '@/modules/users/repositories/prisma/userIdentity.repository';
-import { ChangePasswordDTO, TChangePasswordDTO } from '../dto/changePassword.dto';
-import { TSetPasswordDTO } from '../dto/setPassword.dto';
-import { TResetOtp } from '../dto/resetOtp.dto';
-import { IOtpResetRepository } from '../repositories/IOtpReset.repository';
+import { ChangePasswordDTO, TChangePasswordDTO } from './dto/changePassword.dto';
+import { TSetPasswordDTO } from './dto/setPassword.dto';
+import { TResetOtp } from './dto/resetOtp.dto';
+import { IOtpResetRepository } from './repositories/IOtpReset.repository';
 import nodemailer from 'nodemailer';
 
 const JWT_SECRET = envConfig.jwt.JWT_SECRET;
@@ -26,8 +25,18 @@ interface IPayloadJWT {
   role: Role;
 }
 
+export interface IAuthResult {
+  user: {
+    id: string;
+    role: Role;
+    name?: string;
+  };
+  accessToken: string;
+  refreshToken?: string;
+}
+
 @injectable()
-export class AuthService implements IAuthService {
+export class AuthService {
   constructor(
     @inject('IUserRepository') private userRepo: IUserRepository,
     @inject('IUserIdentityRepository') private userIdentityRepo: IUserIdentityRepository,

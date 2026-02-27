@@ -2,7 +2,7 @@ import envConfig from '@/config/envConfig';
 import passport from 'passport';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { container } from '@/config/container';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../auth.service';
 
 passport.use(
   new FacebookStrategy(

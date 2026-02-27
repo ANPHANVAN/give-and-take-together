@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
-import { IUserService } from '../services/IUser.service';
 import { Prisma } from '@/generated/client';
 import { injectable, inject } from 'tsyringe';
 import { catchAsync } from '@/utils/catchAsync';
-import { CreateUserDTO, TCreateUserDTO } from '../dto/createUser.dto';
+import { CreateUserDTO, TCreateUserDTO } from './dto/createUser.dto';
+import { UserService } from './user.service';
 
 @injectable()
 export class UserController {
-  constructor(@inject('IUserService') private userService: IUserService) {}
+  constructor(@inject('UserService') private userService: UserService) {}
 
   createUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const createUserParsed = CreateUserDTO.parse(req.body);

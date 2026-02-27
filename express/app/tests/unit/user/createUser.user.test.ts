@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { UserService } from '@/modules/users/services/user.service';
+import { UserService } from '@/modules/users/user.service';
 import { IUserRepository } from '@/modules/users/repositories/IUser.repository';
 import { hashPassword } from '@/modules/shared/security/password';
 import { any } from 'zod';

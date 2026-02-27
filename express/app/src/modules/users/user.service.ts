@@ -3,13 +3,12 @@ import { Prisma, User } from '@/generated/client';
 import { AppCodeError } from '@/middlewares/errorHandler';
 import { EErrorCodes } from '@/constants/errorCode.enum';
 import { hashPassword } from '@/modules/shared/security/password';
-import { IUserService } from './IUser.service';
-import { IUserRepository } from '../repositories/IUser.repository';
-import { runTransaction } from '../../shared/database/transactionManager';
-import { TCreateUserDTO } from '../dto/createUser.dto';
+import { IUserRepository } from './repositories/IUser.repository';
+import { runTransaction } from '../shared/database/transactionManager';
+import { TCreateUserDTO } from './dto/createUser.dto';
 
 @injectable()
-export class UserService implements IUserService {
+export class UserService {
   constructor(
     @inject('IUserRepository')
     private userRepo: IUserRepository,

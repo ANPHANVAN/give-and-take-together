@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { UserController } from './controllers/user.controller';
+import { UserController } from './user.controller';
 import { container } from '@/config/container';
 
 const userController = container.resolve(UserController);
