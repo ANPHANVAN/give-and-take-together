@@ -7,7 +7,7 @@ import { ConfigService } from '@nestjs/config';
 export class PrismaService implements OnModuleInit, OnModuleDestroy {
   private readonly prisma: PrismaClient;
   constructor(private config: ConfigService) {
-    const adapter = new PrismaPg({ connectionString: this.config.get<string>('postgres.databaseUrl') });
+    const adapter = new PrismaPg({ connectionString: this.config.get<string>('postgres.postgresDatabaseUrl') });
     this.prisma = new PrismaClient({
       adapter: adapter,
     });
