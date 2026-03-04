@@ -14,14 +14,23 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
   }
 
   async onModuleInit() {
-    await this.prisma.$connect();
+    try {
+      await this.prisma.$connect();
+      await this.prisma.$queryRaw`SELECT 1`;
+
+      console.log('Database Connection Successful');
+    } catch (error) {
+      console.error('Database connection failed');
+      throw error;
+    }
   }
 
   async onModuleDestroy() {
     await this.prisma.$disconnect();
+    console.log('Prisma Disconnection Successful');
   }
 
-  get client() {
+  getClient() {
     return this.prisma;
   }
 }

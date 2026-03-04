@@ -3,8 +3,8 @@ import { AppController } from './app.controller';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { PostsModule } from './modules/posts/posts.module';
-import { DatabaseModule } from './infra/database/database.module';
-import { StorageModule } from './infra/storage/storage.module';
+import { DatabaseModule } from './infras/database/database.module';
+import { StorageModule } from './infras/storage/storage.module';
 import { ConfigModule } from '@nestjs/config';
 import { appConfig, postgresConfig, redisConfig, authConfig, minioConfig } from './config/appConfig';
 

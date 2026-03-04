@@ -45,15 +45,17 @@ export const authConfig = registerAs('auth', () => ({
   authGoogleClientSecret: getStringEnv('GOOGLE_CLIENT_SECRET'),
   authGoogleRedirectUri: getStringEnv('GOOGLE_REDIRECT_URI'),
 
-  authfacebookClientId: getStringEnv('FACEBOOK_CLIENT_ID'),
-  authfacebookClientSecret: getStringEnv('FACEBOOK_CLIENT_SECRET'),
+  authFacebookClientId: getStringEnv('FACEBOOK_CLIENT_ID'),
+  authFacebookClientSecret: getStringEnv('FACEBOOK_CLIENT_SECRET'),
 }));
 
 export const minioConfig = registerAs('minio', () => ({
+  minioStorageDriver: getStringEnv('STORAGE_DRIVER'),
   minioRegion: getStringEnv('MINIO_REGION'),
   minioRootUser: getStringEnv('MINIO_ROOT_USER'),
   minioRootPassword: getStringEnv('MINIO_ROOT_PASSWORD'),
   minioEndpoint: getStringEnv('MINIO_ENDPOINT'),
   minioPort: getNumberEnv('MINIO_PORT'),
   minioBucket: getStringEnv('MINIO_BUCKET'),
+  minioMaxAttempts: getNumberEnv('MINIO_MAX_ATTEMPTS'),
 }));
