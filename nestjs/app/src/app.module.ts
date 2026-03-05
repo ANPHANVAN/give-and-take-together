@@ -7,11 +7,10 @@ import { DatabaseModule } from './infras/database/database.module';
 import { StorageModule } from './infras/storage/storage.module';
 import { ConfigModule } from '@nestjs/config';
 import { appConfig, postgresConfig, redisConfig, authConfig, minioConfig } from './config/appConfig';
-import { GuardsModule } from './common/guards/guards.module';
-import { InterceptorsModule } from './common/interceptors/interceptors.module';
-import { PipesModule } from './common/pipes/pipes.module';
-import { MiddlewaresModule } from './common/middlewares/middlewares.module';
-import { FiltersModule } from './common/filters/filters.module';
+import { LoggerModule } from 'nestjs-pino';
+import { Response, Request } from 'express';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -20,16 +19,42 @@ import { FiltersModule } from './common/filters/filters.module';
       load: [appConfig, postgresConfig, redisConfig, authConfig, minioConfig],
       envFilePath: '.env',
     }),
+    LoggerModule.forRoot({
+      pinoHttp: {
+        level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+        customLogLevel: function (req: Request, res: Response) {
+          if (res.statusCode >= 500) return 'error';
+          if (res.statusCode >= 400) return 'warn';
+          return 'info';
+        },
+        transport: {
+          target: 'pino-pretty',
+          options: {
+            singleLine: true,
+            ignore: 'req.headers,res.headers',
+          },
+        },
+      },
+    }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 60,
+        },
+      ],
+    }),
     AuthModule,
     UsersModule,
     PostsModule,
     DatabaseModule,
     StorageModule,
-    GuardsModule,
-    InterceptorsModule,
-    PipesModule,
-    MiddlewaresModule,
-    FiltersModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
   controllers: [AppController],
 })
