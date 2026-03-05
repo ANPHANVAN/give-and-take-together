@@ -7,6 +7,11 @@ import { DatabaseModule } from './infras/database/database.module';
 import { StorageModule } from './infras/storage/storage.module';
 import { ConfigModule } from '@nestjs/config';
 import { appConfig, postgresConfig, redisConfig, authConfig, minioConfig } from './config/appConfig';
+import { GuardsModule } from './common/guards/guards.module';
+import { InterceptorsModule } from './common/interceptors/interceptors.module';
+import { PipesModule } from './common/pipes/pipes.module';
+import { MiddlewaresModule } from './common/middlewares/middlewares.module';
+import { FiltersModule } from './common/filters/filters.module';
 
 @Module({
   imports: [
@@ -20,6 +25,11 @@ import { appConfig, postgresConfig, redisConfig, authConfig, minioConfig } from 
     PostsModule,
     DatabaseModule,
     StorageModule,
+    GuardsModule,
+    InterceptorsModule,
+    PipesModule,
+    MiddlewaresModule,
+    FiltersModule,
   ],
   controllers: [AppController],
 })
