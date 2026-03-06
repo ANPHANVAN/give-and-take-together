@@ -47,6 +47,9 @@ export const authConfig = registerAs('auth', () => ({
 
   authFacebookClientId: getStringEnv('FACEBOOK_CLIENT_ID'),
   authFacebookClientSecret: getStringEnv('FACEBOOK_CLIENT_SECRET'),
+
+  authGmail: getStringEnv('GMAIL'),
+  authGmailPassword: getStringEnv('GMAIL_PASSWORD'),
 }));
 
 export const minioConfig = registerAs('minio', () => ({

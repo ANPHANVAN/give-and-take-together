@@ -5,6 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,7 +18,7 @@ async function bootstrap() {
     }),
   );
   app.useGlobalFilters(new HttpExceptionFilter());
-  app.setGlobalPrefix('api/v1', {
+  app.setGlobalPrefix('api', {
     exclude: [''],
   });
   app.enableCors({
@@ -25,8 +26,10 @@ async function bootstrap() {
     credentials: true,
   });
   app.use(helmet());
+  app.use(cookieParser());
   app.enableShutdownHooks();
 
+  // setup Swagger API
   const config = new DocumentBuilder().setTitle('Give & TakeTogether API').setVersion('1.0').build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

@@ -1,7 +1,7 @@
 import { verify, hash, argon2id } from 'argon2';
-
 export const hashPassword = (plainPassword: string): Promise<string> => {
-  return hash(plainPassword, {
+  const pepper = process.env.HASH_PEPPER;
+  return hash(plainPassword + pepper, {
     type: argon2id,
     memoryCost: 65536,
     timeCost: 3,
@@ -10,5 +10,7 @@ export const hashPassword = (plainPassword: string): Promise<string> => {
 };
 
 export const verifyPassword = (plainPassword: string, hash: string): Promise<boolean> => {
-  return verify(hash, plainPassword);
+  const pepper = process.env.HASH_PEPPER;
+
+  return verify(hash, plainPassword + pepper);
 };
