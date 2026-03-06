@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Post, Put, Req, Res, UseGuards, UnauthorizedException } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { AuthService, IAuthResult } from './auth.service';
-
+import { AuthService } from './auth.service';
 import { SetPasswordDTO } from './dto/set-password.dto';
 import { ResetOtp } from './dto/reset-otp.dto';
 import { LoginByFormDTO } from './dto/login.dto';
@@ -9,6 +8,7 @@ import { PutPasswordDto } from './dto/put-password.dto';
 import { ResetPasswordByOtp } from './dto/reset-password.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthenticationGuard } from './guards/authentication.guard';
+import { IAuthResult } from './interfaces/IAuthResult';
 
 @Controller('auth')
 export class AuthController {

@@ -18,16 +18,7 @@ import { PutPasswordDto } from './dto/put-password.dto';
 import { ResetOtp } from './dto/reset-otp.dto';
 import { OtpResetRepository } from './otp-reset.repository';
 import { MailService } from '@/infras/mail/mail.service';
-
-export interface IAuthResult {
-  user: {
-    id: string;
-    role: Role;
-    name?: string;
-  };
-  accessToken: string;
-  refreshToken?: string;
-}
+import { IAuthResult } from './interfaces/IAuthResult';
 
 @Injectable()
 export class AuthService {

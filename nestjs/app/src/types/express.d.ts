@@ -1,4 +1,4 @@
-import { IAuthResult } from '@/modules/auth/auth.service';
+import { IAuthResult } from '@/modules/auth/interfaces/IAuthResult';
 import { IPayloadJWT } from '@/modules/auth/interfaces/IPayloadJWT';
 
 interface IFileRequest extends Express.Multer.File {
