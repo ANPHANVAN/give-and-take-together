@@ -11,14 +11,10 @@ import { LoggerModule } from 'nestjs-pino';
 import { Response, Request } from 'express';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { MailModule } from './infras/mail/mail.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      load: [appConfig, postgresConfig, redisConfig, authConfig, minioConfig],
-      envFilePath: '.env',
-    }),
     LoggerModule.forRoot({
       pinoHttp: {
         level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
@@ -36,6 +32,11 @@ import { APP_GUARD } from '@nestjs/core';
         },
       },
     }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [appConfig, postgresConfig, redisConfig, authConfig, minioConfig],
+      envFilePath: '.env',
+    }),
     ThrottlerModule.forRoot({
       throttlers: [
         {
@@ -49,6 +50,7 @@ import { APP_GUARD } from '@nestjs/core';
     PostsModule,
     DatabaseModule,
     StorageModule,
+    MailModule,
   ],
   providers: [
     {
