@@ -1,10 +1,14 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { Logger } from 'nestjs-pino';
 
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private logger: Logger,
+  ) {}
 
   @Get()
   async findAllUserByAdmin() {
@@ -13,7 +17,7 @@ export class UsersController {
   }
 
   @Post()
-  async createUser(@Body() dto: CreateUserDto) {
-    return this.usersService.createUser(dto);
+  async createUser(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.createUser(createUserDto);
   }
 }
