@@ -8,20 +8,22 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(uuid())
+  id            String    @id @default(uuid())
   fullname      String
-  email         String?  @unique
+  email         String?   @unique
   passwordHash  String?
-  role          Role     @default(USER)
+  role          Role      @default(USER)
+  dateOfBirth   DateTime?
+  interests     String[]
   avatarUrl     String?
   phone         String?
   socialLinks   Json? // Có thể đổi thành Json nếu muốn lưu cấu trúc
-  trustScore    Float    @default(0.0)
-  badges        String[] // Postgres array
-  givenCount    Int      @default(0)
-  receivedCount Int      @default(0)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  trustScore    Float     @default(0.0)
+  badges        String[]  @default(["Người dùng mới"]) // e.g. ["Verified Email", "Verified Social"]
+  givenCount    Int       @default(0)
+  receivedCount Int       @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   // Relationships
   posts         Post[]         @relation("UserPosts")
