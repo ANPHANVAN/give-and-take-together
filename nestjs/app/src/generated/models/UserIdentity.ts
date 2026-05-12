@@ -435,10 +435,6 @@ export type EnumAuthProviderFieldUpdateOperationsInput = {
   set?: $Enums.AuthProvider
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type UserIdentityCreateWithoutUserInput = {
   id?: string
   provider: $Enums.AuthProvider

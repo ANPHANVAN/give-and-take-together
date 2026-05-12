@@ -16,7 +16,7 @@ export class PostsRepository {
       data: {
         title: postCreateInput.title,
         description: postCreateInput.description,
-        giver: postCreateInput.giver,
+        giver: postCreateInput.giver
       },
     });
   }

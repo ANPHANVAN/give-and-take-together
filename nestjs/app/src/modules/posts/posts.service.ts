@@ -1,6 +1,7 @@
 import { Post } from '@/generated/client';
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 import { PostsRepository } from './posts.repository';
+import { CreatePostDto } from './dto/create-post.dto';
 
 @Injectable()
 export class PostsService {
@@ -8,5 +9,21 @@ export class PostsService {
 
   getAllPosts(): Promise<Post[]> {
     return this.postRepo.findAllPost();
+  }
+
+  getPostById( postId: string) {
+    return this.postRepo.findPostById(postId)
+  }
+
+  createPost(createPostDto: CreatePostDto): Promise<Post> {
+    return this.postRepo.createPost({
+    giver: {
+      connect: {
+        id: createPostDto.giverId
+      }
+    },
+    title: createPostDto.title,
+    description: createPostDto.description
+    })
   }
 }
