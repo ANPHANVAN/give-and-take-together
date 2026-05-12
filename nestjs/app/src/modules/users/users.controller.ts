@@ -20,4 +20,9 @@ export class UsersController {
   async createUser(@Body() createUserDto: CreateUserDto) {
     return this.usersService.createUser(createUserDto);
   }
+
+  @Get(':userId')
+  async getUserById(@Body() userId: string) {
+    return this.usersService.getUser(userId);
+  }
 }
